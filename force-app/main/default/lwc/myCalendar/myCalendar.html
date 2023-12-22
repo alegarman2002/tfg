@@ -1,0 +1,66 @@
+<template>
+
+     <div class="userPresentation">
+          <h1>Hola de nuevo {userName}</h1>
+          <h2>Estamos muy contentos de tenerte de vuelta por aqui. A continuación se muestra el calendario coorporativo para que puedas ver los eventos que tenemos a lo largo de este mes</h2>
+     </div>
+
+     <div class="title-container">
+          <H2>Calendario</H2>
+     </div>
+
+     <div class="slds-grid slds-wrap">
+         
+          <div class="slds-col slds-size_8-of-12 slds-col_bump-right">
+               <h3 class="slds-text-heading_medium">{calendarLabel}</h3>
+          </div>
+          <div class="slds-col slds-size_3-of-12">
+               <div class="btn-group" role="group">
+                    <button class="today-button all-buttons" onclick={today}>
+                         Today
+                     </button>
+                    <!-- <div class="navigation"> -->
+                         <button class="slds-button all-buttons" onclick={previousHandler}>
+                              &#60;
+                         </button>
+                         <button class="slds-button all-buttons" onclick={nextHandler}>
+                              &#62;
+                         </button>
+                    <!-- </div> -->
+               </div>
+          </div>
+    </div>
+
+    <div class="slds-grid" >
+         <div id="calendar" class="calendar" lwc:dom="manual" ontouchmove={handleScroll} onscroll={handleScroll}></div>
+    </div>
+
+    <div class="interesting_links">
+          <h2>A continuación presentamos algunos enlaces que pueden ser de interes:</h2>
+          <div class="links-buttons">
+               <div  class="capgemini-button">
+                    <h3>Capgemini</h3>
+                    <button  class="modify-button-color" onclick={open_capgemini}>
+                         <img src="https://d0600000116s3eai-dev-ed.develop.file.force.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0680600000YiwLQ&operationContext=CHATTER&contentId=05T0600001upTCP" alt="Descripción de la imagen">
+                    </button>
+               </div>
+               <div class="calculator-button">
+                    <h3>Calculadora</h3>
+                    
+                    <button class="modify-button-color" onclick={open_calculator}>
+                         
+                         <img src="https://d0600000116s3eai-dev-ed.develop.file.force.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0680600000Yiwgn&operationContext=CHATTER&contentId=05T0600001upUNx" alt="Descripción de la imagen">
+                    
+                    </button>
+               </div>
+               <div class="salesforce-button">
+                    <h3>Salesforce</h3>
+                    <button class="modify-button-color" onclick={open_capgemini}>
+                         <img src="https://d0600000116s3eai-dev-ed.develop.file.force.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0680600000Yiwg1&operationContext=CHATTER&contentId=05T0600001upUO7" alt="Descripción de la imagen">
+                    </button>
+               </div>
+          </div>
+     </div>
+     <div class="tooltip-container"></div>
+
+</template>

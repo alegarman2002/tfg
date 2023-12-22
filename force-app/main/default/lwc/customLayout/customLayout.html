@@ -1,0 +1,88 @@
+<template>
+    <div class="container mainArea">
+        <div class="row">
+          <div class="imod_eventDetails">
+            <div class="col-md-8 col-sm-9 col-xs-12 eventLeftCol">
+              <div class="custEventDate">
+                <p>{startDateTime}</p>
+              </div>
+              <div class="custEventTime">
+                {timeOfEvent}
+              </div>
+              <div class="custEventLocation">
+                {eventName}
+              </div>
+              <div class="imod_eventButtons eventRegister"><div class="button"><button class="button" onclick={registerForEvent}>Registrate</button></div>
+              <!--<template if:true={show}>
+              <div class="registerForm" id="registerForm">
+              <h2>Nombre completo: </h2>
+                <lightning-input type="text" id="name" name="name" onchange={handleChangeName} placeholder="Ingrese su nombre completo"></lightning-input>
+                <br>
+                <h2>Email: </h2>
+                <lightning-input type="text" id="email" name="email" onchange={handleChangeEmail} placeholder="Ingrese su email"></lightning-input>
+                <br>
+                <h2>Observaciones: </h2>
+                <lightning-textarea type="text" id="observations" name="observations" onchange={handleChangeObservations} placeholder="Observaciones"></lightning-textarea>
+                <br>
+                <div class="slds-p-horizontal_small slds-float_right">
+                    <button  title="Registrarse" onclick={registerForEvent}></button>
+                </div>
+              </div>
+            </template> -->
+            </div>
+              <!--<div class="imod_eventDescription">
+                <p>{description}</p></div>-->
+            </div>
+            <aside class="col-md-4 col-sm-3 col-xs-12 eventRightCol">
+              <div class="eventOverviewWrap">
+                <div class="eventOverview">
+                  <div class="custEventContact">
+                    <div class="custEventContBox">
+                      <div class="contactSection">
+                      <div class="leftBar"></div>
+                      <span class="eventContHead">Descripcion</span>
+                      <div class="rightBar"></div>
+                      </div>
+                      <span class="eventContactName">{description}</span>
+                    </div>
+      
+                    <div class="custEventDate">
+                      <div class="whenWhereSec">
+                      <div class="leftBar"></div>
+                      <span class="whenWhere">When and Where</span>
+                      <div class="rightBar"></div>
+                      </div>
+                      <div class="rightColDate">{startDateTime}</div>
+                      <div class="horizontalBar"></div>
+                      <div class="custEventTime">
+                        {timeOfEvent}
+                      </div>
+                      <div class="horizontalBar"></div>
+                      <div class="custEventLocation">
+                        {location}
+                      </div>
+                    </div>
+                    
+                    <div class="custEventContBox">
+                      <div class="contactSection">
+                      <div class="leftBar"></div>
+                      <span class="eventContHead">Event Contact</span>
+                      <div class="rightBar"></div>
+                      </div>
+                      <span class="eventContactName">{ownerName}</span>
+                      <div class="horizontalBar"></div>
+                      <a href="#" class="contactEmail">{ownerEmail}</a>
+                    </div>
+
+                    <div class="custEventMap">
+                      <img src={imageUrl} alt="Descripción de la imagen">
+                  </div>
+                  
+                  </div>
+                  </div>
+                </div>
+            </aside>
+            </div>
+          </div>
+        </div>
+</template>

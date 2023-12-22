@@ -1,0 +1,113 @@
+<template>
+  <h1>Calculadora de CO2</h1>
+
+  <form id="co2Calculator">
+
+    <h2>Consumo doméstico:</h2>
+    <label for="elecAtHome">Electricidad consumida en casa: </label>
+    <lightning-input type="number" id="elecAtHome" name="elecAtHome" placeholder="Ingrese kilovatios/hora"></lightning-input><br>
+
+    <label for="natGasAtHome">Gas natural consumido en casa: </label>
+    <lightning-input type="number" id="natGasAtHome" name="natGasAtHome" placeholder="Ingrese kilovatios/hora"></lightning-input><br>
+
+    <label for="fuelAtHome">Gasóleo consumido en casa: </label>
+    <lightning-input type="number" id="fuelAtHome" name="fuelAtHome" placeholder="Ingrese litros de gasóleo"></lightning-input><br>
+
+    <label for="coalAtHome">Carbón consumido en casa:</label>
+    <lightning-input type="number" id="coalAtHome" name="coalAtHome" placeholder="Ingrese toneladas de carbón"></lightning-input><br>
+
+    <label for="glpAtHome">GLP consumido en casa: </label>
+    <lightning-input type="number" id="glpAtHome" name="glpAtHome" placeholder="Ingrese litros de GLP"></lightning-input><br>
+
+    <label for="propAtHome">Propano consumido en casa: </label>
+    <lightning-input type="number" id="propAtHome" name="propAtHome" placeholder="Ingrese litros de propano"></lightning-input><br>
+
+    <label for="pelletsAtHome">Pellets consumidos en casa: </label>
+    <lightning-input type="number" id="pelletsAtHome" name="pelletsAtHome" placeholder="Ingrese toneladas de pellets"></lightning-input><br>
+
+
+    <h2>Consumo en desplazamientos segun el vehículo: </h2>
+    <h3>Avión:</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <label for="distByPlane">Distancia recorrida:</label>
+    <lightning-input type="number" id="distByPlane" name="distByPlane" placeholder="Ingrese kilometros recorridos en avión"></lightning-input>
+
+    <h3>Coche:</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <label for="typeOfCar">Seleccione el tipo de motor:</label>
+    <div>
+      <lightning-combobox
+        name="optionOfCar"
+        label="Seleccione el tipo de motor:"
+        value={selectedCarOption}
+        options={carOptions}
+        onchange={handleCarOptionChange}>
+      </lightning-combobox>
+    </div>  
+
+    <div id="elementstypeCar" style="display:block;">
+      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      <label for="distByCar">Distancia recorrida: </label>
+      <lightning-input type="number" id="distByCar" name="distByCar" step="0.1" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
+
+      <label for="avgConsByCar"> Consumo medio: </label>
+      <lightning-input type="number" id="avgConsByCar" name="avgConsByCar" step="0.1" placeholder="Ingrese consumo de media del coche"></lightning-input>
+
+      <label for="numPassByCar"> Numero de pasajeros: </label>
+      <lightning-input type="number" id="numPassByCar" name="numPassByCar" placeholder="Ingrese numero de pasajeros del coche"></lightning-input>
+    
+      <label for="yearOfBuild"> Año de fabricación: </label>
+      <lightning-input type="number" id="yearOfBuild" name="yearOfBuild" placeholder="Ingrese el año del vehículo"></lightning-input>
+    </div>
+
+    <h3>Motocicleta:</h3>
+    <div id="elementsTypeMotorbike" style="display:none;">
+      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      <label for="distByMotorbike">Distancia recorrida: </label>
+      <lightning-input type="number" id="distByMotorbike" name="distByMotorbike" placeholder="Ingrese kilometros recorridos en moto"></lightning-input>
+
+      <label for="avgConsByMotorbike">Consumo medio: </label>
+      <lightning-input type="number" id="avgConsByMotorbike" name="avgConsByMotorbike" placeholder="Ingrese consumo de media de la moto"></lightning-input>
+
+      <label for="numPassByMotorbike">Numero de pasajeros: </label>
+      <lightning-input type="number" id="numPassByMotorbike" name="numPassByMotorbike" placeholder="Ingrese numero de pasajeros de la moto"></lightning-input>
+    </div>
+    <h3>Furgoneta</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <div>
+      <select id="optionOfVan" name="optionOfVan" onchange={configureSettingsForVan}>
+        <option value="typeVanPetrol">Gasolina</option>
+        <option value="typeVanFuel">Gasóleo</option>
+      </select>
+    </div>
+
+    <div id="elementsTypeVanPetrol" style="display:none;">
+      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      <label for="distByVanPetrol">Distancia recorrida: </label>
+      <lightning-input type="number" id="distByVanPetrol" name="distByVanPetrol" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
+
+      <label for="avgConsByVanPetrol">Consumo medio: </label>
+      <lightning-input type="number" id="avgConsByVanPetrol" name="avgConsByVanPetrol" placeholder="Ingrese consumo de media del coche"></lightning-input>
+
+      <label for="numPassByVanPetrol">Numero de pasajeros: </label>
+      <lightning-input type="number" id="numPassByVanPetrol" name="numPassByVanPetrol" placeholder="Ingrese numero de pasajeros del coche"></lightning-input>
+    </div>
+
+    <div id="elementstypeVanFuel" style="display:none;">
+      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      <label for="distByVanFuel">Distancia recorrida: </label>
+      <lightning-input type="number" id="distByVanFuel" name="distByVanFuel" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
+
+      <label for="avgConsByVanFuel">Consumo medio: </label>
+      <lightning-input type="number" id="avgConsByVanFuel" name="avgConsByVanFuel" placeholder="Ingrese consumo de media del coche"></lightning-input>
+
+      <label for="numPassByVanFuel">Numero de pasajeros: </label>
+      <lightning-input type="number" id="numPassByVanFuel" name="numPassByVanFuel" placeholder="Ingrese numero de pasajeros del coche"></lightning-input>
+    </div>
+
+    <h3>Tren</h3>
+    <label for="distByTrain">Distancia recorrida: </label>
+    <lightning-input type="number" id="distByTrain" name="distByTrain" placeholder="Ingrese kilometros recorridos en tren"></lightning-input><br>
+
+    <lightning-button onclick={calcFootprint} label="Calcular huella de carbono"></lightning-button><br>
+
+    <label for="totalCarbonFootprint" style="display:none;">Su huella total de carbono es: <span id="footprintSolve"></span></label>
+  </form>
+</template>
