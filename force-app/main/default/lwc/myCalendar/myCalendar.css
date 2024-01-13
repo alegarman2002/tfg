@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Ubuntu";
+  src: url("sfsites/c/resource/UbuntuFont") format("TrueType");
+  }
+
 template {
     background-color: #ffffff;
     font-family: "Ubuntu";
@@ -69,7 +74,6 @@ template {
 
 h1{
   background-color: #ffffff;
-  white-space: nowrap; /* Evita saltos de línea en el texto */
   font-size: 8em; /* Tamaño de la letra */
   color: #12ABDB;
   border-top-left-radius: 0.4em;
@@ -126,7 +130,7 @@ h2 {
   font-size: 22px;
   text-align: left;
   letter-spacing: 1px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   color: #12ABDB;
   margin-bottom: 20px;
 }
@@ -164,6 +168,35 @@ h2 {
     color: #12ABDB; /* Color del texto */
 }
 
+.circle-current-day {
+  width: 1/3%;
+  float: left;
+}
+
+.circle-holidays {
+  width: 1/3%;
+  float: left;
+}
+
+.circle-current {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #fffce4; /* Puedes cambiar el color aquí */
+  
+}
+
+.circle-holiday {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #ffb4b4; /* Puedes cambiar el color aquí */
+}
+
   
   /* Global Event Styles
   --------------------------------------------------------------------------------------------------*/
@@ -196,7 +229,7 @@ h2 {
           position: absolute;
           left: 0;
           bottom: -2px;
-          width: 50px;
+          width: 3em;
           height: 100%;
           border-left: 3px solid #12ABDB;
           border-bottom: 3px solid #12ABDB;

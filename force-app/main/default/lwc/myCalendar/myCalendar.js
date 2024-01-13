@@ -70,6 +70,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     dayGridMonth: { buttonText: "month" },
 
                },
+               firstDay: 1,
                locale: 'es',
                initialView: 'dayGridMonth',
                header: false,
@@ -82,24 +83,35 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                // loading: function (bool) {
                //      $('#loading').toggle(bool);
                // },    
-               eventMouseEnter: function (event, element) {     
-                    console.log("Entra") 
-                    console.log(event.event.title)              
-                         var tool = document.createElement("p")
-                         tool.textContent = event.event.title
-                         tool.classList.add("tooltip")
-                         tool.style.backgroundColor = "#ffffff"
-                         document.body.appendChild(tool)
-                    },
-               eventMouseLeave: function (event, element) {     
-                    console.log("Sale")               
-                    // $('.tooltip').remove();
-               },
-               eventRender: function(event, elemen) {
+               // eventMouseEnter: function (event, element) {     
+               //      console.log("Entra") 
+               //      console.log(event.event.title)              
+               //           var tool = document.createElement("p")
+               //           tool.textContent = event.event.title
+               //           tool.classList.add("tooltip")
+               //           tool.style.backgroundColor = "#ffffff"
+               //           document.body.appendChild(tool)
+               //      },
+               // eventMouseLeave: function (event, element) {     
+               //      console.log("Sale")               
+               //      // $('.tooltip').remove();
+               // },
+               // eventAfterRender: function (info) {
+               //      // Obtiene la altura del evento y ajusta la altura de la celda en consecuencia
+               //      var eventHeight = info.el.offsetHeight;
+               //      var cellHeight = info.el.closest('.fc-content-skeleton').offsetHeight;
+              
+               //      if (eventHeight > cellHeight) {
+               //        info.el.closest('.fc-content-skeleton').style.height = eventHeight + 'px';
+               //      }
+                    
+               // },
+               //Comentar el tema de por que ajusta bien desde que abro la consola
+               eventRender: function(event) {
                     var element = event.el
-                    console.log("AAAAAAAAAAAAA")
-                    console.log(event.event.extendedProps.image)
-                    console.log(element)
+                    // console.log("AAAAAAAAAAAAA")
+                    // console.log(event.event.extendedProps.image)
+                    // console.log(element)
                     
                     if (event.event.extendedProps.image) {
                          var timeElement = element.querySelector('span.fc-time');
@@ -118,9 +130,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                          // Inserta el elemento 'fc-image' antes del elemento 'fc-time'
                          timeElement.parentNode.insertBefore(imageElement, timeElement);
                     }
-
-                    
-                    console.log("Ayuda")
+                    // console.log("Ayuda")
                 },
                //eventDrop: info => { console.log('event drag start', info) },
                eventClick: info => { 
@@ -140,7 +150,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     nextHandler() {
         this.calendar.next();
         this.calendarLabel  = this.calendar.view.title;
-     //    this.paintFreeDays()
+        this.paintFreeDays()
 
         // this.setDates()
    }
@@ -148,14 +158,14 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
    previousHandler() {
         this.calendar.prev();
         this.calendarLabel  = this.calendar.view.title;
-     //    this.paintFreeDays()
+        this.paintFreeDays()
         // this.setDates()
    }
    
    today() {
         this.calendar.today();
         this.calendarLabel = this.calendar.view.title;
-     //    this.paintFreeDays()
+        this.paintFreeDays()
         // this.setDates()
    }
     
@@ -185,25 +195,34 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
           console.log(error)
      }
    }
-   
-
+   //Poner el lunes como primer dia del calendario
+   //Pintarlos en gris clarito y añadir una lista con 
    paintFreeDays () {
-     const currentDate = this.calendar.view.activeStart
-     const endDate = this.calendar.view.activeEnd
+     var currentDate = this.calendar.view.activeStart
+     var endDate = this.calendar.view.activeEnd
      while(currentDate <= endDate) {
-          const eventStart = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate()
+          // var eventStart = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate()
+          
+          var eventStart = currentDate.getFullYear() + '-'
+             + ('0' + (currentDate.getMonth()+1)).slice(-2) + '-'
+             + ('0' + currentDate.getDate()).slice(-2)
+          
           if ((currentDate.getDay() == 0 || currentDate.getDay() == 6) &&  !(this.listUsedDays.includes(eventStart))) {
                this.listUsedDays.push(eventStart)
-               const size = this.calendar.getEvents().length
+               var size = this.calendar.getEvents().length
                
-               const event = {
+
+
+               var event = {
                     id: eventStart,
                     start: eventStart,
                     end: eventStart,
                     rendering: 'background',
                     color: 'red'
                }
-               console.log(this.calendar.addEvent(event))
+               console.log("Print the event", event)
+               var addNewEvent = this.calendar.addEvent(event)
+               console.log("New event ", addNewEvent)
                console.log(eventStart)
            }
           currentDate.setDate(currentDate.getDate() + 1)
@@ -214,7 +233,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
 
      open_capgemini() {
           console.log("antes")
-          window.open("https://www.capgemini.com/es-es/", "_blank")
+          window.open('https://www.capgemini.com/es-es/', '_blank', 'noopener,noreferrer');
           console.log("despues")
      }
 
@@ -241,7 +260,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
 
           
           
-          // this.paintFreeDays()
+          this.paintFreeDays()
           
          
         } catch (error) {
