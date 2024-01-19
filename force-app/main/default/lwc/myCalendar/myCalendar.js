@@ -7,6 +7,12 @@ import getEvents from '@salesforce/apex/MyCalendarController.getEvents'
 import {publish, MessageContext, createMessageContext} from 'lightning/messageService'
 import messageChannel from '@salesforce/messageChannel/MyChannel__c'
 import getUserLogInfo from '@salesforce/apex/MyCalendarController.getUserLogInfo'
+import calcLogo from '@salesforce/resourceUrl/CalculadoraLogo'
+import salesLogo from '@salesforce/resourceUrl/SalesforceLogo'
+import capLogo from '@salesforce/resourceUrl/CapgeminiLogo'
+import fDer from '@salesforce/resourceUrl/FlechaDerecha'
+import fIzq from '@salesforce/resourceUrl/FlechaIzquierda'
+
 
 export default class MyCalendar extends NavigationMixin(LightningElement) {
 
@@ -16,6 +22,12 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     clickedEvent = ''
     listUsedDays = []
     userName = ""
+    calculadoraLogo = calcLogo
+    salesforceLogo = salesLogo
+    capgeminiLogo = capLogo
+    flechaDerecha = fDer
+    flechaIzquierda = fIzq
+
 
     messageContext = createMessageContext()
 
@@ -114,21 +126,34 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     // console.log(element)
                     
                     if (event.event.extendedProps.image) {
-                         var timeElement = element.querySelector('span.fc-time');
+                         var timeElement = element.querySelector('span.fc-time')
 
                          // Crea un nuevo elemento span con la clase 'fc-image'
-                         var imageElement = document.createElement('span');
-                         imageElement.className = 'fc-image';
+                         var imageElement = document.createElement('span')
+                         imageElement.className = 'fc-image'
 
+                         var htmlString = event.event.extendedProps.image
+                         // var srcStartIndex = htmlString.indexOf('src="')
+                         // var srcEndIndex = htmlString.indexOf('"', srcStartIndex + 5)
+
+                         // var imageRoute = htmlString.substring(srcStartIndex + 5, srcEndIndex)
+                         // console.log(htmlString)
+
+                         imageElement.innerHTML = '<lightning-formatted-rich-text c-customlayout_customlayout="" class="slds-rich-text-editor__output image_calendar"><span part="formatted-rich-text">' + htmlString + '</span></lightning-formatted-rich-text>'
+                         
                          // Crea un elemento img y establece el atributo src con el valor de event.extendedProps.image
-                         var imgElement = document.createElement('img');
-                         imgElement.src = event.event.extendedProps.image;
+                         // var imgElement = document.createElement('lightning-formatted-rich-text')
+                         // var pElement = document.createElement('p')
+                         // imgElement.append(pElement)
+                         // var image = document.createElement('img')
+                         // image.src = imageRoute
+                         // pElement.append(image)
 
-                         // Agrega la imagen al elemento 'fc-image'
-                         imageElement.appendChild(imgElement);
+                         // // Agrega la imagen al elemento 'fc-image'
+                         // imageElement.appendChild(imgElement)
 
                          // Inserta el elemento 'fc-image' antes del elemento 'fc-time'
-                         timeElement.parentNode.insertBefore(imageElement, timeElement);
+                         timeElement.parentNode.insertBefore(imageElement, timeElement)
                     }
                     // console.log("Ayuda")
                 },
@@ -218,12 +243,12 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     start: eventStart,
                     end: eventStart,
                     rendering: 'background',
-                    color: 'red'
+                    color: 'grey'
                }
-               console.log("Print the event", event)
+               // console.log("Print the event", event)
                var addNewEvent = this.calendar.addEvent(event)
-               console.log("New event ", addNewEvent)
-               console.log(eventStart)
+               // console.log("New event ", addNewEvent)
+               // console.log(eventStart)
            }
           currentDate.setDate(currentDate.getDate() + 1)
           }
@@ -238,21 +263,30 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
      }
 
      open_calculator() {
-          window.open("/footprintcalculator", "_blank")
+          window.open("/s/footprintcalculator", "_self")
      }
 
 
    async showEvents() {
         try {
           const events = await getEvents()
+          var htmlString = events[1]
+          // console.log("Evento:")
+          // console.log(events)
+
+          // Utiliza expresiones regulares para extraer la URL
+          
+
+          // Verifica si se encontró una coincidencia
           const eventsToAdd = events.map(event => {
                event.id = event.id
                event.title = event.title
                event.start = event.start
                event.end = event.end
                event.image = event.img
+               // console.log(event.image)
                this.calendar.addEvent(event)
-               console.log(event.image)
+               // console.log(event.image)
           })
           
 

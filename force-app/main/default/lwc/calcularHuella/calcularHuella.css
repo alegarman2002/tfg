@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "Ubuntu";
+    src: url("sfsites/c/resource/UbuntuFont") format("TrueType");
+}
+
+.button { 
+    display: inline-block;
+    color: #fff;
+    background: #12ABDB;
+    padding: 5px 15px;
+    border : none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Ubuntu";
+}

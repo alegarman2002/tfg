@@ -13,8 +13,19 @@ template {
   font-size: 2.25vh;
   color: #ffffff;
   border-color: #12ABDB;
-  height: 100%;
-  width: fit-content;
+}
+
+.slds-button {
+  /* float: left; */
+  height: 15%;
+  width: 25%;
+}
+
+.slds-button img {
+  height: 40%;
+  width: 40%;
+  display: block;
+  margin: 0 auto;
 }
 
 .slds-col {
@@ -22,6 +33,8 @@ template {
 }
 
 .today-button {
+  float: left;
+  width: 45%;
   margin: 0 5px 0 0;
 }
 
@@ -72,9 +85,14 @@ template {
   background-color: #ffffff;
 }
 
+.image_calendar span p img{
+  width: auto;
+  height: 100%;
+}
+
 h1{
   background-color: #ffffff;
-  font-size: 8em; /* Tamaño de la letra */
+  font-size: 4em; /* Tamaño de la letra */
   color: #12ABDB;
   border-top-left-radius: 0.4em;
   border-top-right-radius: 0.4em;
@@ -194,7 +212,7 @@ h2 {
   border-radius: 50%;
   margin-top: 5px;
   margin-left: 2px;
-  background-color: #ffb4b4; /* Puedes cambiar el color aquí */
+  background-color:  #d9d9d9; /* Puedes cambiar el color aquí */
 }
 
   

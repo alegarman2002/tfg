@@ -16,7 +16,7 @@ export default class CustomLayout extends LightningElement {
     timeOfEvent = ""
     eventid = ""
     fechaDeInicioEvento = ""
-    imageUrl = ""
+    imageUrl
 
     @track name = ''
     @track email = ''
@@ -73,7 +73,7 @@ export default class CustomLayout extends LightningElement {
         // console.log(location)
         const eventName = myData[6]
         // console.log(eventName)
-        const imageUrl = myData[7]
+        var imageUrl = myData[7]
         // console.log(imageUrl)
 
         this.fechaDeInicioEvento = new Date(startDateTime)
@@ -192,7 +192,7 @@ export default class CustomLayout extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Alerta',
                 message: 'Ya estaba registado para el evento',
-                variant: 'success',
+                variant: 'error',
             });
             this.dispatchEvent(event);
         }

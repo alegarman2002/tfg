@@ -1,7 +1,69 @@
 <template>
   <h1>Calculadora de CO2</h1>
 
-  <form id="co2Calculator">
+  <h2>Utilización de aparatos electronicos (en horas):</h2>
+
+  <div class="form">
+    <div class="consumo-domestico">
+      <lightning-input class="lightning" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
+    
+      <lightning-slider class="lightning" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}></lightning-slider>
+    
+      <lightning-combobox
+        class="lightning"
+        data-id="tipoCalefaccion"
+        name="tipoCalefaccion"
+        label="Tipo de calefaccion que utilizas en casa"
+        value={tipoElegido}
+        options={tiposDeCalefaccion}
+        placeholder="Seleccione el tipo de calefaccion que usa (si no usa no seleccione nada)"
+        onchange={handleHeatingOptionChange}>
+      </lightning-combobox>
+
+      <lightning-slider class="lightning" style="display: none;" data-id="horasDeUso" label="Horas de uso de la calefaccion" min="1" max="8" value={calefaccion} onchange={cale}></lightning-slider>
+
+    </div>
+
+    <div class="vehiculo">
+      <lightning-slider class="lightning" label="Oficina (días al mes de media)" min="0" max="20" value={dias} onchange={diasMes}></lightning-slider>
+    </div>
+
+    <lightning-input class="distancia lightning" label="Distancia a la oficina (km)" type="number" onchange={dist}  name="distOficina" placeholder="Ingrese km hasta la oficina"></lightning-input><br>
+
+    <div class="desplazamiento">
+      <lightning-combobox
+        class="lightning"
+        name="metodoTransporte"
+        label="Metodo de transporte hasta la oficina: "
+        value={metodoElegido}
+        options={metodosDeTransporte}
+        placeholder="Seleccione tipo de transporte"
+        onchange={handleMethodOptionChange}>
+      </lightning-combobox>
+
+      <lightning-input style="display: none;" data-id="consumoCoche" class="coche autobus lightning" label="Consumo medio del coche" type="number" name="consumoCoche" onchange={cons} placeholder="Ingrese consumo de media"></lightning-input><br>
+      
+      <lightning-combobox
+        data-id="motorCoche"
+        style="display: none;"
+        class="coche lightning"
+        name="metodoTransporte"
+        label="Tipo de motor del coche:"
+        value={valorMotor}
+        options={tiposDeMotor}
+        placeholder="Seleccione el tipo de motor de su coche"
+        onchange={handleMotorChange}>
+      </lightning-combobox>
+
+      <lightning-slider style="display: none;" data-id="integrantesCoche" class="coche lightning" label="Numero de integrantes del coche" min="1" max="5" value={integrantesCoche} onchange={integCoche}></lightning-slider><br>
+
+      <button class="button" onclick={registrateData}>Enviar formulario</button>
+    </div>
+
+  </div>
+  
+
+  <!-- <form id="co2Calculator">
 
     <h2>Consumo doméstico:</h2>
     <label for="elecAtHome">Electricidad consumida en casa: </label>
@@ -27,11 +89,11 @@
 
 
     <h2>Consumo en desplazamientos segun el vehículo: </h2>
-    <h3>Avión:</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <h3>Avión:</h3>
     <label for="distByPlane">Distancia recorrida:</label>
     <lightning-input type="number" id="distByPlane" name="distByPlane" placeholder="Ingrese kilometros recorridos en avión"></lightning-input>
 
-    <h3>Coche:</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <h3>Coche:</h3> 
     <label for="typeOfCar">Seleccione el tipo de motor:</label>
     <div>
       <lightning-combobox
@@ -44,7 +106,7 @@
     </div>  
 
     <div id="elementstypeCar" style="display:block;">
-      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+     
       <label for="distByCar">Distancia recorrida: </label>
       <lightning-input type="number" id="distByCar" name="distByCar" step="0.1" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
 
@@ -60,7 +122,7 @@
 
     <h3>Motocicleta:</h3>
     <div id="elementsTypeMotorbike" style="display:none;">
-      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      
       <label for="distByMotorbike">Distancia recorrida: </label>
       <lightning-input type="number" id="distByMotorbike" name="distByMotorbike" placeholder="Ingrese kilometros recorridos en moto"></lightning-input>
 
@@ -70,7 +132,7 @@
       <label for="numPassByMotorbike">Numero de pasajeros: </label>
       <lightning-input type="number" id="numPassByMotorbike" name="numPassByMotorbike" placeholder="Ingrese numero de pasajeros de la moto"></lightning-input>
     </div>
-    <h3>Furgoneta</h3> <!--234kg de CO2 en 2,5 horas de vuelo media de 90kg CO2 por hora-->
+    <h3>Furgoneta</h3> 
     <div>
       <select id="optionOfVan" name="optionOfVan" onchange={configureSettingsForVan}>
         <option value="typeVanPetrol">Gasolina</option>
@@ -79,7 +141,7 @@
     </div>
 
     <div id="elementsTypeVanPetrol" style="display:none;">
-      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
+      
       <label for="distByVanPetrol">Distancia recorrida: </label>
       <lightning-input type="number" id="distByVanPetrol" name="distByVanPetrol" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
 
@@ -91,7 +153,6 @@
     </div>
 
     <div id="elementstypeVanFuel" style="display:none;">
-      <!-- Aquí van los elementos que se mostrarán cuando se seleccione Opción 1 -->
       <label for="distByVanFuel">Distancia recorrida: </label>
       <lightning-input type="number" id="distByVanFuel" name="distByVanFuel" placeholder="Ingrese kilometros recorridos en coche"></lightning-input>
 
@@ -109,5 +170,5 @@
     <lightning-button onclick={calcFootprint} label="Calcular huella de carbono"></lightning-button><br>
 
     <label for="totalCarbonFootprint" style="display:none;">Su huella total de carbono es: <span id="footprintSolve"></span></label>
-  </form>
+  </form> -->
 </template>
