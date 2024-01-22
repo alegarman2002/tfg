@@ -5,6 +5,8 @@ export default class CacularHuella extends LightningElement {
 
 
     async calcularValor() {
-        var numero = await calcularHuellaUsuario()
+        var numero = 0
+        await calcularHuellaUsuario({valorControl: 1}).then((atribute => {numero = atribute}))
+        console.log(numero)
     }
 }
