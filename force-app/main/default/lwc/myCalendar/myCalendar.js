@@ -47,6 +47,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
 
        try {
         // core 📆
+        console.log(fullCalendar)
         await Promise.all([
              loadScript(this, fullCalendar + "/packages/core/main.js"),
              loadStyle(this, fullCalendar + "/packages/core/main.css")

@@ -66,7 +66,7 @@ export default class Calculator extends LightningElement {
     handleMethodOptionChange(event) {
         this.metodoElegido = event.detail.value
         if (this.metodoElegido == 'metodoCoche') {
-            var input = this.template.querySelector('[data-id="consumoCoche"]');
+            var input =     
             console.log("Valor del input: ", input)
             input.style.display = 'block'
             input = this.template.querySelector('[data-id="motorCoche"]')
