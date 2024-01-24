@@ -1,6 +1,20 @@
 public with sharing class MyCalendarController {
 
     @AuraEnabled
+    public static List<string> getHolidayDays(){
+        StaticResource srObject = [SELECT id,body FROM StaticResource WHERE Name = 'Festivos'];
+        String contents = srObject.body.toString();
+        List<string> dias = new List<string>();
+        for(String line:contents.split('\n')) {
+            System.debug(line);
+            dias.add(line);
+        }
+        return dias;
+    }
+
+
+
+    @AuraEnabled
     public static List<Map<String, Object>> getEvents() {
         
         String query = 'SELECT Id, Name, StartDateTime__c, EndDateTime__c, Image__c FROM MyEvent__c';

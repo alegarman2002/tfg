@@ -12,6 +12,7 @@ import salesLogo from '@salesforce/resourceUrl/SalesforceLogo'
 import capLogo from '@salesforce/resourceUrl/CapgeminiLogo'
 import fDer from '@salesforce/resourceUrl/FlechaDerecha'
 import fIzq from '@salesforce/resourceUrl/FlechaIzquierda'
+import getHolidayDays from '@salesforce/apex/MyCalendarController.getHolidayDays'
 
 
 export default class MyCalendar extends NavigationMixin(LightningElement) {
@@ -169,6 +170,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.userName = info[0].split(" ")[0]
         this.calendar.render()
         this.calendarLabel = this.calendar.view.title
+        this.paintHolidayDays()
         this.showEvents()
     }
 
@@ -219,6 +221,24 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
      } catch (error) {
           console.log(error)
      }
+   }
+   async paintHolidayDays() {
+     console.log("Entramos en el metodo de los festivos")
+     var listaFestivos = await getHolidayDays()
+     for (var i = 0; i < listaFestivos.length; i++) {
+          var eventStart = listaFestivos[i].substring(0, 10)
+          console.log(eventStart)
+          var event = {
+               id: eventStart,
+               start: eventStart,
+               end: eventStart,
+               rendering: 'background',
+               color: 'red'
+          }
+          this.calendar.addEvent(event)
+          this.listUsedDays.push(eventStart)
+     }
+     console.log(listaFestivos)
    }
    //Poner el lunes como primer dia del calendario
    //Pintarlos en gris clarito y añadir una lista con 

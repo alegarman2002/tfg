@@ -189,11 +189,13 @@ h2 {
 .circle-current-day {
   width: 1/3%;
   float: left;
+  padding: 2px;
 }
 
 .circle-holidays {
   width: 1/3%;
   float: left;
+  padding: 2px;
 }
 
 .circle-current {
@@ -204,6 +206,21 @@ h2 {
   margin-left: 2px;
   background-color: #fffce4; /* Puedes cambiar el color aquí */
   
+}
+
+.circle-leapDayS {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #ffb4b4;
+}
+
+.circle-leapDay {
+  width: 1/3%;
+  float: left;
+  padding: 2px;
 }
 
 .circle-holiday {
