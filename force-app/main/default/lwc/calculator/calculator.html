@@ -1,7 +1,7 @@
 <template>
   <h1>Calculadora de CO2</h1>
 
-  <h2>Utilización de aparatos electronicos (en horas):</h2>
+  <h2>Consumo domestico:</h2>
 
   <div class="form">
     <div class="consumo-domestico">
@@ -24,41 +24,8 @@
 
     </div>
 
-    <div class="vehiculo">
-      <lightning-slider class="lightning" label="Oficina (días al mes de media)" min="0" max="20" value={dias} onchange={diasMes}></lightning-slider>
-    </div>
-
-    <lightning-input class="distancia lightning" label="Distancia a la oficina (km)" type="number" onchange={dist}  name="distOficina" placeholder="Ingrese km hasta la oficina"></lightning-input><br>
-
-    <div class="desplazamiento">
-      <lightning-combobox
-        class="lightning"
-        name="metodoTransporte"
-        label="Metodo de transporte hasta la oficina: "
-        value={metodoElegido}
-        options={metodosDeTransporte}
-        placeholder="Seleccione tipo de transporte"
-        onchange={handleMethodOptionChange}>
-      </lightning-combobox>
-
-      <lightning-input style="display: none;" data-id="consumoCoche" class="coche autobus lightning" label="Consumo medio del coche" type="number" name="consumoCoche" onchange={cons} placeholder="Ingrese consumo de media"></lightning-input><br>
-      
-      <lightning-combobox
-        data-id="motorCoche"
-        style="display: none;"
-        class="coche lightning"
-        name="metodoTransporte"
-        label="Tipo de motor del coche:"
-        value={valorMotor}
-        options={tiposDeMotor}
-        placeholder="Seleccione el tipo de motor de su coche"
-        onchange={handleMotorChange}>
-      </lightning-combobox>
-
-      <lightning-slider style="display: none;" data-id="integrantesCoche" class="coche lightning" label="Numero de integrantes del coche" min="1" max="5" value={integrantesCoche} onchange={integCoche}></lightning-slider><br>
-
-      <button class="button" onclick={registrateData}>Enviar formulario</button>
-    </div>
+    
+      <button class="button" onclick={registrateData}>Siguiente</button>
 
   </div>
   

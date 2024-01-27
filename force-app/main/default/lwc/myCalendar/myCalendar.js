@@ -297,24 +297,45 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
 
           // Utiliza expresiones regulares para extraer la URL
           
-
-          // Verifica si se encontró una coincidencia
-          const eventsToAdd = events.map(event => {
-               event.id = event.id
-               event.title = event.title
-               event.start = event.start
-               event.end = event.end
-               event.image = event.img
-               // console.log(event.image)
-               this.calendar.addEvent(event)
-               // console.log(event.image)
-          })
           
+          for (var i = 0; i < events.length; i++) {
+               var event = events[i]
+               var startDate = events[i]['start']
+               var endDate = events[i]['end']
+               startDate = new Date(startDate)
+               endDate = new Date(endDate)
+               var aux1 = new Date(startDate)
+               var aux2 = new Date(aux1)
+               while(aux1 <= endDate) {
+                    //currentDate.getDay() == 0 Esto es el domingo el 1 es el lunes
+                    if (aux1.getDay() == 0 && aux1.getDate() != endDate.getDate()) {
+                         event.id = event.id
+                         event.title = event.title
+                         event.start = aux2
+                         event.end = aux1
+                         event.image = event.img
+                         // console.log(event.image)
+                         this.calendar.addEvent(event)
+                         aux1.setDate(aux1.getDate() +1 )
+                         aux2 = new Date(aux1)
+                         continue
+                    }
+                    if (aux1.getDate() == endDate.getDate()) {
+                         event.id = event.id;
+                         event.title = event.title;
+                         event.start = aux2;
+                         event.end = aux1;
+                         event.image = event.img;
+                         // console.log(event.image)
+                         this.calendar.addEvent(event);
+                    }
+                    aux1.setDate(aux1.getDate() +1 )
+                    
+               }
+          }
 
-          //Parte para controlar el cambio de color del background
-
-          
-          
+          // Verifica si se encontró una coincidenci
+          //Parte para controlar el cambio de color del background   
           this.paintFreeDays()
           
          
@@ -348,5 +369,3 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
           )
      }
 }
-
-

@@ -101,6 +101,7 @@ public with sharing class MyCalendarController {
     public static integer setRelationship(String id, String email, String name){
         //hay que hacer validador de que la relacion no existe
         // System.debug('Empezamos el metodo');
+        Id userId = UserInfo.getUserId();
         String query = 'SELECT Id__c, Email__c, Name__c FROM MyEventUserRelation__c WHERE Id__c = \'' + id + '\' AND Email__c = \'' + email + '\' AND Name__c = \'' + name + '\'';
         // System.debug(query);
         // System.debug(Database.query(query));
@@ -109,6 +110,7 @@ public with sharing class MyCalendarController {
             // System.debug('Antes de crear el objeto de relacion');
             MyEventUserRelation__c relation = new MyEventUserRelation__c(
                 Id__c = id,
+                IdUser__c = userId,
                 Email__c = email,
                 Name__C = name
             );
@@ -121,5 +123,15 @@ public with sharing class MyCalendarController {
         }
 
         // insert relation;
+    }
+
+    @AuraEnabled
+    public static integer compareEventsId(String id){
+        Id userId = UserInfo.getUserId();
+        List<sObject> relaciones = [SELECT Id__c FROM MyEventUserRelation__c WHERE IdUser__c = :userId];
+        if (relaciones.size() == 0) {
+            return 0;
+        }
+        return 1;
     }
 }  

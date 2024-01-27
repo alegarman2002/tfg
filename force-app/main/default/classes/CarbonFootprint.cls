@@ -56,9 +56,11 @@ public with sharing class CarbonFootprint {
 
 
     @AuraEnabled
-    public static double calcularHuellaUsuario(Integer valorControl) {
+    public static List<double> calcularHuellaUsuario(Integer valorControl) {
         //Consideramos 0 para el propio usuario y 1 para todos los usuarios
         // System.debug('Empezamos el metodo');
+        // Valorar que tenemos que hacerlo desde los primeros datos introducidos hasta a ver cuando o el dia actual o el dia 
+        // Date diaActual = Date.today();
         Id userID = null;
         List<User> usersObjects = null;
         List<Id> usersId = new List<Id>();
@@ -75,7 +77,12 @@ public with sharing class CarbonFootprint {
         }
         System.debug(usersId);
         System.debug(UserInfo.getUserId());
+        List<double> listaADevolver = new List<double>();
         double gastoTotal = 0;
+        
+        double gastoTransporteTotal = 0;
+        double gastoOrdenadorTotal = 0;
+
 
         for (integer j = 0; j < usersId.size(); j++) {
             userId = usersId[j];
@@ -86,7 +93,7 @@ public with sharing class CarbonFootprint {
             
             List<Date> diasCreadosDate = new List<Date>();
             //259 gCO2eq
-            double gastoElectrico = 0;
+            // double gastoElectrico = 0;
             double gastoTransporte = 0;
             double gastoOrdenador = 0;
             
@@ -127,6 +134,8 @@ public with sharing class CarbonFootprint {
                 }
             }
             gastoTotal = gastoTotal + gastoOrdenador + gastoTransporte;
+            gastoTransporteTotal = gastoTransporteTotal + gastoTransporte;
+            gastoOrdenadorTotal = gastoOrdenadorTotal + gastoOrdenador;
         }
         // for(integer i = 0; i < diasCreadosDate.size()-1; i++) {
         //     Date dia1 = diasCreados[i];
@@ -136,9 +145,11 @@ public with sharing class CarbonFootprint {
                 
         //     // }
         // }
+        listaADevolver.add(gastoTotal);
+        listaADevolver.add(gastoTransporteTotal);
+        listaADevolver.add(gastoOrdenadorTotal);
 
-
-        return 3;
+        return listaADevolver;
     }
 
     public static Integer contarDiasHabiles(Date startDate, Date endDate) {

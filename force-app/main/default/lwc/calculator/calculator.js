@@ -105,24 +105,32 @@ export default class Calculator extends LightningElement {
     }
 
     async registrateData() {
+
+
         //Consumo electrico total
         console.log("Consumo electrico ", this.consumoElectrico)
         //Dias que se van a la oficina por mes
-        console.log("Dias a la oficina ", this.dias)
+        // console.log("Dias a la oficina ", this.dias)
         //Metodo de transporte elegido
-        console.log("Metodo de transporte ", this.metodoElegido)
+        // console.log("Metodo de transporte ", this.metodoElegido)
         //Tipo de motor elegido
-        console.log("Tipo de motor ", this.valorMotor)
+        // console.log("Tipo de motor ", this.valorMotor)
         //Consumo del motor
-        console.log("Consumo del motor ", this.consumo)
+        // console.log("Consumo del motor ", this.consumo)
         //Numero de integrantes del coche
-        console.log("Numero de integrantes del coche ", this.integrantesCoche)
+        // console.log("Numero de integrantes del coche ", this.integrantesCoche)
         //Numero de monitores auxiliares
         console.log("Monitores para trabajar ", this.monitores)
         //Tipo de calefaccion
         console.log("Tipo de calefaccion ", this.tipoCalefaccion)
         //Horas de uso de la calefaccion
         console.log("Horas de uso de la calefaccion ", this.calefaccion)
+
+        localStorage.setItem('consumoElectrico', this.consumoElectrico)
+        localStorage.setItem('monitores', this.monitores)
+        localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
+        localStorage.setItem('calefaccion', this.calefaccion)
+        window.open("/s/footprintcalculatorpart2", "_self")
         // if(this.consumoElectrico == null || this.distancia == null) {
         //     const event = new ShowToastEvent({
         //         title: 'Alerta',
@@ -141,9 +149,9 @@ export default class Calculator extends LightningElement {
         //     this.dispatchEvent(event)
         //     return
         // }
-        var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
-        var guardado = 0
-        await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
+        // var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
+        // var guardado = 0
+        // await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
         // if (guardado == 1) {
         //     const event = new ShowToastEvent({
         //         title: 'Alerta',

@@ -90,6 +90,11 @@ template {
   height: 100%;
 }
 
+.calendar {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
 h1{
   background-color: #ffffff;
   font-size: 4em; /* Tamaño de la letra */
@@ -112,7 +117,7 @@ h2 {
 
 .fc-image{
   display: block;
-  height: 50px;
+  height: 100px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -153,7 +158,11 @@ h2 {
   margin-bottom: 20px;
 }
 
-.slds-grid,
+.slds-grid {
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #ffffff;
+}
 .slds-wrap {
     background: #ffffff;
     padding-bottom: 0.5rem;

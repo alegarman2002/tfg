@@ -1,39 +1,50 @@
 import { LightningElement, api } from 'lwc';
 import calcularHuellaUsuario from '@salesforce/apex/CarbonFootprint.calcularHuellaUsuario'
 import chartjs from '@salesforce/resourceUrl/chartjs'
+import jsPDF from '@salesforce/resourceUrl/pdfGenerator'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { loadScript, loadStyle } from 'lightning/platformResourceLoader';
 
 export default class CacularHuella extends LightningElement {
 
 
-    async calcularValor() {
-        var numero = 0
-        await calcularHuellaUsuario({valorControl: 1}).then((atribute => {numero = atribute}))
-        console.log(numero)
-    }
+    // async calcularValor() {
+    //     var numero = 0
+    //     await calcularHuellaUsuario({valorControl: 1}).then((atribute => {numero = atribute}))
+    //     console.log(numero)
+    // }
 
-    @api chartDataset; 
-    chart;    
+    @api chartDataset 
+    chart
+    ctx
   
-  renderedCallback() {    
+  async renderedCallback() {   
+    Promise.all([
+        loadScript(this, jsPDF).then(() => {
+            console.log("JS loaded");
+        }).catch(error => {
+            console.error("Error " + error);
+        })
+    ])
+    var lista = 0
+    await calcularHuellaUsuario({valorControl: 0}).then((atribute => {lista = atribute}))
+    console.log(lista) 
     Promise.all([loadScript(this, chartjs)])
       .then(() => {        
-      const ctx = this.template.querySelector("canvas");
-       this.chart = new window.Chart(ctx, {
+      this.ctx = this.template.querySelector("canvas");
+       this.chart = new window.Chart(this.ctx, {
             type:"doughnut",
             data:{
-                labels:["Vino","Tequila","Cerveza","Ron"],
+                labels:["Transporte","Ordenador"],
                 datasets:[
                     {
-                        label:"Mi grafica de bebidas",
+                        label:"Grafico de consumo",
                         backgroundColor:[
                             'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
+                            'rgb(54, 162, 235)'
                         ],
-                        borderColor:"rgb(0,255,0)",
-                        data:[12,39,5,30]
+                        borderColor:['rgb(255, 99, 132)','rgb(54, 162, 235)'],
+                        data:[lista[1],lista[2]]
                     }
                 ]
             }
@@ -49,25 +60,90 @@ export default class CacularHuella extends LightningElement {
                 );
             });
     }
-    initializeChart() {
-        console.log("Entramos")
-        let miCanva = this.template.querySelector('[data-id="consumoCoche"]').getContext('2d')
-        console.log("Primer paso")
-        var chart = new Chart(miCanva,{
-            type:"bar",
-            data: {
-                labels:["Vino","Tequila","Cerveza","Ron"],
-                datasets:[
-                    {
-                        label:"Mi gráfica de bebida",
-                        backgroundColor:"rgb(0,0,0)",
-                        borderColor:"rgb(0,255,0)",
-                        data:[12,39,5,30]
-                    }
-                ]
-            }
+    // initializeChart() {
+    //     console.log("Entramos")
+    //     let miCanva = this.template.querySelector('[data-id="consumoCoche"]').getContext('2d')
+    //     console.log("Primer paso")
+    //     var chart = new Chart(miCanva,{
+    //         type:"bar",
+    //         data: {
+    //             labels:["Vino","Tequila","Cerveza","Ron"],
+    //             datasets:[
+    //                 {
+    //                     label:"Mi gráfica de bebida",
+    //                     backgroundColor:"rgb(0,0,0)",
+    //                     borderColor:"rgb(0,255,0)",
+    //                     data:[12,39,5,30]
+    //                 }
+    //             ]
+    //         }
+            
+    //     }
+    //     )
+    // }
+
+
+    obtenerPdf() {
+        
+        this.generateText()
+
+    }
+
+    generateText()
+    {
+        try
+        {
+            
+            console.log("Empezamos")
+            const { jsPDF } = window.jspdf;
+            console.log("creamos el objeto")
+            var verticalOffset=0.5;
+            var size=12;
+            var margin=0.5;
+
+
+            const doc = new jsPDF('p', 'in', 'letter');
+            console.log("Inicializamos")
+            //Landscape PDF
+            //new jsPDF({   orientation: 'landscape',   unit: 'in',   format: [4, 2] })  
+            // jsPDF('p', 'in', 'letter')
+
+            //Sets the text color setTextColor(ch1, ch2, ch3, ch4) 
+            doc.setTextColor(100); 
+            //Create Text
+            doc.text("Hello SalesforceCodex!", 10, 10);
+            doc.rect(20, 20, 10, 10);
+            
+            // Set Margins:
+            doc.setDrawColor(0, 255, 0)   //Draw Color
+            .setLineWidth(1 / 72)  // Paragraph line width
+            .line(margin, margin, margin, 11 - margin) // Margins
+            .line(8.5 - margin, margin, 8.5 - margin, 11 - margin)
+
+            console.log("Ponemos todos los atributos")
+
+            var stringText='SalesforceCodex.com is started in 2016 as a personal blog where I tried to solve problems with simple and understandable content. Initially, my focus was on sharing content on which feature I was working. \n\nToday, SalesforceCodex.com is focused on helping salesforce developers, programmers and other IT professionals improve their careers. We are helping developers in integrating other technologies,  coding best practices, lightning web components, architecture, design solutions, etc.';
+            
+            var lines=doc.setFont('Helvetica', 'Italic')
+                                .setFontSize(12)
+                                .splitTextToSize(stringText, 7.5);
+
+            //doc.setFontSize(40);
+            doc.text(0.5, verticalOffset + size / 72, lines);
+            verticalOffset += (lines.length + 0.5) * size / 72;
+            const chartDataUrl = this.ctx.toDataURL()
+            doc.addImage(chartDataUrl, 'PNG', 20, 40, 150, 100);
+            //Save File
+            console.log("Antes de guardar")
+            doc.save("a4.pdf");
+            console.log("Despues de guardar")
             
         }
-        )
+        catch(error) {
+            alert("Error " + error);
+        }
     }
+    //Convert Image into Base64
+    
+    //Create PDF with Image and Text
 }
