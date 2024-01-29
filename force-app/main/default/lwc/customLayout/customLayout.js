@@ -4,6 +4,7 @@ import getUserInformation from '@salesforce/apex/MyCalendarController.getUserInf
 import getUserLogInfo from '@salesforce/apex/MyCalendarController.getUserLogInfo'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import setRelationship from '@salesforce/apex/MyCalendarController.setRelationship'
+import compareEventsId from '@salesforce/apex/MyCalendarController.compareEventsId'
 export default class CustomLayout extends LightningElement {
 
     startDateTime = ""
@@ -28,7 +29,17 @@ export default class CustomLayout extends LightningElement {
 
     async renderedCallback() {
         try {
+            // this.eventId = localStorage.getItem('event')
             this.init()
+            var control = 0;
+            await compareEventsId({id: this.eventid}).then((atribute => {control = atribute}))
+            console.log(control)
+            if (control == 1) {
+                var alerta = this.template.querySelector('[data-id="controlRegistration"]')
+                alerta.style.display = 'block'
+                alerta = this.template.querySelector('[data-id="button"]')
+                alerta.style.display = 'none'
+            }
 
         } catch (error) {
             console.error("Error when loading scripts", error)

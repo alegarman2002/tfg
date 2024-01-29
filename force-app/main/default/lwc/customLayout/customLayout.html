@@ -12,7 +12,10 @@
               <div class="custEventLocation">
                 {eventName}
               </div>
-              <div class="imod_eventButtons eventRegister"><div class="button"><button class="button" onclick={registerForEvent}>Registrate</button></div>
+              <div class="imod_eventButtons eventRegister"><div class="button" data-id="button"><button class="button" onclick={registerForEvent}>Registrate</button>
+               
+              </div>
+              <label class="controlRegistration" data-id="controlRegistration">Ya está registrado en el evento</label>
               <!--<template if:true={show}>
               <div class="registerForm" id="registerForm">
               <h2>Nombre completo: </h2>

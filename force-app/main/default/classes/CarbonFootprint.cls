@@ -170,4 +170,24 @@ public with sharing class CarbonFootprint {
 
         return diasHabiles;
     }
+
+    @AuraEnabled
+    public static List<integer> obtainLastDayDataIsRecorded(){
+        Id userId = UserInfo.getUserId();
+        List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
+        List<integer> fecha = new List<integer>();
+        if (!diasCreados.isEmpty()) {
+            
+            sObject dia = diasCreados[diasCreados.size()-1];
+            Date diaConvertido = (Date) dia.get('DiaCreacion__c');
+            
+            fecha.add(diaConvertido.day());
+            fecha.add(diaConvertido.month()-1);
+            fecha.add(diaConvertido.year());
+            return fecha;
+        } else {
+            return null;
+        }
+
+    }
 }

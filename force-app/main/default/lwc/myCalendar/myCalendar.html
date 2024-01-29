@@ -49,6 +49,16 @@
          <div id="calendar" class="calendar" lwc:dom="manual" ontouchmove={handleScroll} onscroll={handleScroll}></div>
     </div>
 
+    <div class="misEventos">
+     <button class="all-buttons mostrarEventos" data-id="myEvents" onclick={myEventsView}>
+          Mostrar/Ocultar mis eventos
+      </button>
+      <div id="contenedorTabla" class="contenedorTabla">
+
+      </div>
+
+    </div>
+
     <div class="interesting_links">
           <h2>A continuación presentamos algunos enlaces que pueden ser de interes:</h2>
           <div class="links-buttons">

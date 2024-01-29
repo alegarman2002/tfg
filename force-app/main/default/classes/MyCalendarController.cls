@@ -129,9 +129,29 @@ public with sharing class MyCalendarController {
     public static integer compareEventsId(String id){
         Id userId = UserInfo.getUserId();
         List<sObject> relaciones = [SELECT Id__c FROM MyEventUserRelation__c WHERE IdUser__c = :userId];
+        System.debug(relaciones.size());
         if (relaciones.size() == 0) {
             return 0;
         }
         return 1;
+    }
+
+    @AuraEnabled
+    public static List<List<string>> getEventsOfTheUser(){
+        Id userId = UserInfo.getUserId();
+        
+        List<List<String>> listaConEventos = new List<List<String>>();
+        List<sObject> relaciones = [SELECT Id__c FROM MyEventUserRelation__c WHERE IdUser__c = :userId];
+        for (integer i = 0; i < relaciones.size(); i++) {
+            Id idToCompare = Id.valueOf((string) relaciones[i].get('Id__c'));
+            List<MyEvent__c> event = [SELECT StartDateTime__c, EndDateTime__c, Name FROM MyEvent__c WHERE Id = :idToCompare LIMIT 1];           
+            List<string> evento = new List<string>();
+            evento.add(String.valueOf((DateTime) event[0].get('StartDateTime__c')));
+            evento.add(String.valueOf((DateTime) event[0].get('EndDateTime__c')));
+            evento.add(String.valueOf(event[0].get('Name')));
+            listaConEventos.add(evento);
+        }       
+        
+        return listaConEventos;
     }
 }  

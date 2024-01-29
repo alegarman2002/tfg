@@ -36,6 +36,10 @@ label {
 .lightning {
     font-family: "Ubuntu";
     padding-bottom: 2px;
+    background-image: url('https://img.icons8.com/material-outlined/344/average-2.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .form {

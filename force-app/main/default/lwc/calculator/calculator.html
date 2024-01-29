@@ -7,8 +7,13 @@
     <div class="consumo-domestico">
       <lightning-input class="lightning" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
     
-      <lightning-slider class="lightning" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}></lightning-slider>
+      <lightning-slider class="lightning" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
+        <div class="slds-grid">
+          <lightning-icon icon-name="utility:up" size="small"></lightning-icon>
+      </div>
+    </lightning-slider>
     
+
       <lightning-combobox
         class="lightning"
         data-id="tipoCalefaccion"

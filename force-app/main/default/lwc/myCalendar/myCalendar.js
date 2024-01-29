@@ -2,6 +2,7 @@ import { LightningElement, wire, track, api } from 'lwc'
 import fullCalendar from "@salesforce/resourceUrl/fullCalendar"
 import { NavigationMixin } from "lightning/navigation";
 import { loadStyle, loadScript } from "lightning/platformResourceLoader"
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 //import { jsToApexDate } from 'c/calendarUtils'
 import getEvents from '@salesforce/apex/MyCalendarController.getEvents'
 import {publish, MessageContext, createMessageContext} from 'lightning/messageService'
@@ -13,7 +14,8 @@ import capLogo from '@salesforce/resourceUrl/CapgeminiLogo'
 import fDer from '@salesforce/resourceUrl/FlechaDerecha'
 import fIzq from '@salesforce/resourceUrl/FlechaIzquierda'
 import getHolidayDays from '@salesforce/apex/MyCalendarController.getHolidayDays'
-
+import getEventsOfTheUser from '@salesforce/apex/MyCalendarController.getEventsOfTheUser'
+import obtainLastDayDataIsRecorded from '@salesforce/apex/CarbonFootprint.obtainLastDayDataIsRecorded'
 
 export default class MyCalendar extends NavigationMixin(LightningElement) {
 
@@ -28,6 +30,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     capgeminiLogo = capLogo
     flechaDerecha = fDer
     flechaIzquierda = fIzq
+    variableControlTabla = 0
 
 
     messageContext = createMessageContext()
@@ -77,12 +80,12 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         const calendarEl = this.template.querySelector(".calendar")
 
         this.calendar = new FullCalendar.Calendar(calendarEl, {
-               plugins: ["dayGridMonth","dayGrid", "timeGrid", "list","interaction","moment"],
+               plugins: ["dayGridMonth","dayGrid", "timeGrid", "listMonth","interaction","moment"],
                views: {
                     listMonth: { buttonText: "list month"},
                     month: { displayEventEnd: true },
                     dayGridMonth: { buttonText: "month" },
-
+                    listMonth: { buttonText: 'listMonth' }
                },
                firstDay: 1,
                locale: 'es',
@@ -121,13 +124,16 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     
                // },
                //Comentar el tema de por que ajusta bien desde que abro la consola
-               eventRender: function(event) {
+               eventRender(event) {
                     var element = event.el
                     // console.log("AAAAAAAAAAAAA")
                     // console.log(event.event.extendedProps.image)
                     // console.log(element)
+                    // var control = 0
+                    // console.log(event.event.id)
                     
                     if (event.event.extendedProps.image) {
+                         // await compareEventsId({id: event.event.id}).then((atribute => {control = atribute}))
                          var timeElement = element.querySelector('span.fc-time')
 
                          // Crea un nuevo elemento span con la clase 'fc-image'
@@ -157,22 +163,92 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                          // Inserta el elemento 'fc-image' antes del elemento 'fc-time'
                          timeElement.parentNode.insertBefore(imageElement, timeElement)
                     }
+                    // if (control == 1) {
+                    //      console.log("Logueamos iteracciones")
+                    //      var timeElement = element.querySelector('span.fc-image')
+
+                    //      console.log("Logueamos iteracciones")
+                    //      var imageElement = document.createElement('span')
+                    //      imageElement.className = 'fc-registered'
+
+                    //      console.log("Logueamos iteracciones")
+                    //      imageElement.innerHTML = '<p>Ya esta registrado</p>'
+
+                    //      console.log("Logueamos iteracciones")
+                    //      timeElement.parentNode.insertBefore(imageElement, timeElement)
+                    //      console.log("Despues de insertar")
+                    // }
                     // console.log("Ayuda")
                 },
                //eventDrop: info => { console.log('event drag start', info) },
                eventClick: info => { 
                     this.clickedEvent = '' + info.event.id
+                    // localStorage.setItem('event', this.clickedEvent)
                     this.event('fceventclick', info) },
                //eventMouseEnter: info => {console.log("mouse enter", info) },
                //dateClick: info => { this.event('fcdateclick', info) },   
                      
         })
         const info = await getUserLogInfo()
+        var dateString = await obtainLastDayDataIsRecorded()
+        console.log("Vemos el dia: ", dateString)
+        //'0' + (currentDate.getMonth()+1)).slice(-2)
+        var dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
+        var actualDay = new Date()
+
+        var diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
+          diff += actualDay.getMonth() - dayToCompare.getMonth();
+
+        this.mensajeDeAviso(diff, dayToCompare)
+
+
         this.userName = info[0].split(" ")[0]
         this.calendar.render()
         this.calendarLabel = this.calendar.view.title
         this.paintHolidayDays()
         this.showEvents()
+    }
+
+    mensajeDeAviso(diff) {
+          if (diff >= 3) {
+               const event = new ShowToastEvent({
+                    title: 'Alerta',
+                    message: 'La ultima vez que actualizo sus datos fue el' + dayToCompare.getDate() + '-' + dayToCompare.getMonth()+1 + '-' + dayToCompare.getFullYear() + " por favor entre a actualizarlo",
+                    variant: 'error',
+                });
+                this.dispatchEvent(event);
+          }
+    }
+
+    async myEventsView() {
+               
+          if (this.variableControlTabla == 0) {
+               console.log("Antes de empezar")
+               var eventos
+               await getEventsOfTheUser().then(attribute => {eventos = attribute})
+               console.log(eventos)
+               
+               
+               var divElement = this.template.querySelector(".contenedorTabla")
+               console.log(divElement)
+               var stringToInnerHTML = '<table class="tableOfEvents" style="background-color:#ffffff;border:1px solid black;border-collapse:collapse;width:100%;"><tr><td style="border:1px solid black;padding:10px;">Fecha de inicio</td><td>Fecha de fin</td style="border:1px solid black;padding:10px;"><td style="border:1px solid black;padding:10px;">Nombre</td></tr>'
+               
+               for(var i = 0; i < eventos.length; i++) {
+                    //0 start 1 end 2 name
+                    stringToInnerHTML = stringToInnerHTML + '<tr><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][0] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][1] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][2] + '</td></tr>'
+               }
+               divElement.innerHTML = stringToInnerHTML + '<table>'
+               this.variableControlTabla = 1
+          } else if(this.variableControlTabla == 1) {
+               var table = this.template.querySelector(".contenedorTabla")
+               table.style.display = 'none'
+               this.variableControlTabla = 2
+          } else {
+               var table = this.template.querySelector(".contenedorTabla")
+               table.style.display = 'block'
+               this.variableControlTabla = 1
+          }
+
     }
 
     nextHandler() {
@@ -200,6 +276,11 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
    monthlyViewHandler() {
         this.calendar.changeView('dayGridMonth');
         this.calendarLabel = this.calendar.view.title;
+   }
+
+   listViewEvents() {
+          this.calendar.changeView('listMonth');
+          this.calendarLabel = this.calendar.view.title;
    }
     
    handleMessageChange(event) {

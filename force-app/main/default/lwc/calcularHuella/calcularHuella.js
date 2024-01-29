@@ -60,27 +60,27 @@ export default class CacularHuella extends LightningElement {
                 );
             });
     }
-    // initializeChart() {
-    //     console.log("Entramos")
-    //     let miCanva = this.template.querySelector('[data-id="consumoCoche"]').getContext('2d')
-    //     console.log("Primer paso")
-    //     var chart = new Chart(miCanva,{
-    //         type:"bar",
-    //         data: {
-    //             labels:["Vino","Tequila","Cerveza","Ron"],
-    //             datasets:[
-    //                 {
-    //                     label:"Mi gráfica de bebida",
-    //                     backgroundColor:"rgb(0,0,0)",
-    //                     borderColor:"rgb(0,255,0)",
-    //                     data:[12,39,5,30]
-    //                 }
-    //             ]
-    //         }
+    initializeChart() {
+        console.log("Entramos")
+        let miCanva = this.template.querySelector('[data-id="consumoCoche"]').getContext('2d')
+        console.log("Primer paso")
+        var chart = new Chart(miCanva,{
+            type:"bar",
+            data: {
+                labels:["Vino","Tequila","Cerveza","Ron"],
+                datasets:[
+                    {
+                        label:"Mi gráfica de bebida",
+                        backgroundColor:"rgb(0,0,0)",
+                        borderColor:"rgb(0,255,0)",
+                        data:[12,39,5,30]
+                    }
+                ]
+            }
             
-    //     }
-    //     )
-    // }
+        }
+        )
+    }
 
 
     obtenerPdf() {

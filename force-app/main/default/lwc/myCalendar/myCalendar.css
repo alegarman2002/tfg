@@ -147,6 +147,18 @@ h2 {
   z-index: 9999;
 }
 
+.slds-size_3-of-12 {
+  padding-right: 25px;
+}
+
+.legend {
+  padding-left: 25px;
+}
+
+.mostrarEventos {
+  padding-bottom: 10px;
+}
+
 .slds-size_8-of-12 h3{
   text-transform: uppercase;
   font-weight: 700;
@@ -156,6 +168,7 @@ h2 {
   font-family: 'Ubuntu', sans-serif;
   color: #12ABDB;
   margin-bottom: 20px;
+  padding-left: 25px;
 }
 
 .slds-grid {
@@ -330,4 +343,9 @@ h2 {
     padding: 11px 7px;
     font-size: 16px;
     font-weight: 400;
+}
+
+.misEventos {
+  background-color: #ffffff;
+  padding: 25px;
 }
