@@ -17,6 +17,8 @@ export default class CacularHuella extends LightningElement {
     @api chartDataset 
     chart
     ctx
+    bar
+    ctx2
   
   async renderedCallback() {   
     Promise.all([
@@ -59,27 +61,33 @@ export default class CacularHuella extends LightningElement {
                     })
                 );
             });
+
+        this.initializeChart()
     }
+
+
     initializeChart() {
         console.log("Entramos")
-        let miCanva = this.template.querySelector('[data-id="consumoCoche"]').getContext('2d')
-        console.log("Primer paso")
-        var chart = new Chart(miCanva,{
-            type:"bar",
+        Promise.all([loadScript(this, chartjs)])
+        .then(() => { 
+        this.ctx2 = this.template.querySelector('[data-id="linearChart"]').getContext('2d')
+       this.bar = new window.Chart(this.ctx2,{
+            type:"line",
             data: {
-                labels:["Vino","Tequila","Cerveza","Ron"],
-                datasets:[
-                    {
-                        label:"Mi gráfica de bebida",
-                        backgroundColor:"rgb(0,0,0)",
-                        borderColor:"rgb(0,255,0)",
-                        data:[12,39,5,30]
-                    }
+                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                  }
                 ]
             }
             
         }
         )
+    })
     }
 
 

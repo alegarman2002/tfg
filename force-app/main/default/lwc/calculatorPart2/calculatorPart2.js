@@ -1,4 +1,6 @@
 import { LightningElement } from 'lwc';
+import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
+
 
 export default class CalculatorPart2 extends LightningElement {
 
@@ -94,9 +96,23 @@ export default class CalculatorPart2 extends LightningElement {
     async registrateData() {
         
 
-        // var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
-        // var guardado = 0
-        // await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
-    
+        var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
+        var guardado = 0
+        await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
+        if (guardado == 1) {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Sus datos se han guardado correctamente',
+                variant: 'success',
+            });
+            this.dispatchEvent(event);
+        } else {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Ha habido un problema guardando sus datos por favor reviselos y vuelva a enviarlos',
+                variant: 'error',
+            });
+            this.dispatchEvent(event);
+        }
     }
 }

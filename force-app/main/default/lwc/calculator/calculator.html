@@ -7,11 +7,13 @@
     <div class="consumo-domestico">
       <lightning-input class="lightning" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
     
-      <lightning-slider class="lightning" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
-        <div class="slds-grid">
-          <lightning-icon icon-name="utility:up" size="small"></lightning-icon>
-      </div>
-    </lightning-slider>
+      <!-- <lightning-slider class="lightning" data-id="oficina" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
+    </lightning-slider> -->
+    <div class="slds-form-element"><label class="slds-form-element__label" for="input-17">
+      <span class="slds-slider-label"><span class="slds-slider-label__label">Nuemro de monitores auxiliares</span><span class="slds-slider-label__range">0-3</span></span></label>
+      <div class="slds-form-element__control"><div class="slds-slider">
+        <input class="slds-slider__range monitores" data-id="input-17" type="range" aria-describedby="message-id-17" value="1" min="0" max="3" step="1" onchange={saveMonitor}>
+      <span class="slds-slider__value" aria-hidden="true">{monitores}</span></div></div></div>
     
 
       <lightning-combobox

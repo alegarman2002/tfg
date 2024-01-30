@@ -36,11 +36,11 @@ label {
 .lightning {
     font-family: "Ubuntu";
     padding-bottom: 2px;
-    background-image: url('https://img.icons8.com/material-outlined/344/average-2.png');
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
 }
+
 
 .form {
     width:50%;
@@ -53,10 +53,25 @@ label {
     display: none;
 }
 
-.slds-slider__range {
-    color: #12ABDB;
-    font-family: "Ubuntu";
-}
+.monitores {
+    -webkit-appearance: none;
+    appearance: none; 
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    height: 20px;
+    height: 6px;
+    background: #ccc;
+    
+  }
+.monitores::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 30px;
+    background-image: url("https://d0600000116s3eai-dev-ed--c.develop.vf.force.com/resource/1706550171000/iconoMonitor");
+    background-size: cover;
+  }
 
 .button { 
     display: inline-block;

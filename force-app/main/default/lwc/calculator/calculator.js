@@ -1,6 +1,8 @@
 import { LightningElement } from 'lwc';
 import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
+import comprobarUltimoGuardado from '@salesforce/apex/CarbonFootprint.comprobarUltimoGuardado'
 export default class Calculator extends LightningElement {
 
     consumoElectrico = null
@@ -11,8 +13,21 @@ export default class Calculator extends LightningElement {
     integrantesCoche = 1
     monitores = 1
     tipoCalefaccion
-    calefaccion = 4
+    calefaccion = -4
     distancia = null
+    iconoMonitor = iMonitor
+
+    async renderedCallback() {
+        var guardado = await comprobarUltimoGuardado()
+        if (guardado == 0) {
+            const event = new ShowToastEvent({
+                title: 'Aviso',
+                message: 'Tenga en cuenta que actualmente no puede actualizar sus datos pues este mes ya los ha actualizado',
+                variant: 'error',
+            });
+            this.dispatchEvent(event);
+        } 
+    }
 
     get tiposDeCalefaccion() {
         return [
@@ -20,6 +35,11 @@ export default class Calculator extends LightningElement {
             {label: 'Electrica', value: 'tipoElectrica'},
             {label: 'Gas', value: 'tipoGas'}
         ]
+    }
+
+    saveMonitor() {
+        this.monitores = this.template.querySelector("[data-id='input-17']").value
+        console.log(this.monitores)
     }
 
     get metodosDeTransporte() {

@@ -13,6 +13,7 @@ import salesLogo from '@salesforce/resourceUrl/SalesforceLogo'
 import capLogo from '@salesforce/resourceUrl/CapgeminiLogo'
 import fDer from '@salesforce/resourceUrl/FlechaDerecha'
 import fIzq from '@salesforce/resourceUrl/FlechaIzquierda'
+import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import getHolidayDays from '@salesforce/apex/MyCalendarController.getHolidayDays'
 import getEventsOfTheUser from '@salesforce/apex/MyCalendarController.getEventsOfTheUser'
 import obtainLastDayDataIsRecorded from '@salesforce/apex/CarbonFootprint.obtainLastDayDataIsRecorded'
@@ -30,6 +31,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     capgeminiLogo = capLogo
     flechaDerecha = fDer
     flechaIzquierda = fIzq
+    
     variableControlTabla = 0
 
 
@@ -60,10 +62,6 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         await Promise.all([
              loadScript(this, fullCalendar + "/packages/daygrid/main.js"),
              loadStyle(this, fullCalendar + "/packages/daygrid/main.css"),
-             loadScript(this, fullCalendar + "/packages/list/main.js"),
-             loadStyle(this, fullCalendar + "/packages/list/main.css"),
-             loadScript(this, fullCalendar + "/packages/timegrid/main.js"),
-             loadStyle(this, fullCalendar + "/packages/timegrid/main.css"),
              loadScript(this, fullCalendar + "/packages/interaction/main.js"), //puede que me sobre
              loadScript(this, fullCalendar + "/packages/moment/main.js"),
              loadScript(this, fullCalendar + "/packages/moment-timezone/main.js"),
@@ -76,7 +74,8 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         }
     }
 
-    async init() {
+    async init() { 
+          console.log("Primera prueba")
         const calendarEl = this.template.querySelector(".calendar")
 
         this.calendar = new FullCalendar.Calendar(calendarEl, {
@@ -193,13 +192,16 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         var dateString = await obtainLastDayDataIsRecorded()
         console.log("Vemos el dia: ", dateString)
         //'0' + (currentDate.getMonth()+1)).slice(-2)
-        var dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
-        var actualDay = new Date()
+        if (dateString != null) {
+          var dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
+          var actualDay = new Date()
 
-        var diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
-          diff += actualDay.getMonth() - dayToCompare.getMonth();
+          var diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
+               diff += actualDay.getMonth() - dayToCompare.getMonth();
 
-        this.mensajeDeAviso(diff, dayToCompare)
+          this.mensajeDeAviso(diff, dayToCompare)
+        }
+          
 
 
         this.userName = info[0].split(" ")[0]

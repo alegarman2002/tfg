@@ -1,9 +1,21 @@
 <template>
+
+    <h2>A continuacion se le mostrarán dos diagramas con la siguiente informacion:</h2>
+   
     <div class="chart">
-        
+        <h3>Diagrama separando el consumo en base al tipo</h3>
         <div class="slds-grid slds-grid–align-center" style="background: white; margin:2px;border:1px dotted #DDDDDD;">
     
-            <canvas lwc:dom="manual" height="150px" width="200px"></canvas>    
+            <canvas lwc:dom="manual"></canvas>    
+    
+        </div>
+    </div>
+
+    <div class="linearchart chart">
+        <h3>Diagrama de evolucion del consumo en el ultimo año</h3>
+        <div class="slds-grid slds-grid–align-center" style="background: white; margin:2px;border:1px dotted #DDDDDD;">
+    
+            <canvas data-id="linearChart" lwc:dom="manual"></canvas>    
     
         </div>
     </div>

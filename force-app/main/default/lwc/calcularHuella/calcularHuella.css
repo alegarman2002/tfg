@@ -22,6 +22,11 @@
   path.slice{
       stroke-width:2px;
   }
+
+  .chart {
+    width: 45%;
+    float: left;
+  }
   
   polyline{
       opacity: .3;

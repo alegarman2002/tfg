@@ -1,13 +1,9 @@
 public with sharing class CarbonFootprint {
     
     @AuraEnabled
-    public static integer guardarDatos(List<string> parametros) {
-        System.debug('Hola');
+    public static integer comprobarUltimoGuardado() {
         Date diaActual = Date.today();
-        diaActual = diaActual.addMonths(3);
-        Date diaEn6Meses = diaActual.addMonths(6);
         Id userId = UserInfo.getUserId();
-        System.debug(parametros);
         List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
         for(integer i = 0; i < diasCreados.size(); i++) {
             sObject event = diasCreados[i];
@@ -17,6 +13,26 @@ public with sharing class CarbonFootprint {
                 return 0;
             }
         }
+        return 1;
+    }
+
+
+    @AuraEnabled
+    public static integer guardarDatos(List<string> parametros) {
+        System.debug('Hola');
+        Date diaActual = Date.today();
+        Date diaEn6Meses = diaActual.addMonths(6);
+        Id userId = UserInfo.getUserId();
+        System.debug(parametros);
+        // List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
+        // for(integer i = 0; i < diasCreados.size(); i++) {
+        //     sObject event = diasCreados[i];
+        //     Date mesSiguiente = (Date) event.get('DiaCreacion__c');
+        //     mesSiguiente = mesSiguiente.addMonths(1);
+        //     if (diaActual <= mesSiguiente) {
+        //         return 0;
+        //     }
+        // }
         integer consumoElectrico = Integer.valueOf(parametros[0]);
         integer dias = Integer.valueOf(parametros[1]);
         string metodoElegido = (string) (parametros[2]);
@@ -190,4 +206,5 @@ public with sharing class CarbonFootprint {
         }
 
     }
+
 }
