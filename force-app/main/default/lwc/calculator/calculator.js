@@ -16,17 +16,24 @@ export default class Calculator extends LightningElement {
     calefaccion = -4
     distancia = null
     iconoMonitor = iMonitor
+    controlVecesQueAparece = 0
 
     async renderedCallback() {
-        var guardado = await comprobarUltimoGuardado()
-        if (guardado == 0) {
-            const event = new ShowToastEvent({
-                title: 'Aviso',
-                message: 'Tenga en cuenta que actualmente no puede actualizar sus datos pues este mes ya los ha actualizado',
-                variant: 'error',
-            });
-            this.dispatchEvent(event);
-        } 
+        if (this.controlVecesQueAparece == 0) {
+            
+            var guardado = await comprobarUltimoGuardado()
+            if (guardado == 0) {
+                this.controlVecesQueAparece = 1
+                const event = new ShowToastEvent({
+                    title: 'Aviso',
+                    message: 'Tenga en cuenta que actualmente no puede actualizar sus datos pues este mes ya los ha actualizado',
+                    variant: 'error',
+                });
+                this.dispatchEvent(event)
+                var botonSiguiente = this.template.querySelector('button')
+                botonSiguiente.style.disabled = true
+            } 
+        }
     }
 
     get tiposDeCalefaccion() {

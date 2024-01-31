@@ -90,8 +90,8 @@ export default class CacularHuella extends LightningElement {
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1
                   }
-                ],
-                datasets: [{
+                ,
+                {
                     label: 'Consumo en desplazamiento',
                     data: [23, 56, 21, 81, 90, 100, 123],
                     fill: false,
