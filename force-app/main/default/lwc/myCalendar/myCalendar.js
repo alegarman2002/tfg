@@ -192,14 +192,16 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         var dateString = await obtainLastDayDataIsRecorded()
         console.log("Vemos el dia: ", dateString)
         //'0' + (currentDate.getMonth()+1)).slice(-2)
+        var dayToCompare
+        var actualDay
         if (dateString != null) {
-          var dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
-          var actualDay = new Date()
+          dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
+          actualDay = new Date()
 
           var diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
                diff += actualDay.getMonth() - dayToCompare.getMonth();
 
-          this.mensajeDeAviso(diff, dayToCompare)
+          //this.mensajeDeAviso(diff, dayToCompare)
         }
           
 
