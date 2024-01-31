@@ -29,8 +29,16 @@ export default class CacularHuella extends LightningElement {
         })
     ])
     var lista = 0
-    await calcularHuellaUsuario({valorControl: 0}).then((atribute => {lista = atribute}))
-    console.log(lista) 
+    await calcularHuellaUsuario().then((atribute => {lista = atribute}))
+    console.log(lista)
+    if (lista.length != 0) {
+        var listaValoresTotales = lista[0]
+        var listaValoresDesplazamientoAlMes = lista[1]
+        var listaValoresOrdenadorAlMes = lista[2]
+    //Vamos a considerar que el donut muestre todos los valores del historico mientras que el diagrama de linea los muestre del propio año
+    //si veo que es facil hacemos que se puedan ver años anteriores
+    }
+
     Promise.all([loadScript(this, chartjs)])
       .then(() => {        
       this.ctx = this.template.querySelector("canvas");
@@ -46,7 +54,7 @@ export default class CacularHuella extends LightningElement {
                             'rgb(54, 162, 235)'
                         ],
                         borderColor:['rgb(255, 99, 132)','rgb(54, 162, 235)'],
-                        data:[lista[1],lista[2]]
+                        data:[listaValoresTotales[1],listaValoresTotales[2]]
                     }
                 ]
             }
@@ -76,10 +84,18 @@ export default class CacularHuella extends LightningElement {
             data: {
                 labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
                 datasets: [{
-                    label: 'My First Dataset',
+                    label: 'Consumo electrico',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                  }
+                ],
+                datasets: [{
+                    label: 'Consumo en desplazamiento',
+                    data: [23, 56, 21, 81, 90, 100, 123],
+                    fill: false,
+                    borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
                   }
                 ]
