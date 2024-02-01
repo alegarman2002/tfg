@@ -113,6 +113,11 @@ public with sharing class CarbonFootprint {
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
                 gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c')*mesesDeDiferencia));
+                
+                if (objetoMes.get('TipoCalefaccion__c') == 'tipoElectrica') {
+                    gastoOrdenador = gastoOrdenador +     
+                }
+                                
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
                     System.debug('Dias oficina: ' + objetoMes.get('DiasOficina__c'));
                     System.debug('Distancia: ' + objetoMes.get('Distancia__c'));
