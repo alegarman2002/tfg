@@ -133,7 +133,7 @@ export default class Calculator extends LightningElement {
 
     async registrateData() {
 
-
+        await guardarDatos()
         //Consumo electrico total
         console.log("Consumo electrico ", this.consumoElectrico)
         //Dias que se van a la oficina por mes
@@ -147,17 +147,17 @@ export default class Calculator extends LightningElement {
         //Numero de integrantes del coche
         // console.log("Numero de integrantes del coche ", this.integrantesCoche)
         //Numero de monitores auxiliares
-        console.log("Monitores para trabajar ", this.monitores)
+        // console.log("Monitores para trabajar ", this.monitores)
         //Tipo de calefaccion
-        console.log("Tipo de calefaccion ", this.tipoCalefaccion)
+        // console.log("Tipo de calefaccion ", this.tipoCalefaccion)
         //Horas de uso de la calefaccion
-        console.log("Horas de uso de la calefaccion ", this.calefaccion)
+        // console.log("Horas de uso de la calefaccion ", this.calefaccion)
 
-        localStorage.setItem('consumoElectrico', this.consumoElectrico)
-        localStorage.setItem('monitores', this.monitores)
-        localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
-        localStorage.setItem('calefaccion', this.calefaccion)
-        window.open("/s/footprintcalculatorpart2", "_self")
+        // localStorage.setItem('consumoElectrico', this.consumoElectrico)
+        // localStorage.setItem('monitores', this.monitores)
+        // localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
+        // localStorage.setItem('calefaccion', this.calefaccion)
+        // window.open("/s/footprintcalculatorpart2", "_self")
         // if(this.consumoElectrico == null || this.distancia == null) {
         //     const event = new ShowToastEvent({
         //         title: 'Alerta',

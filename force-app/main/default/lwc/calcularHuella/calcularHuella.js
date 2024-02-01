@@ -31,10 +31,13 @@ export default class CacularHuella extends LightningElement {
     var lista = 0
     await calcularHuellaUsuario().then((atribute => {lista = atribute}))
     console.log(lista)
+    var listaValoresTotales 
+    var listaValoresDesplazamientoAlMes
+    var listaValoresOrdenadorAlMes
     if (lista.length != 0) {
-        var listaValoresTotales = lista[0]
-        var listaValoresDesplazamientoAlMes = lista[1]
-        var listaValoresOrdenadorAlMes = lista[2]
+        listaValoresTotales = lista[0]
+        listaValoresDesplazamientoAlMes = lista[1]
+        listaValoresOrdenadorAlMes = lista[2]
     //Vamos a considerar que el donut muestre todos los valores del historico mientras que el diagrama de linea los muestre del propio año
     //si veo que es facil hacemos que se puedan ver años anteriores
     }
@@ -73,11 +76,11 @@ export default class CacularHuella extends LightningElement {
                 );
             });
 
-        this.initializeChart()
+        this.initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes)
     }
 
 
-    initializeChart() {
+    initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes) {
         console.log("Entramos")
         Promise.all([loadScript(this, chartjs)])
         .then(() => { 
@@ -85,18 +88,18 @@ export default class CacularHuella extends LightningElement {
        this.bar = new window.Chart(this.ctx2,{
             type:"line",
             data: {
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
+                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Nobiembre", "Diciembre"],
                 datasets: [{
                     label: 'Consumo electrico',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: listaValoresOrdenadorAlMes,
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
+                    borderColor: 'rgb(255, 99, 132)',
                     tension: 0.1
                   }
                 ,
                 {
                     label: 'Consumo en desplazamiento',
-                    data: [23, 56, 21, 81, 90, 100, 123],
+                    data: listaValoresDesplazamientoAlMes,
                     fill: false,
                     borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
