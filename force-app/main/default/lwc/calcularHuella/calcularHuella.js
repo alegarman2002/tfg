@@ -39,6 +39,9 @@ export default class CacularHuella extends LightningElement {
     //si veo que es facil hacemos que se puedan ver años anteriores
     }
 
+    console.log(listaValoresTotales[1])
+    console.log(listaValoresTotales[2])
+
     Promise.all([loadScript(this, chartjs)])
       .then(() => {        
       this.ctx = this.template.querySelector("canvas");

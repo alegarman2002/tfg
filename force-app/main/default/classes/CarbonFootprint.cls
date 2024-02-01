@@ -89,7 +89,7 @@ public with sharing class CarbonFootprint {
         double gastoOrdenadorTotal = 0;
 
 
-        List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
+        List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
         System.debug(diasCreados);
         List<CarboonFootprint__c> resultados = [SELECT ConsumoElectrico__c, ConsumoMotor__c, DiaFin__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
         System.debug(resultados);
@@ -101,22 +101,29 @@ public with sharing class CarbonFootprint {
         double gastoOrdenador = 0;
         
         if (!diasCreados.isEmpty()) {
+            System.debug(diasCreados.size());
             for(integer i = 0; i < diasCreados.size()-1; i++) {
+                
                 sObject dia = diasCreados[i];
                 sObject dia2 = diasCreados[i+1];
                 sObject objetoMes = resultados[i];
                 sObject objetoMes2 = resultados[i+1];
                 Date diaConvertido = (Date) dia.get('DiaCreacion__c');
                 Date diaConvertido2 = (Date) dia2.get('DiaCreacion__c');
-                integer mesesDeDiferencia = diaConvertido.monthsBetween(diaConvertido2);
+                System.debug(diaConvertido);
+                System.debug(diaConvertido2);
                 Integer mesesEntre = diaConvertido.monthsBetween(diaConvertido2);
-                if (mesesDeDiferencia > 6) {
-                    mesesEntre = 6;
-                } 
+                System.debug(mesesEntre);
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
                 gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c')*mesesEntre));
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
+                    System.debug('Dias oficina: ' + objetoMes.get('DiasOficina__c'));
+                    System.debug('Distancia: ' + objetoMes.get('Distancia__c'));
+                    System.debug('Meses entre las fechas' + mesesEntre);
+                    System.debug('Consumo del motor' + objetoMes.get('ConsumoMotor__c'));
+                    System.debug('Integrantes del coche' + objetoMes.get('IntegrantesCoche__c'));
+                    
                     if (objetoMes.get('TipoMotor__c') == 'motorGasolina') {
                         gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2370 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
@@ -134,7 +141,9 @@ public with sharing class CarbonFootprint {
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoAutobus') {
                     gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6 * mesesEntre);
                 } 
+                System.debug(gastoTransporte);
             }
+            
             
             listaValoresDesplazamientoAlMes.add(gastoTransporte);
             listaValoresOrdenadorAlMes.add(gastoOrdenador);
@@ -152,6 +161,7 @@ public with sharing class CarbonFootprint {
         //     // }
         // }
         //Tengo la primera lista con los datos, ahora necesito generar otra lista con el gaasto total para cada mes
+        System.debug(gastoTransporteTotal);
         listaValoresTotales.add(gastoTotal);
         listaValoresTotales.add(gastoTransporteTotal);
         listaValoresTotales.add(gastoOrdenadorTotal);
