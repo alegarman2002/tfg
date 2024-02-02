@@ -47,6 +47,9 @@ public with sharing class CarbonFootprint {
         string tipoCalefaccion = (string) (parametros[7]);
         integer usoCalefaccion = Integer.valueOf(parametros[8]);
         integer distancia = Integer.valueOf(parametros[9]);
+
+        //Falta por añadir lo siguiente
+        //ConsumoCalefaccion__c	
         CarboonFootprint__c cf = new CarboonFootprint__c(
             ConsumoElectrico__c=consumoElectrico,
             ConsumoMotor__c=consumo,
@@ -88,6 +91,8 @@ public with sharing class CarbonFootprint {
 
         List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
         System.debug(diasCreados);
+        //Hay que modificar la consulta para añadir
+        //ConsumoCalefaccion__c	
         List<CarboonFootprint__c> resultados = [SELECT ConsumoElectrico__c, ConsumoMotor__c, DiaFin__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
         System.debug(resultados);
         
@@ -112,10 +117,13 @@ public with sharing class CarbonFootprint {
                 System.debug(mesesEntre);
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
-                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c')*mesesDeDiferencia));
+                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c') * mesesEntre));
                 
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoElectrica') {
-                    gastoOrdenador = gastoOrdenador +     
+                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c') * mesesEntre));
+                } 
+                if (objetoMes.get('TipoCalefaccion__c') == 'tipoGas') {
+                    
                 }
                                 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
@@ -126,21 +134,21 @@ public with sharing class CarbonFootprint {
                     System.debug('Integrantes del coche' + objetoMes.get('IntegrantesCoche__c'));
                     
                     if (objetoMes.get('TipoMotor__c') == 'motorGasolina') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2370 * mesesDeDiferencia) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2370 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                     if (objetoMes.get('TipoMotor__c') == 'motorDiesel') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2650 * mesesDeDiferencia) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2650 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                     if (objetoMes.get('TipoMotor__c') == 'motorElectrico') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2490 * mesesDeDiferencia) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2490 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                 }
 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoTren') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23 * mesesDeDiferencia);
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23 * mesesEntre);
                 }
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoAutobus') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6 * mesesDeDiferencia);
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6 * mesesEntre);
                 } 
                 System.debug(gastoTransporte);
             }
