@@ -130,10 +130,14 @@ public with sharing class MyCalendarController {
         Id userId = UserInfo.getUserId();
         List<sObject> relaciones = [SELECT Id__c FROM MyEventUserRelation__c WHERE IdUser__c = :userId];
         System.debug(relaciones.size());
-        if (relaciones.size() == 0) {
-            return 0;
+        for (integer i = 0; i < relaciones.size(); i++) {
+            sObject event = relaciones[i];
+            if (String.valueOf(event.get('Id__c')) == id) {
+                return 1;
+            }
         }
-        return 1;
+        
+        return 0;
     }
 
     @AuraEnabled
