@@ -34,12 +34,18 @@ export default class CacularHuella extends LightningElement {
     var listaValoresTotales 
     var listaValoresDesplazamientoAlMes
     var listaValoresOrdenadorAlMes
+    var listaMeses
     if (lista.length != 0) {
         listaValoresTotales = lista[0]
         listaValoresDesplazamientoAlMes = lista[1]
         listaValoresOrdenadorAlMes = lista[2]
+        listaMeses = lista[3]
     //Vamos a considerar que el donut muestre todos los valores del historico mientras que el diagrama de linea los muestre del propio año
     //si veo que es facil hacemos que se puedan ver años anteriores
+    }
+    console.log(listaMeses)
+    for (var i = 0; i < listaMeses.length; i++) {
+        
     }
 
     console.log(listaValoresTotales[1])
@@ -110,6 +116,17 @@ export default class CacularHuella extends LightningElement {
         }
         )
     })
+    }
+
+
+    obtenerNombreMes (numero) {
+        let miFecha = new Date();
+        if (0 < numero && numero <= 12) {
+          miFecha.setMonth(numero - 1);
+          return new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(miFecha);
+        } else {
+          return null;
+        }
     }
 
 
