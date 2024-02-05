@@ -106,10 +106,8 @@ public with sharing class CarbonFootprint {
                 sObject dia2 = null;
                 if (i != diasCreados.size()-1) {
                     dia2 = diasCreados[i+1];
-                } else {
+                } 
 
-                }
-                
                 sObject objetoMes = resultados[i];
                 //habria que tener en cuenta la ultima fecha para que la coja cuando hace la diferencia con la actual
                 sObject objetoMes2 = null;
@@ -128,36 +126,37 @@ public with sharing class CarbonFootprint {
                 }
 
                 Integer mesesEntre = diaConvertido.monthsBetween(diaConvertido2);
+                System.debug(diaConvertido);
                 System.debug(mesesEntre);
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
-                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c') * mesesEntre));
+                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 
                 if (objetoMes.get('TipoCalefaccion__c') == 'aaaaaa') {
-                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c') * mesesEntre));
+                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 } 
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoGas') {
-                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c') * mesesEntre));
+                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 }
                                 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
                     
                     if (objetoMes.get('TipoMotor__c') == 'motorGasolina') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2370 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2370) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                     if (objetoMes.get('TipoMotor__c') == 'motorDiesel') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2650 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2650) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                     if (objetoMes.get('TipoMotor__c') == 'motorElectrico') {
-                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2490 * mesesEntre) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
+                        gastoTransporte = gastoTransporte + ((double) objetoMes.get('ConsumoMotor__c') * (double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 2490) /(100 * (double) objetoMes.get('IntegrantesCoche__c'));
                     }
                 }
 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoTren') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23 * mesesEntre);
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23)  / mesesEntre;
                 }
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoAutobus') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6 * mesesEntre);
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6) / mesesEntre;
                 } 
 
                 gastoOrdenadorTotal = gastoOrdenadorTotal + gastoOrdenador;
