@@ -45,9 +45,18 @@ export default class CacularHuella extends LightningElement {
     }
     console.log(listaMeses)
     for (var i = 0; i < listaMeses.length; i++) {
-        
+        listaMeses[i] = this.obtenerNombreMes(listaMeses[i])
     }
 
+    var longitudMaxima = Math.min(12, listaValoresOrdenadorAlMes.length)
+    var startIndex = Math.max(0, listaValoresOrdenadorAlMes.length - longitudMaxima);
+    listaValoresDesplazamientoAlMes.splice(0, startIndex)
+    listaValoresOrdenadorAlMes.splice(0, startIndex)
+
+    console.log(listaValoresDesplazamientoAlMes)
+    console.log(listaValoresOrdenadorAlMes)
+
+    console.log(listaMeses)
     console.log(listaValoresTotales[1])
     console.log(listaValoresTotales[2])
 
@@ -82,11 +91,11 @@ export default class CacularHuella extends LightningElement {
                 );
             });
 
-        this.initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes)
+        this.initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes, listaMeses)
     }
 
 
-    initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes) {
+    initializeChart(listaValoresOrdenadorAlMes, listaValoresDesplazamientoAlMes, listaMeses) {
         console.log("Entramos")
         Promise.all([loadScript(this, chartjs)])
         .then(() => { 
@@ -94,7 +103,7 @@ export default class CacularHuella extends LightningElement {
        this.bar = new window.Chart(this.ctx2,{
             type:"line",
             data: {
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Nobiembre", "Diciembre"],
+                labels: listaMeses,
                 datasets: [{
                     label: 'Consumo electrico',
                     data: listaValoresOrdenadorAlMes,

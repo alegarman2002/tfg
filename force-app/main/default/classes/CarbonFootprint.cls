@@ -183,6 +183,7 @@ public with sharing class CarbonFootprint {
         //     // }
         // }
         //Tengo la primera lista con los datos, ahora necesito generar otra lista con el gaasto total para cada mes
+
         gastoTotal = gastoOrdenadorTotal + gastoTransporteTotal;
         listaValoresTotales.add(gastoTotal);
         listaValoresTotales.add(gastoTransporteTotal);
