@@ -8,6 +8,8 @@ template {
 }
 
 h1 {
+    border-top-left-radius: 0.4em;
+    border-top-right-radius: 0.4em;
     padding-left: 25px;
     color: #12ABDB;
     font-size: 25px;
@@ -43,7 +45,6 @@ label {
 
 
 .form {
-    width:50%;
     padding: 2%;
     background-color: white;
     font-family: "Ubuntu";
