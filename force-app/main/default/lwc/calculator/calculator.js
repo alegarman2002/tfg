@@ -133,9 +133,9 @@ export default class Calculator extends LightningElement {
 
     async registrateData() {
 
-        await guardarDatos()
+        // await guardarDatos()
         //Consumo electrico total
-        console.log("Consumo electrico ", this.consumoElectrico)
+        // console.log("Consumo electrico ", this.consumoElectrico)
         //Dias que se van a la oficina por mes
         // console.log("Dias a la oficina ", this.dias)
         //Metodo de transporte elegido
@@ -153,20 +153,22 @@ export default class Calculator extends LightningElement {
         //Horas de uso de la calefaccion
         // console.log("Horas de uso de la calefaccion ", this.calefaccion)
 
-        // localStorage.setItem('consumoElectrico', this.consumoElectrico)
-        // localStorage.setItem('monitores', this.monitores)
-        // localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
-        // localStorage.setItem('calefaccion', this.calefaccion)
-        // window.open("/s/footprintcalculatorpart2", "_self")
-        // if(this.consumoElectrico == null || this.distancia == null) {
-        //     const event = new ShowToastEvent({
-        //         title: 'Alerta',
-        //         message: 'Por favor completa todos los campos requeridos',
-        //         variant: 'error',
-        //     });
-        //     this.dispatchEvent(event)
-        //     return
-        // }
+        localStorage.setItem('consumoElectrico', this.consumoElectrico)
+        localStorage.setItem('monitores', this.monitores)
+        localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
+        localStorage.setItem('calefaccion', this.calefaccion)
+        
+        if(this.consumoElectrico == null || this.distancia == null) {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Por favor completa todos los campos requeridos',
+                variant: 'error',
+            });
+            this.dispatchEvent(event)
+            return
+        }
+        
+        window.open("/s/footprintcalculatorpart2", "_self")
         // if (this.consumo == null && this.metodoElegido == 'metodoCoche') {
         //     const event = new ShowToastEvent({
         //         title: 'Alerta',
