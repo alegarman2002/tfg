@@ -52,7 +52,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
 
        try {
         // core 📆
-        console.log(fullCalendar)
+     //    console.log(fullCalendar)
         await Promise.all([
              loadScript(this, fullCalendar + "/packages/core/main.js"),
              loadStyle(this, fullCalendar + "/packages/core/main.css")
@@ -75,7 +75,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     }
 
     async init() { 
-          console.log("Primera prueba")
+          // console.log("Primera prueba")
         const calendarEl = this.template.querySelector(".calendar")
 
         this.calendar = new FullCalendar.Calendar(calendarEl, {
@@ -190,7 +190,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         })
         const info = await getUserLogInfo()
         var dateString = await obtainLastDayDataIsRecorded()
-        console.log("Vemos el dia: ", dateString)
+     //    console.log("Vemos el dia: ", dateString)
         //'0' + (currentDate.getMonth()+1)).slice(-2)
         var dayToCompare
         var actualDay
@@ -227,14 +227,14 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
     async myEventsView() {
                
           if (this.variableControlTabla == 0) {
-               console.log("Antes de empezar")
+               // console.log("Antes de empezar")
                var eventos
                await getEventsOfTheUser().then(attribute => {eventos = attribute})
-               console.log(eventos)
+               // console.log(eventos)
                
                
                var divElement = this.template.querySelector(".contenedorTabla")
-               console.log(divElement)
+               // console.log(divElement)
                var stringToInnerHTML = '<table class="tableOfEvents" style="background-color:#ffffff;border:1px solid black;border-collapse:collapse;width:100%;"><tr><td style="border:1px solid black;padding:10px;">Fecha de inicio</td><td>Fecha de fin</td style="border:1px solid black;padding:10px;"><td style="border:1px solid black;padding:10px;">Nombre</td></tr>'
                
                for(var i = 0; i < eventos.length; i++) {
@@ -309,11 +309,11 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
      }
    }
    async paintHolidayDays() {
-     console.log("Entramos en el metodo de los festivos")
+     // console.log("Entramos en el metodo de los festivos")
      var listaFestivos = await getHolidayDays()
      for (var i = 0; i < listaFestivos.length; i++) {
           var eventStart = listaFestivos[i].substring(0, 10)
-          console.log(eventStart)
+          // console.log(eventStart)
           var event = {
                id: eventStart,
                start: eventStart,
@@ -324,7 +324,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
           this.calendar.addEvent(event)
           this.listUsedDays.push(eventStart)
      }
-     console.log(listaFestivos)
+     // console.log(listaFestivos)
    }
    //Poner el lunes como primer dia del calendario
    //Pintarlos en gris clarito y añadir una lista con 
@@ -363,15 +363,18 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
      }
 
      open_capgemini() {
-          console.log("antes")
-          window.open('https://www.capgemini.com/es-es/', '_blank', 'noopener,noreferrer');
-          console.log("despues")
+          // console.log("antes")
+          window.open('https://www.capgemini.com/es-es/', '_blank', 'noopener,noreferrer')
+          // console.log("despues")
      }
 
      open_calculator() {
           window.open("/s/footprintcalculator", "_self")
      }
 
+     open_salesforce() {
+          window.open('https://www.salesforce.com/es/', '_blank', 'noopener, noreferrer')
+     }
 
    async showEvents() {
         try {

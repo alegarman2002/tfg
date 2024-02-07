@@ -1,13 +1,14 @@
 import { LightningElement } from 'lwc';
 import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
+import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
 
 export default class CalculatorPart2 extends LightningElement {
 
     consumoElectrico = null
     dias = 5
-    metodoElegido
-    valorMotor
+    metodoElegido = null
+    valorMotor = null
     consumo = null
     integrantesCoche = 1
     monitores = 1
@@ -43,7 +44,7 @@ export default class CalculatorPart2 extends LightningElement {
     handleMethodOptionChange(event) {
         this.metodoElegido = event.detail.value
         if (this.metodoElegido == 'metodoCoche') {
-            var input =     
+            var input = this.template.querySelector('[data-id="consumoCoche"]');
             console.log("Valor del input: ", input)
             input.style.display = 'block'
             input = this.template.querySelector('[data-id="motorCoche"]')
@@ -95,10 +96,38 @@ export default class CalculatorPart2 extends LightningElement {
 
     async registrateData() {
         
+        if(this.distancia == null) {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Por favor completa todos los campos requeridos',
+                variant: 'error',
+            });
+            this.dispatchEvent(event)
+            return
+        }
+        if (this.metodoElegido == null) {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Por favor completa todos los campos requeridos',
+                variant: 'error',
+            });
+            this.dispatchEvent(event)
+            return
+        }
+ 
+        if (this.metodoElegido == 'metodoCoche' && (this.consumo == null || this.valorMotor == null)) {
+            const event = new ShowToastEvent({
+                title: 'Alerta',
+                message: 'Por favor completa todos los campos requeridos',
+                variant: 'error',
+            });
+            this.dispatchEvent(event)
+            return
+        }
 
         var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
-        var guardado = 0
-        await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
+        var guardado = 1
+        //await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
         if (guardado == 1) {
             const event = new ShowToastEvent({
                 title: 'Alerta',

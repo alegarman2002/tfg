@@ -49,6 +49,10 @@ label {
     display: none;
 }
 
+.vehiculo {
+    padding-left: 25px;
+}
+
 .slds-slider__range {
     color: #12ABDB;
     font-family: "Ubuntu";

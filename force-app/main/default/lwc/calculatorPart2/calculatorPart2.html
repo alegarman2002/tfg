@@ -2,7 +2,8 @@
   <h1>Calculadora de CO2</h1>
 
   <h2>Desplazamientos</h2>
-    <div class="vehiculo">
+    <div class="form">
+      <div class="vehiculo">
         <lightning-slider class="lightning" label="Oficina (días al mes de media)" min="0" max="20" value={dias} onchange={diasMes}></lightning-slider>
       </div>
   
@@ -38,4 +39,5 @@
         <button class="button" onclick={registrateData}>Registrar datos</button>
 
       </div>
+    </div>
 </template>

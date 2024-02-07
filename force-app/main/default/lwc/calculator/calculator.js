@@ -1,10 +1,15 @@
 import { LightningElement } from 'lwc';
 import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import comprobarUltimoGuardado from '@salesforce/apex/CarbonFootprint.comprobarUltimoGuardado'
 export default class Calculator extends LightningElement {
 
+
+
+    //Obtenemos los valores de la ultima insercion que tenemos de datos para compararlos con los introducidos actualmente
+    //De esta manera con el onchange le podemos enseñar al usuario como evolucionan los datos conforme los introduce
+    //A su vez tenemos que tener en cuenta que cuando lo inyectemos en el proyecto no tenemos que crearlo
     consumoElectrico = null
     dias = 5
     metodoElegido
@@ -46,7 +51,7 @@ export default class Calculator extends LightningElement {
 
     saveMonitor() {
         this.monitores = this.template.querySelector("[data-id='input-17']").value
-        console.log(this.monitores)
+        // console.log(this.monitores)
     }
 
     get metodosDeTransporte() {
@@ -86,27 +91,6 @@ export default class Calculator extends LightningElement {
             input.style.display = 'block'
         } else {
             var input = this.template.querySelector('[data-id="horasDeUso"]');
-            input.style.display = 'none'
-        }
-    }
-
-    handleMethodOptionChange(event) {
-        this.metodoElegido = event.detail.value
-        if (this.metodoElegido == 'metodoCoche') {
-            var input =     
-            console.log("Valor del input: ", input)
-            input.style.display = 'block'
-            input = this.template.querySelector('[data-id="motorCoche"]')
-            input.style.display = 'block'
-            input = this.template.querySelector('[data-id="integrantesCoche"]')
-            input.style.display = 'block'
-        }else {
-            var input = this.template.querySelector('[data-id="consumoCoche"]');
-            console.log("Valor del input: ", input)
-            input.style.display = 'none'
-            input = this.template.querySelector('[data-id="motorCoche"]')
-            input.style.display = 'none'
-            input = this.template.querySelector('[data-id="integrantesCoche"]')
             input.style.display = 'none'
         }
     }
@@ -158,7 +142,7 @@ export default class Calculator extends LightningElement {
         localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
         localStorage.setItem('calefaccion', this.calefaccion)
         
-        if(this.consumoElectrico == null || this.distancia == null) {
+        if(this.consumoElectrico == null) {
             const event = new ShowToastEvent({
                 title: 'Alerta',
                 message: 'Por favor completa todos los campos requeridos',
@@ -169,15 +153,6 @@ export default class Calculator extends LightningElement {
         }
         
         window.open("/s/footprintcalculatorpart2", "_self")
-        // if (this.consumo == null && this.metodoElegido == 'metodoCoche') {
-        //     const event = new ShowToastEvent({
-        //         title: 'Alerta',
-        //         message: 'Por favor completa todos los campos requeridos',
-        //         variant: 'error',
-        //     });
-        //     this.dispatchEvent(event)
-        //     return
-        // }
         // var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
         // var guardado = 0
         // await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
