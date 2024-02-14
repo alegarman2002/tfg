@@ -19,7 +19,7 @@ export default class Calculator extends LightningElement {
     integrantesCoche = 1
     monitores = 1
     tipoCalefaccion
-    calefaccion = -4
+    calefaccion = 0
     distancia = null
     iconoMonitor = iMonitor
     controlVecesQueAparece = 0
@@ -40,7 +40,12 @@ export default class Calculator extends LightningElement {
                 var botonSiguiente = this.template.querySelector('button')
                 botonSiguiente.style.disabled = true
             } 
+            console.log('Antes de la llamada')
             this.listaValoresAnteriores = await obtenerDatosUltimoMes()
+            if (this.listaValoresAnteriores != null) {
+                this.listaValoresAnteriores = this.listaValoresAnteriores[0]
+            }
+            console.log('Lista valores anteriores', this.listaValoresAnteriores)
         }
     }
 
@@ -84,7 +89,26 @@ export default class Calculator extends LightningElement {
     }
 
     cale(event) {
+
+
+        //Mismo procedimiento que con el consumo electrico
+        var valorUltimoMes = this.listaValoresAnteriores.ConsumoElectrico__c
+        var input = this.template.querySelector('[data-id="actualizacionHorasUsoCale"]');
+        
+        console.log(valorUltimoMes)
+        console.log(valorUltimoMes - this.comsumoElectrico)
         this.calefaccion = event.detail.value
+
+        if (this.calefaccion < valorUltimoMes) {
+            input.innerHTML = "Enhorabuena has reducido tus horas de uso de la calefaccion en " +  (valorUltimoMes - this.calefaccion)
+            input.style.display = 'block'
+        } else if (this.calefaccion == valorUltimoMes) {
+            input.style.display = 'none'
+        } else {
+            input.innerHTML = "Vaya parece que el tus horas de uso de calefaccion ha aumentado en " +  (this.calefaccion - valorUltimoMes)
+            input.style.display = 'block'
+        }
+
     }
 
     handleHeatingOptionChange(event) {
@@ -107,7 +131,25 @@ export default class Calculator extends LightningElement {
     }
 
     consElectrico(event) {
+        //Tenemos que obtener el valor del ultimo mes que estaria almacenado en
+        var valorUltimoMes = this.listaValoresAnteriores.ConsumoElectrico__c
+        var input = this.template.querySelector('[data-id="actualizacionConsumoElectrico"]');
+        
+        console.log(valorUltimoMes)
+        console.log(valorUltimoMes - this.comsumoElectrico)
         this.consumoElectrico = event.detail.value
+
+        if (this.consumoElectrico < valorUltimoMes) {
+            input.innerHTML = "Enhorabuena has reducido tu consumo electrico en " +  (valorUltimoMes - this.consumoElectrico) + 'Wh'
+            input.style.display = 'block'
+        } else if (this.consumoElectrico == valorUltimoMes) {
+            input.style.display = 'none'
+        } else {
+            input.innerHTML = "Vaya parece que el tu consumo ha aumentado en " +  (this.consumoElectrico - valorUltimoMes) + 'Wh'
+            input.style.display = 'block'
+        }
+
+
     }
 
     dist(event) {
