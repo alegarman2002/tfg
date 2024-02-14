@@ -3,6 +3,7 @@ import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import comprobarUltimoGuardado from '@salesforce/apex/CarbonFootprint.comprobarUltimoGuardado'
+import obtenerDatosUltimoMes from '@salesforce/apex/CarbonFootprint.obtenerDatosUltimoMes'
 export default class Calculator extends LightningElement {
 
 
@@ -22,6 +23,7 @@ export default class Calculator extends LightningElement {
     distancia = null
     iconoMonitor = iMonitor
     controlVecesQueAparece = 0
+    listaValoresAnteriores
 
     async renderedCallback() {
         if (this.controlVecesQueAparece == 0) {
@@ -38,6 +40,7 @@ export default class Calculator extends LightningElement {
                 var botonSiguiente = this.template.querySelector('button')
                 botonSiguiente.style.disabled = true
             } 
+            this.listaValoresAnteriores = await obtenerDatosUltimoMes()
         }
     }
 
@@ -141,6 +144,7 @@ export default class Calculator extends LightningElement {
         localStorage.setItem('monitores', this.monitores)
         localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
         localStorage.setItem('calefaccion', this.calefaccion)
+        localStorage.setItem('valoresAnteriores', this.listaValoresAnteriores)
         
         if(this.consumoElectrico == null) {
             const event = new ShowToastEvent({

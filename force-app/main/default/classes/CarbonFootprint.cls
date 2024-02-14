@@ -245,7 +245,8 @@ public with sharing class CarbonFootprint {
 
     @AuraEnabled
     public static List<CarboonFootprint__c> obtenerDatosUltimoMes(){
-        List<CarboonFootprint__c> dias = [SELECT DiaCreacion__c, ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c DESC LIMIT 1]
+        Id userId = UserInfo.getUserId();
+        List<CarboonFootprint__c> dias = [SELECT ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c DESC LIMIT 1];
         return dias;
         //Revisar metodo pues igual podemos simplificar la consulta cosa que puede venirnos muy bien
     }
