@@ -128,11 +128,10 @@
     padding-left: 10px;
   }
   
-  .custEventMap {
-    border: 1px solid #12ABDB;
-    margin-bottom: 10px;
+  .img {
+  align-items: center;
   }
-  
+
   .featuredEvents {
     background: #ecedef;
     padding: 20px 20px;

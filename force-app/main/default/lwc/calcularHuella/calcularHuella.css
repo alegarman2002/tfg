@@ -3,6 +3,14 @@
     src: url("sfsites/c/resource/UbuntuFont") format("TrueType");
 }
 
+h2 {
+    padding-top: 20px;
+    color: #12ABDB;
+    font-size: 25px;
+    background-color: white;
+    font-family: "Ubuntu";
+}
+
 .button { 
     display: inline-block;
     color: #fff;

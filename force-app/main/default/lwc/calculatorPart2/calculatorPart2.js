@@ -15,12 +15,14 @@ export default class CalculatorPart2 extends LightningElement {
     tipoCalefaccion
     calefaccion = 4
     distancia = null
+    consumoMotorAnterior 
 
     renderedCallback() {
         this.consumoElectrico = localStorage.getItem('consumoElectrico')
         this.monitores = localStorage.getItem('monitores')
         this.tipoCalefaccion = localStorage.getItem('tipoCalefaccion')
         this.calefaccion = localStorage.getItem('calefaccion')
+        this.consumoMotorAnterior = localStorage.getItem('consumoMotor')
     }
 
     get metodosDeTransporte() {
@@ -59,6 +61,8 @@ export default class CalculatorPart2 extends LightningElement {
             input.style.display = 'none'
             input = this.template.querySelector('[data-id="integrantesCoche"]')
             input.style.display = 'none'
+            input = this.template.querySelector('[data-id="actualizacionConsumoCoche"]')
+            input.style.display = 'none'
         }
     }
 
@@ -79,7 +83,23 @@ export default class CalculatorPart2 extends LightningElement {
     }
 
     cons(event) {
-        this.consumo = event.detail.value
+
+        var valorUltimoMes = parseFloat(this.consumoMotorAnterior)
+        var input = this.template.querySelector('[data-id="actualizacionConsumoCoche"]')
+        
+        console.log(valorUltimoMes)
+        console.log(valorUltimoMes - this.comsumoElectrico)
+        this.consumo = parseFloat(event.detail.value)
+
+        if (this.consumo < valorUltimoMes) {
+            input.innerHTML = "Enhorabuena has reducido el consumo de tu coche en " +  (valorUltimoMes - this.consumo) + " litros cada 100Km"
+            input.style.display = 'block'
+        } else if (this.consumo == valorUltimoMes || this.consumo == NaN) {
+            input.style.display = 'none'
+        } else {
+            input.innerHTML = "Debes controlar el acelerador tu consumo del coche ha aumentado en " +  (this.consumo - valorUltimoMes) + " litros cada 100Km"
+            input.style.display = 'block'
+        }
     }
 
     diasMes(event) {

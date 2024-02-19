@@ -37,8 +37,10 @@ export default class Calculator extends LightningElement {
                     variant: 'error',
                 });
                 this.dispatchEvent(event)
-                var botonSiguiente = this.template.querySelector('button')
-                botonSiguiente.style.disabled = true
+                var botonSiguiente = this.template.querySelector('[data-id="buttonSig"]')
+                botonSiguiente.disabled = true
+                botonSiguiente.style.opacity = 0.5;
+
             } 
             console.log('Antes de la llamada')
             this.listaValoresAnteriores = await obtenerDatosUltimoMes()
@@ -46,6 +48,7 @@ export default class Calculator extends LightningElement {
                 this.listaValoresAnteriores = this.listaValoresAnteriores[0]
             }
             console.log('Lista valores anteriores', this.listaValoresAnteriores)
+
         }
     }
 
@@ -92,11 +95,12 @@ export default class Calculator extends LightningElement {
 
 
         //Mismo procedimiento que con el consumo electrico
-        var valorUltimoMes = this.listaValoresAnteriores.ConsumoElectrico__c
+        var valorUltimoMes = this.listaValoresAnteriores.UsoCalefaccion__c
+        
         var input = this.template.querySelector('[data-id="actualizacionHorasUsoCale"]');
         
         console.log(valorUltimoMes)
-        console.log(valorUltimoMes - this.comsumoElectrico)
+        console.log(valorUltimoMes - this.calefaccion)
         this.calefaccion = event.detail.value
 
         if (this.calefaccion < valorUltimoMes) {
@@ -186,7 +190,7 @@ export default class Calculator extends LightningElement {
         localStorage.setItem('monitores', this.monitores)
         localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
         localStorage.setItem('calefaccion', this.calefaccion)
-        localStorage.setItem('valoresAnteriores', this.listaValoresAnteriores)
+        localStorage.setItem('consumoMotor', this.listaValoresAnteriores.ConsumoMotor__c)
         
         if(this.consumoElectrico == null) {
             const event = new ShowToastEvent({

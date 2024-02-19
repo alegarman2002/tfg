@@ -259,7 +259,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.calendar.next();
         this.calendarLabel  = this.calendar.view.title;
         this.paintFreeDays()
-
+        this.calendar.render()
         // this.setDates()
    }
     
@@ -268,6 +268,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.calendarLabel  = this.calendar.view.title;
         this.paintFreeDays()
         // this.setDates()
+        this.calendar.render()
    }
    
    today() {
@@ -275,20 +276,24 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.calendarLabel = this.calendar.view.title;
         this.paintFreeDays()
         // this.setDates()
+        this.calendar.render()
    }
     
    monthlyViewHandler() {
         this.calendar.changeView('dayGridMonth');
         this.calendarLabel = this.calendar.view.title;
+        this.calendar.render()
    }
 
    listViewEvents() {
           this.calendar.changeView('listMonth');
           this.calendarLabel = this.calendar.view.title;
+          this.calendar.render()
    }
     
    handleMessageChange(event) {
      this.message = event.detail;
+     this.calendar.render()
    }  
 
    handleEventClick = (info) => {
@@ -425,7 +430,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
           // Verifica si se encontró una coincidenci
           //Parte para controlar el cambio de color del background   
           this.paintFreeDays()
-          
+          this.calendar.render()
          
         } catch (error) {
           console.error("Error al obtener eventos: ", error)
