@@ -19,7 +19,7 @@ export default class Calculator extends LightningElement {
     integrantesCoche = 1
     monitores = 1
     tipoCalefaccion
-    calefaccion = 0
+    calefaccion = 1
     distancia = null
     iconoMonitor = iMonitor
     controlVecesQueAparece = 0

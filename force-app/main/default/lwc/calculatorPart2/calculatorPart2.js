@@ -147,7 +147,7 @@ export default class CalculatorPart2 extends LightningElement {
 
         var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
         var guardado = 1
-        //await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
+        await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
         if (guardado == 1) {
             const event = new ShowToastEvent({
                 title: 'Alerta',

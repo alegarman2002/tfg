@@ -772,7 +772,7 @@ public with sharing class CarbonFootprint {
     public static List<List<double>> calcularHuellaUsuario() {
         Date diaActual = Date.today();
         Id userID = UserInfo.getUserId();
-        
+        System.debug(userId)
         List<List<double>> listaADevolver = new List<List<double>>();
         List<double> listaValoresTotales = new List<double>();
         List<double> listaValoresDesplazamientoAlMes = new List<double>();

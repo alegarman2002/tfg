@@ -35,7 +35,9 @@ export default class CacularHuella extends LightningElement {
             console.error("Error " + error);
         })
     ])
+    console.log("Antes de calcular")
     await calcularHuellaUsuario().then((atribute => {this.lista = atribute}))
+    console.log("Despues de calcular")
     console.log(this.lista)
     if (this.lista.length != 0) {
         this.listaValoresTotales = this.lista[0]
