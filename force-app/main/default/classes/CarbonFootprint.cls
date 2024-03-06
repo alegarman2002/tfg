@@ -16,12 +16,711 @@ public with sharing class CarbonFootprint {
         return 1;
     }
 
+    // @AuraEnabled
+    // public static void insertarDatos() {
+    //     Date diaActual = Date.today();
+    //     Id userId = UserInfo.getUserId();
+    //     integer consumoElectrico = 0;
+    //     integer dias = 0;
+    //     string metodoElegido = '';
+    //     string valorMotor = '';
+    //     double consumo = 0;
+    //     integer integrantesCoche = 0;
+    //     integer monitores = 0;
+    //     System.debug(monitores);
+    //     string tipoCalefaccion = '';
+    //     integer usoCalefaccion = 0;
+    //     double distancia = 0;
+
+
+    //     //Miguel Nayon
+
+    //     diaActual = Date.newInstance(2023, 3, 14);
+    //     consumoElectrico = 500;
+    //     dias = 10;
+    //     metodoElegido = 'metodoAndando';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 0.5;
+    //     userId = Id.valueOf('0050600000HkBbsAAF');
+
+    //     CarboonFootprint__c cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 5, 11);
+    //     consumoElectrico = 450;
+    //     dias = 7;
+    //     metodoElegido = 'metodoAndando';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 0.5;
+    //     userId = Id.valueOf('0050600000HkBbsAAF');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 6, 10);
+    //     consumoElectrico = 550;
+    //     dias = 14;
+    //     metodoElegido = 'metodoAndando';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 0.5;
+    //     userId = Id.valueOf('0050600000HkBbsAAF');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 10, 20);
+    //     consumoElectrico = 500;
+    //     dias = 5;
+    //     metodoElegido = 'metodoAndando';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 0.5;
+    //     userId = Id.valueOf('0050600000HkBbsAAF');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 12, 13);
+    //     consumoElectrico = 500;
+    //     dias = 10;
+    //     metodoElegido = 'metodoAndando';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'tipoElectrica';
+    //     usoCalefaccion = 5;
+    //     distancia = 0.5;
+    //     userId = Id.valueOf('0050600000HkBbsAAF');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     //Carlos Garcia
+    //     diaActual = Date.newInstance(2023, 4, 03);
+    //     consumoElectrico = 700;
+    //     dias = 2;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 7, 07);
+    //     consumoElectrico = 720;
+    //     dias = 5;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 9, 11);
+    //     consumoElectrico = 680;
+    //     dias = 2;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 11, 11);
+    //     consumoElectrico = 700;
+    //     dias = 2;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 12, 21);
+    //     consumoElectrico = 720;
+    //     dias = 2;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 4;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2024, 1, 3);
+    //     consumoElectrico = 690;
+    //     dias = 2;
+    //     metodoElegido = 'metodoBicicleta';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 6;
+    //     distancia = 5;
+    //     userId = Id.valueOf('0050600000GpoaFAAR');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     //Enrique sabater
+    //     diaActual = Date.newInstance(2023, 4, 13);
+    //     consumoElectrico = 690;
+    //     dias = 4;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 1;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 6, 02);
+    //     consumoElectrico = 620;
+    //     dias = 5;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 1;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 8, 16);
+    //     consumoElectrico = 590;
+    //     dias = 5;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 1;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 11, 15);
+    //     consumoElectrico = 630;
+    //     dias = 10;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 1;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2023, 12, 18);
+    //     consumoElectrico = 760;
+    //     dias = 5;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 2;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     diaActual = Date.newInstance(2024, 2, 15);
+    //     consumoElectrico = 710;
+    //     dias = 4;
+    //     metodoElegido = 'metodoTren';
+    //     valorMotor = '';
+    //     consumo = 0;
+    //     integrantesCoche = 1;
+    //     monitores = 1;
+    //     tipoCalefaccion = 'tipoGas';
+    //     usoCalefaccion = 4;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000Gpoa0AAB');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+    //     //Jose Perez
+    //     diaActual = Date.newInstance(2023, 4, 11);
+    //     consumoElectrico = 550;
+    //     dias = 4;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 5.7;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 7, 13);
+    //     consumoElectrico = 540;
+    //     dias = 6;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 5.7;
+    //     integrantesCoche = 2;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 9, 08);
+    //     consumoElectrico = 710;
+    //     dias = 10;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 6.2;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 11, 23);
+    //     consumoElectrico = 710;
+    //     dias = 15;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 6.2;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2023, 12, 09);
+    //     consumoElectrico = 710;
+    //     dias = 2;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 5.7;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+
+
+    //     diaActual = Date.newInstance(2024, 1, 16);
+    //     consumoElectrico = 710;
+    //     dias = 6;
+    //     metodoElegido = 'metodoCoche';
+    //     valorMotor = 'motorDiesel';
+    //     consumo = 5.7;
+    //     integrantesCoche = 1;
+    //     monitores = 2;
+    //     tipoCalefaccion = 'sinCalefaccion';
+    //     usoCalefaccion = 0;
+    //     distancia = 50;
+    //     userId = Id.valueOf('0050600000G2vAWAAZ');
+
+    //     cf = new CarboonFootprint__c(
+    //         ConsumoElectrico__c=consumoElectrico,
+    //         ConsumoMotor__c=consumo,
+    //         DiaCreacion__c=diaActual,
+    //         DiasOficina__c=dias,
+    //         IntegrantesCoche__c=integrantesCoche,
+    //         MetodoTransporte__c=metodoElegido,
+    //         Monitores__c=monitores,
+    //         TipoCalefaccion__c=tipoCalefaccion,
+    //         TipoMotor__c=valorMotor,
+    //         UserId__c=userId,
+    //         UsoCalefaccion__c=usoCalefaccion,
+    //         Distancia__c=distancia
+    //         );
+    //     insert cf;
+        
+
+    // }
 
     @AuraEnabled
     public static integer guardarDatos(List<string> parametros) {
         System.debug('Hola');
         Date diaActual = Date.today();
-        Date diaHaceUnAnio = diaActual;
         Id userId = UserInfo.getUserId();
         System.debug(parametros);
         // List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
@@ -48,8 +747,6 @@ public with sharing class CarbonFootprint {
         integer usoCalefaccion = Integer.valueOf(parametros[8]);
         integer distancia = Integer.valueOf(parametros[9]);
 
-        //Falta por añadir lo siguiente
-        //ConsumoCalefaccion__c	
         CarboonFootprint__c cf = new CarboonFootprint__c(
             ConsumoElectrico__c=consumoElectrico,
             ConsumoMotor__c=consumo,
@@ -184,9 +881,15 @@ public with sharing class CarbonFootprint {
         //Tengo la primera lista con los datos, ahora necesito generar otra lista con el gaasto total para cada mes
 
         gastoTotal = gastoOrdenadorTotal + gastoTransporteTotal;
-        listaValoresTotales.add(gastoTotal);
-        listaValoresTotales.add(gastoTransporteTotal);
-        listaValoresTotales.add(gastoOrdenadorTotal);
+        Decimal myDecimal = gastoTotal;
+        Decimal divDec = myDecimal.divide(1000, 3);
+        listaValoresTotales.add(divDec);
+        myDecimal = gastoTransporteTotal;
+        divDec = myDecimal.divide(1000, 3);
+        listaValoresTotales.add(divDec);
+        myDecimal = gastoOrdenadorTotal;
+        divDec = myDecimal.divide(1000, 3);
+        listaValoresTotales.add(divDec);
 
         listaADevolver.add(listaValoresTotales);
         listaADevolver.add(listaValoresDesplazamientoAlMes);
@@ -238,7 +941,9 @@ public with sharing class CarbonFootprint {
 
     public static void agregarElementosLista(List<double> lista, double elemento, Integer veces) {
         for (Integer i = 0; i < veces; i++) {
-            lista.add(elemento);
+            Decimal myDecimal = elemento;
+            Decimal divDec = myDecimal.divide(1000, 3);
+            lista.add(divDec);
         }
     }
 

@@ -83,6 +83,8 @@ template {
 
 .modify-button-color {
   background-color: #ffffff;
+  width: 150px;
+  height: 150px;
 }
 
 .image_calendar span p img{

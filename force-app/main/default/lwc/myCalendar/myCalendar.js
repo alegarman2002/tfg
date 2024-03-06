@@ -17,6 +17,7 @@ import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import getHolidayDays from '@salesforce/apex/MyCalendarController.getHolidayDays'
 import getEventsOfTheUser from '@salesforce/apex/MyCalendarController.getEventsOfTheUser'
 import obtainLastDayDataIsRecorded from '@salesforce/apex/CarbonFootprint.obtainLastDayDataIsRecorded'
+// import insertarDatos from '@salesforce/apex/CarbonFootprint.insertarDatos'
 
 export default class MyCalendar extends NavigationMixin(LightningElement) {
 
@@ -49,7 +50,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         }
 
        this.initialized = true
-
+     //    await insertarDatos()
        try {
         // core 📆
      //    console.log(fullCalendar)
