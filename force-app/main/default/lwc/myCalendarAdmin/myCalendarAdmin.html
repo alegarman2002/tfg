@@ -1,0 +1,45 @@
+<template>
+    <div class="slds-grid slds-wrap">
+         
+        <div class="slds-col slds-size_8-of-12 slds-col_bump-right">
+             <h3 class="slds-text-heading_medium">{calendarLabel}</h3>
+             <div class="legend">
+                  <span>Leyenda:</span>
+                  <div class="legend-item">
+                      <div class="circle-current-day"></div>
+                      <span class="circle-current-day">Día Actual: </span>
+                      <div class="circle-current circle-current-day"></div>
+                  </div>
+                  <div class="legend-item">
+                      <div class="circle-holidays"></div>
+                      <span class="circle-holidays">Fin de semana: </span>
+                      <div class="circle-holiday circle-holidays"></div>
+                  </div>
+                  <div class="legend-item">
+                       <div class="circle-leapDay"></div>
+                       <span class="circle-leapDay">Festivo: </span>
+                       <div class="circle-leapDay circle-leapDayS"></div>
+                   </div>
+              </div>
+        </div>
+        <div class="slds-col slds-size_3-of-12">
+             <div class="btn-group" role="group">
+                  <button class="today-button all-buttons" onclick={today}>
+                       Dia actual
+                   </button>
+                  <!-- <div class="navigation"> -->
+                       <button class="slds-button all-buttons" onclick={previousHandler}>
+                            <img src={flechaIzquierda} alt="Descripción de la imagen">
+                       </button>
+                       <button class="slds-button all-buttons" onclick={nextHandler}>
+                            <img src={flechaDerecha} alt="Descripción de la imagen">
+                       </button>
+                  <!-- </div> -->
+             </div>
+        </div>
+  </div>
+
+  <div class="slds-grid" >
+       <div id="calendar" class="calendar" lwc:dom="manual" ontouchmove={handleScroll} onscroll={handleScroll}></div>
+  </div>
+</template>

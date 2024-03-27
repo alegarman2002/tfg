@@ -722,6 +722,7 @@ public with sharing class CarbonFootprint {
         System.debug('Hola');
         Date diaActual = Date.today();
         Id userId = UserInfo.getUserId();
+        string fullName = UserInfo.getFirstName() + ' ' + UserInfo.getLastName();
         System.debug(parametros);
         // List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId];
         // for(integer i = 0; i < diasCreados.size(); i++) {
@@ -749,6 +750,7 @@ public with sharing class CarbonFootprint {
 
         CarboonFootprint__c cf = new CarboonFootprint__c(
             ConsumoElectrico__c=consumoElectrico,
+            NombreCompleto__c=fullName,
             ConsumoMotor__c=consumo,
             DiaCreacion__c=diaActual,
             DiasOficina__c=dias,
@@ -772,7 +774,7 @@ public with sharing class CarbonFootprint {
     public static List<List<double>> calcularHuellaUsuario() {
         Date diaActual = Date.today();
         Id userID = UserInfo.getUserId();
-        System.debug(userId)
+        System.debug(userId);
         List<List<double>> listaADevolver = new List<List<double>>();
         List<double> listaValoresTotales = new List<double>();
         List<double> listaValoresDesplazamientoAlMes = new List<double>();
@@ -796,7 +798,7 @@ public with sharing class CarbonFootprint {
         
         
         if (!diasCreados.isEmpty()) {
-            for(integer i = 0; i < diasCreados.size(); i++) {
+            for(integer i = 0; i < diasCreados.size()-1; i++) {
                 double gastoTransporte = 0;
                 double gastoOrdenador = 0;
                 sObject dia = diasCreados[i];
@@ -825,6 +827,7 @@ public with sharing class CarbonFootprint {
                 Integer mesesEntre = diaConvertido.monthsBetween(diaConvertido2);
                 System.debug(diaConvertido);
                 System.debug(mesesEntre);
+
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
                 gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;

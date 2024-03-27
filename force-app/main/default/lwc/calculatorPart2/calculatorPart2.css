@@ -8,8 +8,10 @@ template {
 }
 
 h1 {
-    border-top-left-radius: 0.4em;
-    border-top-right-radius: 0.4em;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding-left: 6%;
+    padding-right: 6%;
     padding-left: 25px;
     color: #12ABDB;
     font-size: 25px;
@@ -20,6 +22,8 @@ h1 {
 h2 {
     padding-left: 25px;
     color: #12ABDB;
+    padding-left: 6%;
+    padding-right: 6%;
     font-size: 15px;
     background-color: white;
     font-family: "Ubuntu";
@@ -42,7 +46,8 @@ label {
 
 .form {
     width:50%;
-    padding: 2%;
+    padding-left: 6%;
+    padding-right: 6%;
     background-color: white;
     font-family: "Ubuntu";
 }
@@ -64,6 +69,8 @@ label {
     display: inline-block;
     color: #fff;
     background: #12ABDB;
+    padding-left: 6%;
+    padding-right: 6%;
     padding: 5px 15px;
     border : none;
     text-transform: uppercase;

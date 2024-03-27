@@ -101,8 +101,8 @@ h1{
   background-color: #ffffff;
   font-size: 4em; /* Tamaño de la letra */
   color: #12ABDB;
-  border-top-left-radius: 0.4em;
-  border-top-right-radius: 0.4em;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   font-family: "Ubuntu";
   padding: 2vw;
 }
