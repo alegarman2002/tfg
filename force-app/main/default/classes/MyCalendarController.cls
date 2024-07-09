@@ -142,6 +142,8 @@ public with sharing class MyCalendarController {
 
     @AuraEnabled
     public static List<List<string>> getEventsOfTheUser(){
+        DateTime today = DateTime.now();
+
         Id userId = UserInfo.getUserId();
         
         List<List<String>> listaConEventos = new List<List<String>>();
@@ -150,10 +152,12 @@ public with sharing class MyCalendarController {
             Id idToCompare = Id.valueOf((string) relaciones[i].get('Id__c'));
             List<MyEvent__c> event = [SELECT StartDateTime__c, EndDateTime__c, Name FROM MyEvent__c WHERE Id = :idToCompare LIMIT 1];           
             List<string> evento = new List<string>();
-            evento.add(String.valueOf((DateTime) event[0].get('StartDateTime__c')));
-            evento.add(String.valueOf((DateTime) event[0].get('EndDateTime__c')));
-            evento.add(String.valueOf(event[0].get('Name')));
-            listaConEventos.add(evento);
+            if (today < (DateTime) event[0].get('StartDateTime__c')) {
+                evento.add(String.valueOf((DateTime) event[0].get('StartDateTime__c')));
+                evento.add(String.valueOf((DateTime) event[0].get('EndDateTime__c')));
+                evento.add(String.valueOf(event[0].get('Name')));
+                listaConEventos.add(evento);
+            }
         }       
         
         return listaConEventos;
