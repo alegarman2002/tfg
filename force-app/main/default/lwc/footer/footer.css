@@ -1,0 +1,25 @@
+@font-face {
+    font-family: "Ubuntu";
+    src: url("sfsites/c/resource/UbuntuFont") format("TrueType");
+    }
+  
+  template {
+      background-color: #ffffff;
+      font-family: "Ubuntu";
+  }
+
+.container .footer-nav.footer-nav-brands li img {
+    height: 30px;
+    margin-top: 30px;
+}
+
+.container {
+    margin-top: 4em;
+    margin-left: 10%;
+}
+
+h2 {
+    font-size: 2em; /* Tamaño de la letra */
+    color: #12ABDB;
+    font-family: "Ubuntu";  
+  }
