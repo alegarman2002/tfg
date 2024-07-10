@@ -87,6 +87,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     dayGridMonth: { buttonText: "month" },
                     listMonth: { buttonText: 'listMonth' }
                },
+               contentHeight: 'auto',
                firstDay: 1,
                locale: 'es',
                initialView: 'dayGridMonth',
@@ -236,7 +237,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                
                var divElement = this.template.querySelector(".contenedorTabla")
                // console.log(divElement)
-               var stringToInnerHTML = '<table class="tableOfEvents" style="background-color:#ffffff;border:1px solid black;border-collapse:collapse;width:100%;"><tr><td style="border:1px solid black;padding:10px;">Fecha de inicio</td><td>Fecha de fin</td style="border:1px solid black;padding:10px;"><td style="border:1px solid black;padding:10px;">Nombre</td></tr>'
+               var stringToInnerHTML = '<table class="tableOfEvents" style="background-color:#ffffff;border:1px solid black;border-collapse:collapse;width:100%;"><tr><td style="border:1px solid black;padding:10px;">Fecha de inicio</td><td style="border:1px solid black;padding:10px;">Fecha de fin</td><td style="border:1px solid black;padding:10px;">Nombre</td></tr>'
                
                for(var i = 0; i < eventos.length; i++) {
                     //0 start 1 end 2 name
@@ -355,7 +356,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     start: eventStart,
                     end: eventStart,
                     rendering: 'background',
-                    color: 'grey'
+                    color: '#dcdcdc'
                }
                // console.log("Print the event", event)
                var addNewEvent = this.calendar.addEvent(event)

@@ -92,19 +92,20 @@ template {
   height: 100%;
 }
 
-.calendar {
-  padding-left: 25px;
-  padding-right: 25px;
+.legend {
+  padding-left: 3vw;
 }
+
+
 
 h1{
   background-color: #ffffff;
   font-size: 4em; /* Tamaño de la letra */
   color: #12ABDB;
   font-family: "Ubuntu";
-  padding-left: 15vw;
+  padding-left: 3vw;
   padding-top: 2vw;
-  padding-right: 15vw;
+  padding-right: 3vw;
 }
 
 h2 {
@@ -113,9 +114,21 @@ h2 {
   color: #12ABDB;
   margin: auto;
   font-family: "Ubuntu";
-  padding-left: 15vw;
+  padding-left: 3vw;
   padding-top: 2vw;
-  padding-right: 15vw;
+  padding-right: 3vw;
+
+}
+
+h3 {
+  background-color: #ffffff;
+  font-size: 2em; /* Tamaño de la letra */
+  color: #12ABDB;
+  margin: auto;
+  font-family: "Ubuntu";
+  padding-left: 3vw;
+  padding-top: 2vw;
+  padding-right: 3vw;
 
 }
 
@@ -152,11 +165,8 @@ h2 {
 }
 
 .slds-size_3-of-12 {
-  padding-right: 25px;
-}
-
-.legend {
-  padding-left: 25px;
+  flex: auto;
+  padding-right: 3vw;
 }
 
 .mostrarEventos {
@@ -165,19 +175,22 @@ h2 {
 
 .slds-size_8-of-12 h3{
   text-transform: uppercase;
-  font-weight: 700;
-  font-size: 22px;
+  font-size: 2vw;
   text-align: left;
   letter-spacing: 1px;
   font-family: 'Ubuntu', sans-serif;
   color: #12ABDB;
   margin-bottom: 20px;
-  padding-left: 25px;
+  padding-left: 3vw;
+}
+
+.slds-size_8-of-12 {
+  flex-basis: 60%;
 }
 
 .slds-grid {
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 3vw;
+  padding-right: 3vw;
   background-color: #ffffff;
 }
 .slds-wrap {
@@ -187,6 +200,7 @@ h2 {
     padding-right: 0.5rem;
     padding-top: 0.5rem;
     overflow-y: auto;
+    align-items: center;
 }
 
 .title-container {
@@ -343,14 +357,31 @@ h2 {
   
   /* Now Indicator
   --------------------------------------------------------------------------------------------------*/
-  .fc th.fc-day-header{
+  /* .fc th.fc-day-header{
     padding: 11px 7px;
     font-size: 16px;
     font-weight: 400;
-}
+} */
+
 
 .misEventos {
   background-color: #ffffff;
-  padding: 25px;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
 }
 
+.misEventos button {
+  margin-bottom: 2vw;
+}
+
+.fc-day-number {
+  font-size: 1vw;
+  font-family: "Ubuntu";
+}
+
+.fc-day-header span{
+  font-size: 1vw;
+  font-family: "Ubuntu";
+}

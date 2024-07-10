@@ -15,7 +15,7 @@
 
 .container {
     margin-top: 4em;
-    margin-left: 10%;
+    margin-left: 15vw;
 }
 
 h2 {
@@ -23,3 +23,74 @@ h2 {
     color: #12ABDB;
     font-family: "Ubuntu";  
   }
+
+
+.footer-bottom {
+    float: right;
+    width: 49%;
+}
+
+.footer-nav {
+    float: left;
+    width: 49%;
+}
+
+/* .footer .footer-bottom .social-nav-wrapper .social-nav a+.tooltip {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: .1rem;
+    padding: .1rem .8rem;
+    font-size: .7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #000;
+    border-radius: 50px;
+    background-color: #f7f7f7;
+    box-shadow: 0 25px 100px 0 rgba(0, 0, 0, .15);
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+} */
+
+
+.social-nav a {
+    transition: all .2s ease-out;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #15011d;
+    background: #fff;
+    border-radius: 50%;
+    color: #15011d;
+    background: 0 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* .social-icon-footer {
+    width: 1.5rem;
+    height: 1.5rem;
+} */
+/* 
+
+.footer .footer-bottom .social-nav-wrapper .social-nav .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+} */
