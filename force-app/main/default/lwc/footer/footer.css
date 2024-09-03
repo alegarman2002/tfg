@@ -15,15 +15,18 @@
 
 .container {
     margin-top: 4em;
-    margin-left: 15vw;
+    margin-left: 3vw;
+}
+
+.container .logo {
+    padding-left: 1.4vw;
 }
 
 h2 {
     font-size: 2em; /* Tamaño de la letra */
     color: #12ABDB;
     font-family: "Ubuntu";  
-  }
-
+}
 
 .footer-bottom {
     float: right;
@@ -33,6 +36,7 @@ h2 {
 .footer-nav {
     float: left;
     width: 49%;
+    padding-bottom: 3vw;
 }
 
 /* .footer .footer-bottom .social-nav-wrapper .social-nav a+.tooltip {
@@ -59,8 +63,63 @@ h2 {
     transition: all .2s ease-in-out;
 } */
 
+.social-nav {
+    display: flex; /* Usar flexbox para los elementos de la lista */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en varias filas si es necesario */
+    list-style: none; /* Quitar los puntos de la lista */
+    padding: -2vw; /* Quitar el padding por defecto */
+    margin: 0; /* Quitar el margin por defecto */
+}
+
+.social-nav li {
+    margin-right: 40px; /* Espacio a la derecha de cada elemento */
+    margin-top: 35px; /* Espacio arriba de cada elemento */
+    position: relative; /* Necesario para que el tooltip se posicione correctamente */
+}
 
 .social-nav a {
+    transition: all .2s ease-out;
+    overflow: hidden;
+    border: 1px solid #15011d;
+    background: #fff;
+    border-radius: 50%;
+    color: #15011d;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.social-nav .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%; /* Posicionar el tooltip arriba del icono */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: .5rem; /* Separar el tooltip del icono */
+    padding: .1rem .8rem;
+    font-size: .7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #000;
+    border-radius: 50px;
+    background-color: #f7f7f7;
+    box-shadow: 0 25px 100px 0 rgba(0, 0, 0, .15);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+
+.social-nav li:hover .tooltip {
+    display: block;
+    opacity: 1;
+}
+
+
+/* .social-nav a {
     transition: all .2s ease-out;
     overflow: hidden;
     position: relative;
@@ -76,7 +135,7 @@ h2 {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-}
+} */
 
 /* .social-icon-footer {
     width: 1.5rem;

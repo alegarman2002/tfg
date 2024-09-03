@@ -93,7 +93,7 @@ template {
 }
 
 .legend {
-  padding-left: 3vw;
+  padding-left: 2.5vw;
 }
 
 
@@ -181,7 +181,7 @@ h3 {
   font-family: 'Ubuntu', sans-serif;
   color: #12ABDB;
   margin-bottom: 20px;
-  padding-left: 3vw;
+  padding-left: 2.5vw;
 }
 
 .slds-size_8-of-12 {
@@ -229,7 +229,9 @@ h3 {
 .circle-current-day {
   width: 1/3%;
   float: left;
-  padding: 2px;
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
 }
 
 .circle-holidays {
@@ -244,7 +246,7 @@ h3 {
   border-radius: 50%;
   margin-top: 5px;
   margin-left: 2px;
-  background-color: #fffce4; /* Puedes cambiar el color aquí */
+  background-color: #f8e994; /* Puedes cambiar el color aquí */
   
 }
 
@@ -325,35 +327,36 @@ h3 {
     "Times New Roman", serif
   
   NOTE: use percentage font sizes or else old IE chokes
-  */  .fc-unthemed th,
-  .fc-unthemed td,
-  .fc-unthemed thead,
-  .fc-unthemed tbody,
-  .fc-unthemed .fc-divider,
-  .fc-unthemed .fc-row,
-  .fc-unthemed .fc-content,
-  .fc-unthemed .fc-popover,
-  .fc-unthemed .fc-list-view,
-  .fc-unthemed .fc-list-heading td {
-    border-color: #ddd; }
+*/  .fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+  border-color: #ddd; }
+
+.fc-unthemed .fc-popover {
+  background-color: #fff; }
+
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-popover .fc-header,
+.fc-unthemed .fc-list-heading td {
+  background: #eee; }
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  color: #666; }
+
+.fc-unthemed td.fc-today {
+  background: #f8e994; }
   
-  .fc-unthemed .fc-popover {
-    background-color: #fff; }
-  
-  .fc-unthemed .fc-divider,
-  .fc-unthemed .fc-popover .fc-header,
-  .fc-unthemed .fc-list-heading td {
-    background: #eee; }
-  
-  .fc-unthemed .fc-popover .fc-header .fc-close {
-    color: #666; }
-  
-  .fc-unthemed td.fc-today {
-    background: #fcf8e3; }
-  
-  .fc-unthemed .fc-disabled-day {
-    background: #d7d7d7;
-    opacity: .3; }
+.fc-unthemed .fc-disabled-day {
+  background: #d7d7d7;
+  opacity: .3; 
+}
   
   /* Now Indicator
   --------------------------------------------------------------------------------------------------*/
@@ -369,7 +372,6 @@ h3 {
   padding-left: 3vw;
   padding-right: 3vw;
   padding-top: 2vw;
-  padding-bottom: 2vw;
 }
 
 .misEventos button {

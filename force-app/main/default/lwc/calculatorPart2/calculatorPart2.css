@@ -5,27 +5,27 @@
 
 template {
     background-color: white;
+    display: flex;
 }
 
 h1 {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
     padding-left: 6%;
     padding-right: 6%;
-    padding-left: 25px;
     color: #12ABDB;
     font-size: 25px;
     background-color: white;
     font-family: "Ubuntu";
+    padding-top: 20px;
+    display: flex;
 }
 
 h2 {
-    padding-left: 25px;
-    color: #12ABDB;
     padding-left: 6%;
     padding-right: 6%;
+    color: #12ABDB;
     font-size: 15px;
     background-color: white;
+    display: flex;
     font-family: "Ubuntu";
 }
 
@@ -39,13 +39,8 @@ label {
     font-family: "Ubuntu";
 }
 
-.lightning {
-    font-family: "Ubuntu";
-    padding-bottom: 2px;
-}
 
 .form {
-    width:50%;
     padding-left: 6%;
     padding-right: 6%;
     background-color: white;
@@ -57,7 +52,7 @@ label {
 }
 
 .vehiculo {
-    padding-left: 25px;
+
 }
 
 .slds-slider__range {
@@ -76,4 +71,54 @@ label {
     text-transform: uppercase;
     font-weight: bold;
     font-family: "Ubuntu";
+}
+
+.format {
+    width: 50%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.all {
+    background-color: #ffffff;
+    display: flex;
+}
+
+.advice {
+    width: 50%;
+    height: 100%;
+    float: right;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.advice h2 {
+    margin-top: 3.8em;
+    margin-bottom: auto;
+}
+
+.custEventMap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    flex-grow: 1;
+}
+
+img {
+    height: 300px;
+    width: 300px;
+    margin-top: 1.5em;
+    margin-bottom: 44px;
+}
+
+.footer {
+    width: auto;
+    height: 20px;
 }

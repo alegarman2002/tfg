@@ -262,6 +262,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.calendarLabel  = this.calendar.view.title;
         this.paintFreeDays()
         this.calendar.render()
+        window.dispatchEvent(new Event('resize'));
         // this.setDates()
    }
     
@@ -271,6 +272,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.paintFreeDays()
         // this.setDates()
         this.calendar.render()
+        window.dispatchEvent(new Event('resize'));
    }
    
    today() {
@@ -279,6 +281,7 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
         this.paintFreeDays()
         // this.setDates()
         this.calendar.render()
+        window.dispatchEvent(new Event('resize'));
    }
     
    monthlyViewHandler() {

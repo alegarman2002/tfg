@@ -4,6 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import comprobarUltimoGuardado from '@salesforce/apex/CarbonFootprint.comprobarUltimoGuardado'
 import obtenerDatosUltimoMes from '@salesforce/apex/CarbonFootprint.obtenerDatosUltimoMes'
+import image from '@salesforce/resourceUrl/ApagarLuz'
 export default class Calculator extends LightningElement {
 
 
@@ -12,18 +13,23 @@ export default class Calculator extends LightningElement {
     //De esta manera con el onchange le podemos enseñar al usuario como evolucionan los datos conforme los introduce
     //A su vez tenemos que tener en cuenta que cuando lo inyectemos en el proyecto no tenemos que crearlo
     consumoElectrico = null
+    numBombillas = 0
+    metrosParaCalefaccion = 0
     dias = 5
     metodoElegido
     valorMotor
     consumo = null
     integrantesCoche = 1
     monitores = 1
-    tipoCalefaccion
+    tipoCalefaccion = null
+    tipoIluminacion = null
     calefaccion = 1
     distancia = null
     iconoMonitor = iMonitor
     controlVecesQueAparece = 0
     listaValoresAnteriores
+    imageUrl = image
+    recomendationText = 'Recuerda apagar la luz cuando no la utilices'
 
     async renderedCallback() {
         if (this.controlVecesQueAparece == 0) {
@@ -50,6 +56,14 @@ export default class Calculator extends LightningElement {
             console.log('Lista valores anteriores', this.listaValoresAnteriores)
 
         }
+    }
+
+    get tiposDeIluminacion() {
+        return [
+            {label: 'No utilizo iluminación', value: 'sinIluminacion'},
+            {label: 'Iluminación LED', value: 'tipoLED'},
+            {label: 'Iluminación incandescente', value:'tipoIncandescente'}
+        ]
     }
 
     get tiposDeCalefaccion() {
@@ -115,16 +129,44 @@ export default class Calculator extends LightningElement {
 
     }
 
+    handleIluminationOptionChange(event) {
+        this.tipoIluminacion = event.detail.value
+        if (this.tipoIluminacion != 'sinIluminacion') {
+            var input = this.template.querySelector('[data-id="numeroBombillas"]')
+            input.style.display = 'block'
+            var margin = this.template.querySelector('data')
+        } else {
+            var input = this.template.querySelector('[data-id="numeroBombillas"]')
+            input.style.display = 'none'
+        }
+    }
+
     handleHeatingOptionChange(event) {
         this.tipoCalefaccion = event.detail.value
         if (this.tipoCalefaccion != 'sinCalefaccion') {
             var input = this.template.querySelector('[data-id="horasDeUso"]');
             input.style.display = 'block'
-        } else {
+            input = this.template.querySelector('[data-id="metrosParaCalefaccion"]')
+            input.style.display = 'block'
+        }
+        else {
             var input = this.template.querySelector('[data-id="horasDeUso"]');
+            input.style.display = 'none'
+            input = this.template.querySelector('[data-id="metrosParaCalefaccion"]')
             input.style.display = 'none'
         }
     }
+
+    // controlOfBorderBottom() {
+    //     var leftPart = this.template.querySelector('[class="form"]')
+    //     var rightPart = this.template.querySelector('[class=advice]')
+
+
+    //     console.log(leftPart.style)
+    //     console.log("Altura derecha", rightPart.style.height)
+    //     console.log("Altura izquierda", leftPart.style.height)
+    //     rightPart.style.height = leftPart.style.height
+    // }
 
     handleMotorChange(event) {
         this.valorMotor = event.detail.value
@@ -140,7 +182,7 @@ export default class Calculator extends LightningElement {
         var input = this.template.querySelector('[data-id="actualizacionConsumoElectrico"]');
         
         console.log(valorUltimoMes)
-        console.log(valorUltimoMes - this.comsumoElectrico)
+        console.log(valorUltimoMes - this.consumoElectrico)
         this.consumoElectrico = event.detail.value
 
         if (this.consumoElectrico < valorUltimoMes) {
@@ -154,6 +196,14 @@ export default class Calculator extends LightningElement {
         }
 
 
+    }
+
+    metrosCale(event) {
+        this.metrosParaCalefaccion = event.detail.value
+    }
+
+    bombillas(event) {
+        this.numBombillas = event.detail.value
     }
 
     dist(event) {
@@ -185,22 +235,28 @@ export default class Calculator extends LightningElement {
         // console.log("Tipo de calefaccion ", this.tipoCalefaccion)
         //Horas de uso de la calefaccion
         // console.log("Horas de uso de la calefaccion ", this.calefaccion)
-
-        localStorage.setItem('consumoElectrico', this.consumoElectrico)
-        localStorage.setItem('monitores', this.monitores)
-        localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
-        localStorage.setItem('calefaccion', this.calefaccion)
-        localStorage.setItem('consumoMotor', this.listaValoresAnteriores.ConsumoMotor__c)
-        
-        if(this.consumoElectrico == null) {
+        console.log(this.metrosParaCalefaccion)
+        if(this.consumoElectrico == null || this.numBombillas < 0 || this.consumoElectrico < 0 || this.metrosParaCalefaccion < 0 || 
+            (this.metrosParaCalefaccion <= 0 && this.tiposDeCalefaccion != 'sinCalefaccion') || 
+            (this.numBombillas <= 0 && this.tipoIluminacion != 'sinIluminacion') ||
+            this.tipoCalefaccion == null || this.tipoIluminacion == null) {
             const event = new ShowToastEvent({
                 title: 'Alerta',
-                message: 'Por favor completa todos los campos requeridos',
+                message: 'Por favor completa todos los campos requeridos con información correcta',
                 variant: 'error',
             });
             this.dispatchEvent(event)
             return
         }
+        
+        localStorage.setItem('consumoElectrico', this.consumoElectrico)
+        localStorage.setItem('monitores', this.monitores)
+        localStorage.setItem('tipoCalefaccion', this.tipoCalefaccion)
+        localStorage.setItem('calefaccion', this.calefaccion)
+        localStorage.setItem('consumoMotor', this.listaValoresAnteriores.ConsumoMotor__c)
+        localStorage.setItem('numeroBombillas', this.numBombillas)
+        localStorage.setItem('tipoIluminacion', this.tipoIluminacion)
+        localStorage.setItem('metrosParaCalefacción', this.metrosParaCalefaccion)
         
         window.open("/s/footprintcalculatorpart2", "_self")
         // var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]

@@ -747,6 +747,9 @@ public with sharing class CarbonFootprint {
         string tipoCalefaccion = (string) (parametros[7]);
         integer usoCalefaccion = Integer.valueOf(parametros[8]);
         integer distancia = Integer.valueOf(parametros[9]);
+        integer metros = Integer.valueOf(parametros[10]);
+        integer numBombillas = Integer.valueOf(parametros[11]);
+        string tipoIluminacion = (string) (paramteros[12]);
 
         CarboonFootprint__c cf = new CarboonFootprint__c(
             ConsumoElectrico__c=consumoElectrico,
@@ -761,7 +764,10 @@ public with sharing class CarbonFootprint {
             TipoMotor__c=valorMotor,
             UserId__c=userId,
             UsoCalefaccion__c=usoCalefaccion,
-            Distancia__c=distancia
+            Distancia__c=distancia,
+            Metros__c=metros,
+            NumeroBombillas__c=numBombillas,
+            TipoIluminacion__c=tipoIluminacion
             );
         insert cf;
         System.debug(cf);
@@ -790,7 +796,7 @@ public with sharing class CarbonFootprint {
         System.debug(diasCreados);
         //Hay que modificar la consulta para añadir
         //ConsumoCalefaccion__c	
-        List<CarboonFootprint__c> resultados = [SELECT DiaCreacion__c, ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
+        List<CarboonFootprint__c> resultados = [SELECT DiaCreacion__c, ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c, Metros__c, NumeroBombillas__c, TipoIluminacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
         System.debug(resultados);
         
         //259 gCO2eq
@@ -831,14 +837,19 @@ public with sharing class CarbonFootprint {
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
                 
                 gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
-                
-                if (objetoMes.get('TipoCalefaccion__c') == 'aaaaaa') {
-                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                gastoOrdenador = gastoOrdenador 
+                if (objetoMes.get('TipoCalefaccion__c') == 'tipoElectrica') {
+                    gastoOrdenador = gastoOrdenador + ( (double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 } 
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoGas') {
-                    gastoOrdenador = gastoOrdenador + (1.5 * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 }
-                                
+                if (objetoMes.get('TipoIluminacion__c') == 'tipoLED')  {
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 0.015 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                } 
+                if (objetoMes.get('TipoIluminacion__c') == 'tipoIncandescente')  {
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 0.06 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                } 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
                     
                     if (objetoMes.get('TipoMotor__c') == 'motorGasolina') {

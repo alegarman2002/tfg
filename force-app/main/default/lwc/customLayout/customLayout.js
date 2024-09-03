@@ -177,7 +177,7 @@ export default class CustomLayout extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Alerta',
                 message: 'El evento en el que se intenta registrar ya ha empezado',
-                variant: 'success',
+                variant: 'warning',
             });
             this.dispatchEvent(event);
             return

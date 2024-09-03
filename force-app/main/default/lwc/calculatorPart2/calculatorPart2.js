@@ -1,7 +1,7 @@
 import { LightningElement } from 'lwc';
 import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
-
+import image from '@salesforce/resourceUrl/ApagarLuz'
 
 export default class CalculatorPart2 extends LightningElement {
 
@@ -15,9 +15,19 @@ export default class CalculatorPart2 extends LightningElement {
     tipoCalefaccion
     calefaccion = 4
     distancia = null
-    consumoMotorAnterior 
+    consumoMotorAnterior
+    metrosParaCalefaccion = null
+    numBombillas = null
+    tipoIluminacion = null
+    imageUrl = image
+    recomendationText = 'Recuerda apagar la luz cuando no la utilices'
 
     renderedCallback() {
+
+        this.numBombillas = localStorage.getItem('numeroBombillas')
+        this.tipoIluminacion = localStorage.getItem('tipoIluminacion')
+        this.metrosParaCalefaccion = localStorage.getItem('metrosParaCalefacción')
+
         this.consumoElectrico = localStorage.getItem('consumoElectrico')
         this.monitores = localStorage.getItem('monitores')
         this.tipoCalefaccion = localStorage.getItem('tipoCalefaccion')
@@ -145,7 +155,7 @@ export default class CalculatorPart2 extends LightningElement {
             return
         }
 
-        var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
+        var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia, this.metrosParaCalefaccion, this.numBombillas, this.tipoIluminacion]
         var guardado = 1
         await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
         if (guardado == 1) {
