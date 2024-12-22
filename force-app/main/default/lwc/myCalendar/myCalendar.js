@@ -85,7 +85,6 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     listMonth: { buttonText: "list month"},
                     month: { displayEventEnd: true },
                     dayGridMonth: { buttonText: "month" },
-                    listMonth: { buttonText: 'listMonth' }
                },
                contentHeight: 'auto',
                firstDay: 1,
@@ -135,13 +134,13 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                     
                     if (event.event.extendedProps.image) {
                          // await compareEventsId({id: event.event.id}).then((atribute => {control = atribute}))
-                         var timeElement = element.querySelector('span.fc-time')
+                         let timeElement = element.querySelector('span.fc-time')
 
                          // Crea un nuevo elemento span con la clase 'fc-image'
-                         var imageElement = document.createElement('span')
+                         let imageElement = document.createElement('span')
                          imageElement.className = 'fc-image'
 
-                         var htmlString = event.event.extendedProps.image
+                         let htmlString = event.event.extendedProps.image
                          // var srcStartIndex = htmlString.indexOf('src="')
                          // var srcEndIndex = htmlString.indexOf('"', srcStartIndex + 5)
 
@@ -191,16 +190,16 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                      
         })
         const info = await getUserLogInfo()
-        var dateString = await obtainLastDayDataIsRecorded()
+        let dateString = await obtainLastDayDataIsRecorded()
      //    console.log("Vemos el dia: ", dateString)
         //'0' + (currentDate.getMonth()+1)).slice(-2)
-        var dayToCompare
-        var actualDay
+        let dayToCompare
+        let actualDay
         if (dateString != null) {
           dayToCompare = new Date(dateString[2], dateString[1], dateString[0])
           actualDay = new Date()
 
-          var diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
+          let diff = (actualDay.getFullYear() - dayToCompare.getFullYear()) * 12;
                diff += actualDay.getMonth() - dayToCompare.getMonth();
 
           //this.mensajeDeAviso(diff, dayToCompare)
@@ -241,7 +240,11 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                
                for(var i = 0; i < eventos.length; i++) {
                     //0 start 1 end 2 name
-                    stringToInnerHTML = stringToInnerHTML + '<tr><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][0] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][1] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][2] + '</td></tr>'
+                    var eventDate = new Date(eventos[i][1])
+                    if (eventDate - Date.now() >= 0) {
+                         stringToInnerHTML = stringToInnerHTML + '<tr><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][0] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][1] + '</td><td style="background-color:#ffffff;border:1px solid black;padding:10px;">' + eventos[i][2] + '</td></tr>'
+                    }
+               
                }
                divElement.innerHTML = stringToInnerHTML + '<table>'
                this.variableControlTabla = 1

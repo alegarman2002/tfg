@@ -5,7 +5,7 @@
 
 template {
     background-color: white;
-    display: flex;
+    display: block;
 }
 
 h1 {
@@ -51,9 +51,6 @@ label {
     display: none;
 }
 
-.vehiculo {
-
-}
 
 .slds-slider__range {
     color: #12ABDB;
@@ -76,7 +73,7 @@ label {
 .format {
     width: 50%;
     float: left;
-    display: flex;
+    display: block;
     flex-direction: column;
     justify-content: space-between;
     background-color: #ffffff;
@@ -87,7 +84,7 @@ label {
     display: flex;
 }
 
-.advice {
+.advice { 
     width: 50%;
     height: 100%;
     float: right;
@@ -95,7 +92,8 @@ label {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    text-align: center;
+    text-align: center;    
+    align-items: center;
 }
 
 .advice h2 {

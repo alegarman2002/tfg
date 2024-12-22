@@ -28,6 +28,7 @@ h2 {
     color: #12ABDB;
     font-size: 15px;
     background-color: white;
+    display: flex;
     font-family: "Ubuntu";
 }
 
@@ -118,6 +119,7 @@ label {
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    align-items: center;
 }
 
 .advice h2 {

@@ -2,14 +2,27 @@ public with sharing class MyCalendarController {
 
     @AuraEnabled
     public static List<string> getHolidayDays(){
-        StaticResource srObject = [SELECT id,body FROM StaticResource WHERE Name = 'Festivos'];
-        String contents = srObject.body.toString();
-        List<string> dias = new List<string>();
-        for(String line:contents.split('\n')) {
-            System.debug(line);
-            dias.add(line);
+        try {
+            // Consultar el recurso estático
+            StaticResource srObject = [SELECT Body FROM StaticResource WHERE Name = 'Festivos' LIMIT 1];
+            
+            // Leer el contenido del recurso estático como una cadena de texto
+            String contents = srObject.Body.toString();
+            
+            // Dividir el contenido por líneas y agregar cada línea a una lista
+            List<String> dias = new List<String>();
+            for (String line : contents.split('\n')) {
+                line = line.trim(); // Eliminar espacios en blanco
+                if (!line.isEmpty()) {
+                    dias.add(line);
+                }
+            }
+            return dias;
+        } catch (Exception e) {
+            // Registrar cualquier error y devolver una lista vacía
+            System.debug('Error al leer el recurso estático: ' + e.getMessage());
+            return new List<String>();
         }
-        return dias;
     }
 
 
@@ -84,11 +97,11 @@ public with sharing class MyCalendarController {
     }
 
     @AuraEnabled
-    public static string getUserInformation(String eventId){
+    public static string getUserInformation(String userId){
         String userInfo = null;
         // System.debug(eventId);
         try {
-            User currentUser = [SELECT FirstName, LastName FROM User WHERE Id = :eventId LIMIT 1];
+            User currentUser = [SELECT FirstName, LastName FROM User WHERE Id = :userId LIMIT 1];
             userInfo = currentUser.FirstName + ' ' + currentUser.LastName;
             // System.debug(currentUser);
         } catch (Exception e) {

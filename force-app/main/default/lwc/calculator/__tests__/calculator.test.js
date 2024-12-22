@@ -1,4 +1,4 @@
-import { createElement } from 'lwc';
+// import { createElement } from 'lwc';
 import Calculator from 'c/calculator';
 
 describe('c-calculator', () => {

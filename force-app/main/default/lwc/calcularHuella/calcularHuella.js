@@ -26,6 +26,9 @@ export default class CacularHuella extends LightningElement {
     listaValoresDesplazamientoAlMes
     listaValoresOrdenadorAlMes
     listaMeses
+    listaValoresCalefaccionAlMes
+    listaValoresIluminacionAlMes
+    listaValoresMonitoresAlMes
   
   async renderedCallback() {   
     Promise.all([
@@ -44,6 +47,9 @@ export default class CacularHuella extends LightningElement {
         this.listaValoresDesplazamientoAlMes = this.lista[1]
         this.listaValoresOrdenadorAlMes = this.lista[2]
         this.listaMeses = this.lista[3]
+        this.listaValoresIluminacionAlMes = this.lista[4]
+        this.listaValoresMonitoresAlMes = this.lista[5]
+        this.listaValoresCalefaccionAlMes = this.lista[6]
     //Vamos a considerar que el donut muestre todos los valores del historico mientras que el diagrama de linea los muestre del propio año
     //si veo que es facil hacemos que se puedan ver años anteriores
     }
@@ -123,6 +129,30 @@ export default class CacularHuella extends LightningElement {
                     borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
                   }
+                ,
+                {
+                    label: 'Consumo en iluminacion',
+                    data: this.listaValoresIluminacionAlMes,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }
+                ,
+                {
+                    label: 'Consumo de monitores',
+                    data: this.listaValoresMonitoresAlMes,
+                    fill: false,
+                    borderColor: 'rgb(255, 205, 86)',
+                    tension: 0.1
+                }
+                ,
+                {
+                    label: 'Consumo de calefacción',
+                    data: this.listaValoresCalefaccionAlMes,
+                    fill: false,
+                    borderColor: 'rgb(255, 159, 64)',
+                    tension: 0.1
+                }
                 ]
             }
             

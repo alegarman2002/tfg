@@ -1,5 +1,4 @@
 import { LightningElement } from 'lwc';
-import guardarDatos from '@salesforce/apex/CarbonFootprint.guardarDatos'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import iMonitor from '@salesforce/resourceUrl/iconoMonitor'
 import comprobarUltimoGuardado from '@salesforce/apex/CarbonFootprint.comprobarUltimoGuardado'
@@ -13,8 +12,8 @@ export default class Calculator extends LightningElement {
     //De esta manera con el onchange le podemos enseñar al usuario como evolucionan los datos conforme los introduce
     //A su vez tenemos que tener en cuenta que cuando lo inyectemos en el proyecto no tenemos que crearlo
     consumoElectrico = null
-    numBombillas = 0
-    metrosParaCalefaccion = 0
+    numBombillas = null
+    metrosParaCalefaccion = null
     dias = 5
     metodoElegido
     valorMotor
@@ -134,7 +133,7 @@ export default class Calculator extends LightningElement {
         if (this.tipoIluminacion != 'sinIluminacion') {
             var input = this.template.querySelector('[data-id="numeroBombillas"]')
             input.style.display = 'block'
-            var margin = this.template.querySelector('data')
+            // var margin = this.template.querySelector('data')
         } else {
             var input = this.template.querySelector('[data-id="numeroBombillas"]')
             input.style.display = 'none'
@@ -237,8 +236,8 @@ export default class Calculator extends LightningElement {
         // console.log("Horas de uso de la calefaccion ", this.calefaccion)
         console.log(this.metrosParaCalefaccion)
         if(this.consumoElectrico == null || this.numBombillas < 0 || this.consumoElectrico < 0 || this.metrosParaCalefaccion < 0 || 
-            (this.metrosParaCalefaccion <= 0 && this.tiposDeCalefaccion != 'sinCalefaccion') || 
-            (this.numBombillas <= 0 && this.tipoIluminacion != 'sinIluminacion') ||
+            (this.metrosParaCalefaccion == null && this.tiposDeCalefaccion != 'sinCalefaccion') || 
+            (this.numBombillas == null && this.tipoIluminacion != 'sinIluminacion') ||
             this.tipoCalefaccion == null || this.tipoIluminacion == null) {
             const event = new ShowToastEvent({
                 title: 'Alerta',

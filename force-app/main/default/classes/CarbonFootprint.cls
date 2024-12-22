@@ -747,9 +747,12 @@ public with sharing class CarbonFootprint {
         string tipoCalefaccion = (string) (parametros[7]);
         integer usoCalefaccion = Integer.valueOf(parametros[8]);
         integer distancia = Integer.valueOf(parametros[9]);
-        integer metros = Integer.valueOf(parametros[10]);
+        double metros = 0;
+        if (parametros[10] != null) {
+            metros = Integer.valueOf(parametros[10]);
+        }
         integer numBombillas = Integer.valueOf(parametros[11]);
-        string tipoIluminacion = (string) (paramteros[12]);
+        string tipoIluminacion = (string) (parametros[12]);
 
         CarboonFootprint__c cf = new CarboonFootprint__c(
             ConsumoElectrico__c=consumoElectrico,
@@ -785,12 +788,17 @@ public with sharing class CarbonFootprint {
         List<double> listaValoresTotales = new List<double>();
         List<double> listaValoresDesplazamientoAlMes = new List<double>();
         List<double> listaValoresOrdenadorAlMes = new List<double>();
+        List<double> listaValoresCalefaccionAlMes = new List<double>();
+        List<double> listaValoresIluminacionAlMes = new List<double>();
+        List<double> listaValoresMonitoresAlMes = new List<double>();
         List<double> ultimos12Meses = new List<double>();
         double gastoTotal = 0;
         
         double gastoTransporteTotal = 0;
         double gastoOrdenadorTotal = 0;
-
+        double gastoCalefaccionTotal = 0;
+        double gastoIluminacionTotal = 0;
+        double gastoMonitoresTotal = 0;
 
         List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
         System.debug(diasCreados);
@@ -807,6 +815,10 @@ public with sharing class CarbonFootprint {
             for(integer i = 0; i < diasCreados.size()-1; i++) {
                 double gastoTransporte = 0;
                 double gastoOrdenador = 0;
+                double gastoCalefaccion = 0;
+                double gastoIluminacion = 0;
+                double gastoMonitores = 0;
+
                 sObject dia = diasCreados[i];
                 sObject dia2 = null;
                 if (i != diasCreados.size()-1) {
@@ -835,20 +847,24 @@ public with sharing class CarbonFootprint {
                 System.debug(mesesEntre);
 
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
-                
-                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 0.030 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
-                gastoOrdenador = gastoOrdenador 
+
+                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 30 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                gastoMonitores = gastoOrdenador;
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoElectrica') {
                     gastoOrdenador = gastoOrdenador + ( (double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoCalefaccion = gastoOrdenador - gastoMonitores;
                 } 
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoGas') {
                     gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoCalefaccion = gastoOrdenador - gastoMonitores;
                 }
                 if (objetoMes.get('TipoIluminacion__c') == 'tipoLED')  {
-                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 0.015 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 15 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoIluminacion = gastoOrdenador - gastoCalefaccion - gastoMonitores;
                 } 
                 if (objetoMes.get('TipoIluminacion__c') == 'tipoIncandescente')  {
-                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 0.06 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 6 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoIluminacion = gastoOrdenador - gastoCalefaccion - gastoMonitores;
                 } 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
                     
@@ -869,13 +885,25 @@ public with sharing class CarbonFootprint {
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoAutobus') {
                     gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6) / mesesEntre;
                 } 
-
+                System.debug('Gasto calefaccion ');
+                System.debug(gastoCalefaccion);
+                System.debug('Gasto iluminacion ');
+                System.debug(gastoIluminacion);
+                System.debug('Gasto monitor ');
+                System.debug(gastoMonitores);
                 gastoOrdenadorTotal = gastoOrdenadorTotal + gastoOrdenador;
                 gastoTransporteTotal = gastoTransporteTotal + gastoTransporte;
+                // gastoCalefaccionTotal = gastoCalefaccionTotal + gastoCalefaccion;
+                // gastoIluminacionTotal = gastoIluminacionTotal + gastoIluminacion;
+                // gastoMonitoresTotal = gastoMonitoresTotal + gastoMonitores;
 
                 agregarElementosLista(listaValoresDesplazamientoAlMes, gastoTransporte, mesesEntre);
                 agregarElementosLista(listaValoresOrdenadorAlMes, gastoOrdenador, mesesEntre);
-            }           
+                agregarElementosLista(listaValoresCalefaccionAlMes, gastoCalefaccion, mesesEntre);
+                agregarElementosLista(listaValoresIluminacionAlMes, gastoIluminacion, mesesEntre);
+                agregarElementosLista(listaValoresMonitoresAlMes, gastoMonitores, mesesEntre);
+            }     
+            System.debug(listaValoresCalefaccionAlMes);      
         }
 
 
@@ -909,6 +937,9 @@ public with sharing class CarbonFootprint {
         listaADevolver.add(listaValoresDesplazamientoAlMes);
         listaADevolver.add(listaValoresOrdenadorAlMes);
         listaADevolver.add(ultimos12Meses);
+        listaADevolver.add(listaValoresIluminacionAlMes);
+        listaADevolver.add(listaValoresMonitoresAlMes);
+        listaADevolver.add(listaValoresCalefaccionAlMes);
 
 
         return listaADevolver;
@@ -954,9 +985,16 @@ public with sharing class CarbonFootprint {
     }
 
     public static void agregarElementosLista(List<double> lista, double elemento, Integer veces) {
+        if (lista == null || veces == null || veces <= 0) {
+            return;  // No se hace nada si la lista es nula o 'veces' es nulo o no positivo
+        }
+    
+        // Realizar la conversión de 'elemento' solo una vez antes del ciclo
+        Decimal myDecimal = elemento;
+        Decimal divDec = myDecimal.divide(1000, 3);  // Dividir en mil y redondear a 3 decimales
+        
+        // Agregar el elemento dividido 'veces' veces a la lista
         for (Integer i = 0; i < veces; i++) {
-            Decimal myDecimal = elemento;
-            Decimal divDec = myDecimal.divide(1000, 3);
             lista.add(divDec);
         }
     }
@@ -965,7 +1003,7 @@ public with sharing class CarbonFootprint {
     @AuraEnabled
     public static List<CarboonFootprint__c> obtenerDatosUltimoMes(){
         Id userId = UserInfo.getUserId();
-        List<CarboonFootprint__c> dias = [SELECT ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, UsoCalefaccion__c, Distancia__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c DESC LIMIT 1];
+        List<CarboonFootprint__c> dias = [SELECT ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, UsoCalefaccion__c, Distancia__c, Metros__c, NumeroBombillas__c, TipoIluminacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c DESC LIMIT 1];
         return dias;
         //Revisar metodo pues igual podemos simplificar la consulta cosa que puede venirnos muy bien
     }
