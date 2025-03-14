@@ -8,7 +8,7 @@
 
     <div class="form">
       <div class="consumo-domestico">
-        <lightning-input class="lightning" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
+        <lightning-input class="lightning" data-id="consumoElectrico" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
         <p data-id="actualizacionConsumoElectrico" style="display: none;"></p>
         <lightning-slider class="lightning" data-id="oficina" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
         </lightning-slider>

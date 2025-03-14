@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>descarga</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <description
+  >The part of the application where we can manage the events of the calendar</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Calendar&amp;Events</label>
+    <navType>Standard</navType>
+    <tabs>CustomCalendar</tabs>
+    <tabs>CustomEvents</tabs>
+    <tabs>CarboonFootprint__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Calendar_Events_UtilityBar</utilityBar>
+</CustomApplication>

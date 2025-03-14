@@ -2,27 +2,14 @@ public with sharing class MyCalendarController {
 
     @AuraEnabled
     public static List<string> getHolidayDays(){
-        try {
-            // Consultar el recurso estático
-            StaticResource srObject = [SELECT Body FROM StaticResource WHERE Name = 'Festivos' LIMIT 1];
-            
-            // Leer el contenido del recurso estático como una cadena de texto
-            String contents = srObject.Body.toString();
-            
-            // Dividir el contenido por líneas y agregar cada línea a una lista
-            List<String> dias = new List<String>();
-            for (String line : contents.split('\n')) {
-                line = line.trim(); // Eliminar espacios en blanco
-                if (!line.isEmpty()) {
-                    dias.add(line);
-                }
-            }
-            return dias;
-        } catch (Exception e) {
-            // Registrar cualquier error y devolver una lista vacía
-            System.debug('Error al leer el recurso estático: ' + e.getMessage());
-            return new List<String>();
+        StaticResource srObject = [SELECT id,body FROM StaticResource WHERE Name = 'Festivos'];
+        String contents = srObject.body.toString();
+        List<string> dias = new List<string>();
+        for(String line:contents.split('\n')) {
+            System.debug(line);
+            dias.add(line);
         }
+        return dias;
     }
 
 
@@ -97,11 +84,11 @@ public with sharing class MyCalendarController {
     }
 
     @AuraEnabled
-    public static string getUserInformation(String userId){
+    public static string getUserInformation(String eventId){
         String userInfo = null;
         // System.debug(eventId);
         try {
-            User currentUser = [SELECT FirstName, LastName FROM User WHERE Id = :userId LIMIT 1];
+            User currentUser = [SELECT FirstName, LastName FROM User WHERE Id = :eventId LIMIT 1];
             userInfo = currentUser.FirstName + ' ' + currentUser.LastName;
             // System.debug(currentUser);
         } catch (Exception e) {
@@ -155,8 +142,6 @@ public with sharing class MyCalendarController {
 
     @AuraEnabled
     public static List<List<string>> getEventsOfTheUser(){
-        DateTime today = DateTime.now();
-
         Id userId = UserInfo.getUserId();
         
         List<List<String>> listaConEventos = new List<List<String>>();
@@ -165,14 +150,12 @@ public with sharing class MyCalendarController {
             Id idToCompare = Id.valueOf((string) relaciones[i].get('Id__c'));
             List<MyEvent__c> event = [SELECT StartDateTime__c, EndDateTime__c, Name FROM MyEvent__c WHERE Id = :idToCompare LIMIT 1];           
             List<string> evento = new List<string>();
-            if (today < (DateTime) event[0].get('StartDateTime__c')) {
-                evento.add(String.valueOf((DateTime) event[0].get('StartDateTime__c')));
-                evento.add(String.valueOf((DateTime) event[0].get('EndDateTime__c')));
-                evento.add(String.valueOf(event[0].get('Name')));
-                listaConEventos.add(evento);
-            }
+            evento.add(String.valueOf((DateTime) event[0].get('StartDateTime__c')));
+            evento.add(String.valueOf((DateTime) event[0].get('EndDateTime__c')));
+            evento.add(String.valueOf(event[0].get('Name')));
+            listaConEventos.add(evento);
         }       
         
         return listaConEventos;
     }
-}  
+}

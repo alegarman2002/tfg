@@ -1,150 +1,146 @@
-/* Event Template */
 .mainArea {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  
-  .eventLeftCol .custEventDate,
-  .eventLeftCol .custEventTime,
-  .eventLeftCol .custEventLocation { /* Texto del titulo*/
-      color: #12ABDB;
-      font-size: 24px;
-  }
-  
-  .custEventDate {
-    justify-content:  flex-end;
-  }
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
-  .controlRegistration {
-    display: none;
-  }
-  
-  .eventRightCol .custEventLocation {
-     padding-left: 10px;
-  }
-  
-  .imod_eventButtons input[type=submit],
-  .imod_eventButtons .button { /* Botones */
-      display: inline-block;
-      color: #fff;
-      background: #12ABDB;
-      padding: 5px 15px;
-      border : none;
-      text-transform: uppercase;
-      font-weight: bold;
-  }
+.eventLeftCol .custEventDate,
+.eventLeftCol .custEventTime,
+.eventLeftCol .custEventLocation {
+  color: #12abdb;
+  font-size: 24px;
+}
 
-  .imod_eventButtons .button:hover {
-      text-decoration: underline;
-  }
-  
-  .imod_eventButtons {
-      margin-bottom: 20px;
-  }
-  
-  .eventLeftCol .imod_eventDescription p {
-     padding-top: 20px;
-  }
-  
-  .eventRightCol .custEventContBox { 
-      background: #ecedef;
-      padding: 20px 20px;
-      margin-bottom: 10px;
-  }
-  
-  .eventRightCol .eventContHead,
-  .eventRightCol .whenWhere{
-      color: #000;
-    font-weight: bold;
-      text-transform: uppercase;
-      white-space: nowrap;
-  }
-  
-  .featuredEventsTitle {
-    color: #000;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  
-  .eventRightCol .custEventContBox .contactEmail { /* When and where */
-      color: #12ABDB;
-      padding-left: 10px;
-  }
-  
-  .eventRightCol .custEventDate {
-      background: #ecedef;
-      padding: 20px 20px;
-  }
-  
-  .eventRightCol .rightColDate,
-  .eventRightCol .custEventTime { /* Event time */
-    color: #12ABDB; 
-    padding-left: 10px;  
-  }
-  
-  .eventRightCol .custEventDate {
-    margin-bottom: 10px;
-  }
-  
-  .leftBar { 
-    display: flex;
-    height: 7px;
-    background: #12ABDB;
-    width: 5%; 
-    margin-right: 5px;
-  
-  }
-  
-  .rightBar {
-    display: flex;
-    height: 7px;
-    background: #12ABDB;
-    width: 100%; 
-    margin-left: 5px;
-  
-  }
-    
-  .horizontalBar {
-    background: #cccccc;
-    padding: 0.5px;
-    width: 100%;
-    margin: 5px 0;
-  }
-  
-  .contactSection {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 15px;
-  }
-  
-  .whenWhereSec {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 15px;
-  }
-  
-  .eventContactName {
-    padding-left: 10px;
-  }
-  
-  .featuredEvents {
-    background: #ecedef;
-    padding: 20px 20px;
-  }
-  
-  .eventLink {
-    padding-left: 10px;
-    color: #333;
-  }
-  
-  .eventLink:hover {
-    color: #006747;
-    text-decoration: none; 
-  }
-  
-  .eventRightCol .custEventContact .custEventMap .imagen span p {
-    display: flex;
-    justify-content: center;
-  }
-  
+.custEventDate {
+  justify-content: flex-end;
+}
+
+.controlRegistration {
+  display: none;
+}
+
+.eventRightCol .custEventLocation {
+  padding-left: 10px;
+}
+
+.imod_eventButtons input[type="submit"],
+.imod_eventButtons .button {
+  display: inline-block;
+  color: #fff;
+  background: #12abdb;
+  padding: 5px 15px;
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.imod_eventButtons .button:hover {
+  text-decoration: underline;
+}
+
+.imod_eventButtons {
+  margin-bottom: 20px;
+}
+
+.eventLeftCol .imod_eventDescription p {
+  padding-top: 20px;
+}
+
+.eventRightCol .custEventContBox {
+  background: #ecedef;
+  padding: 20px 20px;
+  margin-bottom: 10px;
+}
+
+.eventRightCol .eventContHead,
+.eventRightCol .whenWhere {
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.featuredEventsTitle {
+  color: #000;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.eventRightCol .custEventContBox .contactEmail {
+  color: #12abdb;
+  padding-left: 10px;
+}
+
+.eventRightCol .custEventDate {
+  background: #ecedef;
+  padding: 20px 20px;
+}
+
+.eventRightCol .rightColDate,
+.eventRightCol .custEventTime {
+  color: #12abdb;
+  padding-left: 10px;
+}
+
+.eventRightCol .custEventDate {
+  margin-bottom: 10px;
+}
+
+.leftBar {
+  display: flex;
+  height: 7px;
+  background: #12abdb;
+  width: 5%;
+  margin-right: 5px;
+}
+
+.rightBar {
+  display: flex;
+  height: 7px;
+  background: #12abdb;
+  width: 100%;
+  margin-left: 5px;
+}
+
+.horizontalBar {
+  background: #cccccc;
+  padding: 0.5px;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.contactSection {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 15px;
+}
+
+.whenWhereSec {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 15px;
+}
+
+.eventContactName {
+  padding-left: 10px;
+}
+
+.featuredEvents {
+  background: #ecedef;
+  padding: 20px 20px;
+}
+
+.eventLink {
+  padding-left: 10px;
+  color: #333;
+}
+
+.eventLink:hover {
+  color: #006747;
+  text-decoration: none;
+}
+
+.eventRightCol .custEventContact .custEventMap .imagen span p {
+  display: flex;
+  justify-content: center;
+}

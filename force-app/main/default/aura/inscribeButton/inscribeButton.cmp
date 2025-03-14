@@ -1,0 +1,8 @@
+<aura:component
+  implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"
+>
+  <c:incribeButton
+    recordId="{!v.recordId}"
+    aura:id="incribeButton"
+  ></c:incribeButton>
+</aura:component>

@@ -1,0 +1,37 @@
+<template>
+  <h1>Formulario de inscripción</h1>
+  <h2>Nombre completo:</h2>
+  <lightning-input
+    type="text"
+    id="name"
+    name="name"
+    onchange={handleChangeName}
+    placeholder="Ingrese su nombre completo"
+  ></lightning-input>
+  <br />
+  <h2>Email:</h2>
+  <lightning-input
+    type="text"
+    id="email"
+    name="email"
+    onchange={handleChangeEmail}
+    placeholder="Ingrese su email"
+  ></lightning-input>
+  <br />
+  <h2>Observaciones:</h2>
+  <lightning-textarea
+    type="text"
+    id="observations"
+    name="observations"
+    onchange={handleChangeObservations}
+    placeholder="Observaciones"
+  ></lightning-textarea>
+  <br />
+  <div class="slds-p-horizontal_small slds-float_right">
+    <lightning-button
+      label="Inscribete"
+      title="Inscribete"
+      onclick={handleClick}
+    ></lightning-button>
+  </div>
+</template>

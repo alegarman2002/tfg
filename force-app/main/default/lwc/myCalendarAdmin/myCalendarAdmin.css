@@ -1,345 +1,349 @@
-  template {
-      background-color: #ffffff;
-  }
-  
-  .all-buttons {
-    background-color: #12ABDB;
-    font-size: 2.25vh;
-    color: #ffffff;
-    border-color: #12ABDB;
-  }
-  
-  .slds-button {
-    /* float: left; */
-    height: 15%;
-    width: 25%;
-  }
-  
-  .slds-button img {
-    height: 40%;
-    width: 40%;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .slds-col {
-    background-color: #ffffff;
-  }
-  
-  .today-button {
-    float: left;
-    width: 45%;
-    margin: 0 5px 0 0;
-  }
-  
-  .slds-button {
-    margin: 0;
-  }
-  
-  .interesting_links {
-    background-color: #ffffff;
-    color:#ffffff
-  }
-  
-  .interesting_links h3 {
-    font-size: 2vh;
-    text-align: center;
-    color: #12ABDB;
-  }
-  
-  .capgemini-button {
-    width: 33%;
-    text-align: center;
-    float: left;
-    background-color: #ffffff;
-  }
-  
-  .calculator-button {
-    width: 34%;
-    text-align: center;
-    float: left;
-    background-color: #ffffff;
-  }
-  
-  .salesforce-button {
-    width: 33%;
-    text-align: center;
-    float: left;
-    background-color: #ffffff;
-    align-items: center;
-  }
-  
-  .btn-group {
-    color: #ffffff;
-    text-align: right;
-  
-  }
-  
-  .modify-button-color {
-    background-color: #ffffff;
-    width: 150px;
-    height: 150px;
-  }
-  
-  .image_calendar span p img{
-    width: auto;
-    height: 100%;
-  }
-  
-  .calendar {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-  
-  h1{
-    background-color: #ffffff;
-    font-size: 4em; /* Tamaño de la letra */
-    color: #12ABDB;
-    border-top-left-radius: 0.4em;
-    border-top-right-radius: 0.4em;
-    padding: 2vw;
-  }
-  
-  h2 {
-    background-color: #ffffff;
-    font-size: 2em; /* Tamaño de la letra */
-    color: #12ABDB;
-    margin: auto;
-    padding: 2vw;
-  
-  }
-  
-  .fc-image{
-    display: block;
-    height: 100px;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-  .fc-image img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: auto;
-    width: 100%;
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-  }
-  
-  .tooltip {
-    width: 145px;
-    word-wrap: break-word;
-    display:none;
-    position:absolute;
-    border:1px solid #333;
-    /*            background-color:#161616;*/
-    border-radius:5px;
-    padding:10px;
-    color:#fff;
-    font-size:12px Arial;
-    z-index: 9999;
-  }
-  
-  .slds-size_3-of-12 {
-    padding-right: 25px;
-  }
-  
-  .legend {
-    padding-left: 25px;
-  }
-  
-  .mostrarEventos {
-    padding-bottom: 10px;
-  }
-  
-  .slds-size_8-of-12 h3{
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 22px;
-    text-align: left;
-    letter-spacing: 1px;
-    color: #12ABDB;
-    margin-bottom: 20px;
-    padding-left: 25px;
-  }
-  
-  .slds-grid {
-    padding-left: 25px;
-    padding-right: 25px;
-    background-color: #ffffff;
-  }
-  .slds-wrap {
-      background: #ffffff;
-      padding-bottom: 0.5rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-      padding-top: 0.5rem;
-      overflow-y: auto;
-  }
-  
-  .title-container {
-      background-color: #ffffff;
-      width: auto;
-      height: auto;
-      display: flex;
-      align-items: center; /* Centra verticalmente */
-      justify-content: space-between;
-  }
-  
-  .title-container img {
-      background-color: #ffffff;
-      margin-right: 30px; /* Espacio entre la imagen y el texto */
-      align-items: end;
-      width: 25%;
-  }
-  
-  .title-container h2 {
-      background-color: #ffffff;
-      white-space: nowrap; /* Evita saltos de línea en el texto */
-      font-size: 3.5vh; /* Tamaño de la letra */
-      color: #12ABDB; /* Color del texto */
-  }
-  
-  .circle-current-day {
-    width: 1/3%;
-    float: left;
-    padding: 2px;
-  }
-  
-  .circle-holidays {
-    width: 1/3%;
-    float: left;
-    padding: 2px;
-  }
-  
-  .circle-current {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-top: 5px;
-    margin-left: 2px;
-    background-color: #fffce4; /* Puedes cambiar el color aquí */
-    
-  }
-  
-  .circle-leapDayS {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-top: 5px;
-    margin-left: 2px;
-    background-color: #ffb4b4;
-  }
-  
-  .circle-leapDay {
-    width: 1/3%;
-    float: left;
-    padding: 2px;
-  }
-  
-  .circle-holiday {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-top: 5px;
-    margin-left: 2px;
-    background-color:  #d9d9d9; /* Puedes cambiar el color aquí */
-  }
-  
-    
-    /* Global Event Styles
+template {
+  background-color: #ffffff;
+}
+
+.all-buttons {
+  background-color: #12abdb;
+  font-size: 2.25vh;
+  color: #ffffff;
+  border-color: #12abdb;
+}
+
+.slds-button {
+  /* float: left; */
+  height: 15%;
+  width: 25%;
+}
+
+.slds-button img {
+  height: 40%;
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+}
+
+.slds-col {
+  background-color: #ffffff;
+}
+
+.today-button {
+  float: left;
+  width: 45%;
+  margin: 0 5px 0 0;
+}
+
+.slds-button {
+  margin: 0;
+}
+
+.interesting_links {
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+.interesting_links h3 {
+  font-size: 2vh;
+  text-align: center;
+  color: #12abdb;
+}
+
+.capgemini-button {
+  width: 33%;
+  text-align: center;
+  float: left;
+  background-color: #ffffff;
+}
+
+.calculator-button {
+  width: 34%;
+  text-align: center;
+  float: left;
+  background-color: #ffffff;
+}
+
+.salesforce-button {
+  width: 33%;
+  text-align: center;
+  float: left;
+  background-color: #ffffff;
+  align-items: center;
+}
+
+.btn-group {
+  color: #ffffff;
+  text-align: right;
+}
+
+.modify-button-color {
+  background-color: #ffffff;
+  width: 150px;
+  height: 150px;
+}
+
+.image_calendar span p img {
+  width: auto;
+  height: 100%;
+}
+
+.calendar {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+h1 {
+  background-color: #ffffff;
+  font-size: 4em; /* Tamaño de la letra */
+  color: #12abdb;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+  padding: 2vw;
+}
+
+h2 {
+  background-color: #ffffff;
+  font-size: 2em; /* Tamaño de la letra */
+  color: #12abdb;
+  margin: auto;
+  padding: 2vw;
+}
+
+.fc-image {
+  display: block;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.fc-image img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  width: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.tooltip {
+  width: 145px;
+  word-wrap: break-word;
+  display: none;
+  position: absolute;
+  border: 1px solid #333;
+  /*            background-color:#161616;*/
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  font-size: 12px Arial;
+  z-index: 9999;
+}
+
+.slds-size_3-of-12 {
+  padding-right: 25px;
+}
+
+.legend {
+  padding-left: 25px;
+}
+
+.mostrarEventos {
+  padding-bottom: 10px;
+}
+
+.slds-size_8-of-12 h3 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 22px;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #12abdb;
+  margin-bottom: 20px;
+  padding-left: 25px;
+}
+
+.slds-grid {
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #ffffff;
+}
+.slds-wrap {
+  background: #ffffff;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  overflow-y: auto;
+}
+
+.title-container {
+  background-color: #ffffff;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: space-between;
+}
+
+.title-container img {
+  background-color: #ffffff;
+  margin-right: 30px; /* Espacio entre la imagen y el texto */
+  align-items: end;
+  width: 25%;
+}
+
+.title-container h2 {
+  background-color: #ffffff;
+  white-space: nowrap; /* Evita saltos de línea en el texto */
+  font-size: 3.5vh; /* Tamaño de la letra */
+  color: #12abdb; /* Color del texto */
+}
+
+.circle-current-day {
+  width: 1/3%;
+  float: left;
+  padding: 2px;
+}
+
+.circle-holidays {
+  width: 1/3%;
+  float: left;
+  padding: 2px;
+}
+
+.circle-current {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #fffce4; /* Puedes cambiar el color aquí */
+}
+
+.circle-leapDayS {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #ffb4b4;
+}
+
+.circle-leapDay {
+  width: 1/3%;
+  float: left;
+  padding: 2px;
+}
+
+.circle-holiday {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 2px;
+  background-color: #d9d9d9; /* Puedes cambiar el color aquí */
+}
+
+/* Global Event Styles
     --------------------------------------------------------------------------------------------------*/
-    .fc-event {
-      position: relative;
-      /* for resize handle and other inner positioning */
-      display: block;
-      /* make the <a> tag block */
-      font-size: 17px;
-      line-height: 1.3;
-      letter-spacing: 0.02em;
-      border-radius: 3px;
-      font-weight: 500;
-      border: 1px solid #ddd;
-      -webkit-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
-      -moz-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
-      box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
-      /* default BORDER color */ }
-    
-      .fc-event,
-      .fc-event-dot {
-        background-color: #ffffff;
-        color: #12ABDB;
-        position: relative;
-        /* default BACKGROUND color */ }
-  
-        .fc-event:before,
-        .fc-event-dot:before{
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 3em;
-            height: 100%;
-            border-left: 3px solid #12ABDB;
-            border-bottom: 3px solid #12ABDB;
-            -webkit-border-radius: 3px 0px 0px 3px;
-            -moz-border-radius: 3px 0px 0px 3px;
-            border-radius: 3px 0px 0px 3px;
-        }
-    
-    .fc-event .fc-content {
-        color: #2c304d;
-        position: relative;
-        z-index: 2;
-        padding: 12px;
-    }
-    /*
+.fc-event {
+  position: relative;
+  /* for resize handle and other inner positioning */
+  display: block;
+  /* make the <a> tag block */
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  border-radius: 3px;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
+  /* default BORDER color */
+}
+
+.fc-event,
+.fc-event-dot {
+  background-color: #ffffff;
+  color: #12abdb;
+  position: relative;
+  /* default BACKGROUND color */
+}
+
+.fc-event:before,
+.fc-event-dot:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 3em;
+  height: 100%;
+  border-left: 3px solid #12abdb;
+  border-bottom: 3px solid #12abdb;
+  -webkit-border-radius: 3px 0px 0px 3px;
+  -moz-border-radius: 3px 0px 0px 3px;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.fc-event .fc-content {
+  color: #2c304d;
+  position: relative;
+  z-index: 2;
+  padding: 12px;
+}
+/*
     Acceptable font-family overrides for individual icons:
       "Arial", sans-serif
       "Times New Roman", serif
     
     NOTE: use percentage font sizes or else old IE chokes
-    */  .fc-unthemed th,
-    .fc-unthemed td,
-    .fc-unthemed thead,
-    .fc-unthemed tbody,
-    .fc-unthemed .fc-divider,
-    .fc-unthemed .fc-row,
-    .fc-unthemed .fc-content,
-    .fc-unthemed .fc-popover,
-    .fc-unthemed .fc-list-view,
-    .fc-unthemed .fc-list-heading td {
-      border-color: #ddd; }
-    
-    .fc-unthemed .fc-popover {
-      background-color: #fff; }
-    
-    .fc-unthemed .fc-divider,
-    .fc-unthemed .fc-popover .fc-header,
-    .fc-unthemed .fc-list-heading td {
-      background: #eee; }
-    
-    .fc-unthemed .fc-popover .fc-header .fc-close {
-      color: #666; }
-    
-    .fc-unthemed td.fc-today {
-      background: #fcf8e3; }
-    
-    .fc-unthemed .fc-disabled-day {
-      background: #d7d7d7;
-      opacity: .3; }
-    
-    /* Now Indicator
+    */
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+  border-color: #ddd;
+}
+
+.fc-unthemed .fc-popover {
+  background-color: #fff;
+}
+
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-popover .fc-header,
+.fc-unthemed .fc-list-heading td {
+  background: #eee;
+}
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  color: #666;
+}
+
+.fc-unthemed td.fc-today {
+  background: #fcf8e3;
+}
+
+.fc-unthemed .fc-disabled-day {
+  background: #d7d7d7;
+  opacity: 0.3;
+}
+
+/* Now Indicator
     --------------------------------------------------------------------------------------------------*/
-    .fc th.fc-day-header{
-      padding: 11px 7px;
-      font-size: 16px;
-      font-weight: 400;
-  }
-  
-  .misEventos {
-    background-color: #ffffff;
-    padding: 25px;
-  }
-  
+.fc th.fc-day-header {
+  padding: 11px 7px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.misEventos {
+  background-color: #ffffff;
+  padding: 25px;
+}
