@@ -140,7 +140,9 @@
   text-decoration: none;
 }
 
-.eventRightCol .custEventContact .custEventMap .imagen span p {
+span p {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
+

@@ -8,23 +8,23 @@
 
     <div class="form">
       <div class="consumo-domestico">
-        <lightning-input class="lightning" data-id="consumoElectrico" id="consumoElectrico" type="number" label="Consumo electrico domestico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
+        <lightning-input class="lightning" data-id="consumoElectrico" id="consumoElectrico" type="number" label="Consumo eléctrico doméstico (valor medio por mes en kWh)" onchange={consElectrico} placeholder="Ingrese el total de kWh de su factura"></lightning-input><br>
         <p data-id="actualizacionConsumoElectrico" style="display: none;"></p>
-        <lightning-slider class="lightning" data-id="oficina" id="oficina" label="Nuemro de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
+        <lightning-slider class="lightning" data-id="oficina" id="oficina" label="Número de monitores auxiliares" min="0" max="3" value={monitores} onchange={moni}>
         </lightning-slider>
       
         <lightning-combobox
           class="lightning"
           data-id="tipoCalefaccion"
           name="tipoCalefaccion"
-          label="Tipo de calefaccion que utilizas en casa para trabajar"
+          label="Tipo de calefacción/aire acondicionado que utilizas en casa para trabajar"
           value={tipoElegido}
           options={tiposDeCalefaccion}
-          placeholder="Seleccione el tipo de calefaccion que usa"
+          placeholder="Seleccione el tipo de calefacción/aire acondicionado que usa"
           onchange={handleHeatingOptionChange}>
         </lightning-combobox>
 
-        <lightning-slider class="lightning" style="display: none;" data-id="horasDeUso" label="Horas de uso de la calefaccion" min="1" max="8" value={calefaccion} onchange={cale}></lightning-slider>
+        <lightning-slider class="lightning" style="display: none;" data-id="horasDeUso" label="Horas de uso de la calefacción" min="1" max="8" value={calefaccion} onchange={cale}></lightning-slider>
         <p data-id="actualizacionHorasUsoCale" style="display: none;"></p>
 
         <lightning-input class="lightning" style="display: none;" data-id="metrosParaCalefaccion" id="metrosParaCalefaccion" type="number" label="Metros cuadrados a los que afectará la calefacción/aire acondicionado" onchange={metrosCale} placeholder="Ingrese los metros cuadrados que se verán afectados"></lightning-input><br>
@@ -34,14 +34,14 @@
           class="lightning"
           data-id="tipoIluminación"
           name="tipoIluminación"
-          label="Tipo de iluminacion que utilizas en casa para trabajar"
+          label="Tipo de iluminación que utilizas en casa para trabajar"
           value={tipoIluminacionElegido}
           options={tiposDeIluminacion}
           placeholder="Seleccione el tipo de iluminación que usa"
           onchange={handleIluminationOptionChange}>
         </lightning-combobox>
 
-        <lightning-input style="display: none;" class="lightning" id="numeroBombillas" data-id="numeroBombillas" type="number" label="Numero de bombillas que se tienen encendidas" onchange={bombillas} placeholder="Numero de bombillas que utiliza"></lightning-input><br>
+        <lightning-input style="display: none;" class="lightning" id="numeroBombillas" data-id="numeroBombillas" type="number" label="Número de bombillas que se tienen encendidas" onchange={bombillas} placeholder="Número de bombillas que utiliza"></lightning-input><br>
 
       </div>
 
