@@ -7,7 +7,7 @@ import imageBicicleta from "@salesforce/resourceUrl/Bicicleta";
 import imageLuzNatural from "@salesforce/resourceUrl/LuzNatural";
 import imageTransportePublico from "@salesforce/resourceUrl/TransportePublico";
 
-export default class CalculatorPart2 extends LightningElement {
+export default class calculadoraConsumoDesplazamiento extends LightningElement {
   randomIndex = Math.floor(Math.random() * 5);
 
   listImages = [
@@ -76,7 +76,7 @@ export default class CalculatorPart2 extends LightningElement {
     this.metodoElegido = event.detail.value;
     if (this.metodoElegido == "metodoCoche") {
       var input = this.template.querySelector('[data-id="consumoCoche"]');
-      console.log("Valor del input: ", input);
+      // console.log("Valor del input: ", input);
       input.style.display = "block";
       input = this.template.querySelector('[data-id="motorCoche"]');
       input.style.display = "block";
@@ -84,7 +84,7 @@ export default class CalculatorPart2 extends LightningElement {
       input.style.display = "block";
     } else {
       var input = this.template.querySelector('[data-id="consumoCoche"]');
-      console.log("Valor del input: ", input);
+      // console.log("Valor del input: ", input);
       input.style.display = "none";
       input = this.template.querySelector('[data-id="motorCoche"]');
       input.style.display = "none";
@@ -184,7 +184,13 @@ export default class CalculatorPart2 extends LightningElement {
       this.dispatchEvent(event);
       return;
     }
-
+    this.consumo = 0
+    if (this.valorMotor == null) {
+      this.valorMotor = ""
+    }
+    if (this.metrosParaCalefaccion == "null") {
+      this.metrosParaCalefaccion = 0
+    }
     var list = [
       this.consumoElectrico,
       this.dias,
@@ -200,6 +206,7 @@ export default class CalculatorPart2 extends LightningElement {
       this.numBombillas,
       this.tipoIluminacion
     ];
+    console.log(list)
     var guardado = 1;
     await guardarDatos({ parametros: list }).then((atribute) => {
       guardado = atribute;
@@ -210,7 +217,15 @@ export default class CalculatorPart2 extends LightningElement {
         message: "Sus datos se han guardado correctamente",
         variant: "success"
       });
+      // console.log("Antes")
+      let botonSiguiente = this.template.querySelector(
+        '[data-id="registrar"]'
+      );
+      // console.log("Despues")
+      botonSiguiente.disabled = true;
+      botonSiguiente.style.opacity = 0.5;
       this.dispatchEvent(event);
+      setTimeout(() => {window.open("/s/", "_self")}, 3500);
     } else {
       const event = new ShowToastEvent({
         title: "Alerta",

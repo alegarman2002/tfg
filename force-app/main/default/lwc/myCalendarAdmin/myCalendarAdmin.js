@@ -80,45 +80,10 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                initialView: 'dayGridMonth',
                header: false,
                events: [],
-               // eventRendering : 'list-item',
-               // eventContent: function (event, element) {  
-               //      element.find('span.fc-time').before($("<span class=\"fc-image\"><img src="+event.image+"></span>"))
-                        
-               // }, 
-               // loading: function (bool) {
-               //      $('#loading').toggle(bool);
-               // },    
-               // eventMouseEnter: function (event, element) {     
-               //      console.log("Entra") 
-               //      console.log(event.event.title)              
-               //           var tool = document.createElement("p")
-               //           tool.textContent = event.event.title
-               //           tool.classList.add("tooltip")
-               //           tool.style.backgroundColor = "#ffffff"
-               //           document.body.appendChild(tool)
-               //      },
-               // eventMouseLeave: function (event, element) {     
-               //      console.log("Sale")               
-               //      // $('.tooltip').remove();
-               // },
-               // eventAfterRender: function (info) {
-               //      // Obtiene la altura del evento y ajusta la altura de la celda en consecuencia
-               //      var eventHeight = info.el.offsetHeight;
-               //      var cellHeight = info.el.closest('.fc-content-skeleton').offsetHeight;
-              
-               //      if (eventHeight > cellHeight) {
-               //        info.el.closest('.fc-content-skeleton').style.height = eventHeight + 'px';
-               //      }
-                    
-               // },
                //Comentar el tema de por que ajusta bien desde que abro la consola
                eventRender(event) {
                     var element = event.el
-                    // console.log("AAAAAAAAAAAAA")
-                    // console.log(event.event.extendedProps.image)
-                    // console.log(element)
-                    // var control = 0
-                    // console.log(event.event.id)
+                   
                     
                     if (event.event.extendedProps.image) {
                          // await compareEventsId({id: event.event.id}).then((atribute => {control = atribute}))
@@ -129,53 +94,22 @@ export default class MyCalendar extends NavigationMixin(LightningElement) {
                          imageElement.className = 'fc-image'
 
                          var htmlString = event.event.extendedProps.image
-                         // var srcStartIndex = htmlString.indexOf('src="')
-                         // var srcEndIndex = htmlString.indexOf('"', srcStartIndex + 5)
-
-                         // var imageRoute = htmlString.substring(srcStartIndex + 5, srcEndIndex)
-                         // console.log(htmlString)
+                       
 
                          imageElement.innerHTML = '<lightning-formatted-rich-text c-customlayout_customlayout="" class="slds-rich-text-editor__output image_calendar"><span part="formatted-rich-text">' + htmlString + '</span></lightning-formatted-rich-text>'
                          
-                         // Crea un elemento img y establece el atributo src con el valor de event.extendedProps.image
-                         // var imgElement = document.createElement('lightning-formatted-rich-text')
-                         // var pElement = document.createElement('p')
-                         // imgElement.append(pElement)
-                         // var image = document.createElement('img')
-                         // image.src = imageRoute
-                         // pElement.append(image)
-
-                         // // Agrega la imagen al elemento 'fc-image'
-                         // imageElement.appendChild(imgElement)
 
                          // Inserta el elemento 'fc-image' antes del elemento 'fc-time'
                          timeElement.parentNode.insertBefore(imageElement, timeElement)
                     }
-                    // if (control == 1) {
-                    //      console.log("Logueamos iteracciones")
-                    //      var timeElement = element.querySelector('span.fc-image')
-
-                    //      console.log("Logueamos iteracciones")
-                    //      var imageElement = document.createElement('span')
-                    //      imageElement.className = 'fc-registered'
-
-                    //      console.log("Logueamos iteracciones")
-                    //      imageElement.innerHTML = '<p>Ya esta registrado</p>'
-
-                    //      console.log("Logueamos iteracciones")
-                    //      timeElement.parentNode.insertBefore(imageElement, timeElement)
-                    //      console.log("Despues de insertar")
-                    // }
-                    // console.log("Ayuda")
+                    
                 },
                //eventDrop: info => { console.log('event drag start', info) },
                eventClick: info => { 
                     this.clickedEvent = '' + info.event.id
                     // localStorage.setItem('event', this.clickedEvent)
                     this.event('fceventclick', info) },
-               //eventMouseEnter: info => {console.log("mouse enter", info) },
-               //dateClick: info => { this.event('fcdateclick', info) },   
-                     
+
         })
 
 

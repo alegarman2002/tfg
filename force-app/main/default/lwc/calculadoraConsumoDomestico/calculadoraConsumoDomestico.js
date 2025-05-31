@@ -178,15 +178,6 @@ export default class Calculator extends LightningElement {
     }
   }
 
-  // controlOfBorderBottom() {
-  //     var leftPart = this.template.querySelector('[class="form"]')
-  //     var rightPart = this.template.querySelector('[class=advice]')
-
-  //     console.log(leftPart.style)
-  //     console.log("Altura derecha", rightPart.style.height)
-  //     console.log("Altura izquierda", leftPart.style.height)
-  //     rightPart.style.height = leftPart.style.height
-  // }
 
   handleMotorChange(event) {
     this.valorMotor = event.detail.value;
@@ -241,34 +232,12 @@ export default class Calculator extends LightningElement {
   }
 
   async registrateData() {
-    // await guardarDatos()
-    //Consumo electrico total
-    // console.log("Consumo electrico ", this.consumoElectrico)
-    //Dias que se van a la oficina por mes
-    // console.log("Dias a la oficina ", this.dias)
-    //Metodo de transporte elegido
-    // console.log("Metodo de transporte ", this.metodoElegido)
-    //Tipo de motor elegido
-    // console.log("Tipo de motor ", this.valorMotor)
-    //Consumo del motor
-    // console.log("Consumo del motor ", this.consumo)
-    //Numero de integrantes del coche
-    // console.log("Numero de integrantes del coche ", this.integrantesCoche)
-    //Numero de monitores auxiliares
-    // console.log("Monitores para trabajar ", this.monitores)
-    //Tipo de calefaccion
-    // console.log("Tipo de calefaccion ", this.tipoCalefaccion)
-    //Horas de uso de la calefaccion
-    // console.log("Horas de uso de la calefaccion ", this.calefaccion)
-    console.log(this.metrosParaCalefaccion);
-    if (
+
+        if (
       this.consumoElectrico == null ||
       this.numBombillas < 0 ||
       this.consumoElectrico < 0 ||
       this.metrosParaCalefaccion < 0 ||
-      (this.metrosParaCalefaccion == null &&
-        this.tiposDeCalefaccion != "sinCalefaccion") ||
-      (this.numBombillas == null && this.tipoIluminacion != "sinIluminacion") ||
       this.tipoCalefaccion == null ||
       this.tipoIluminacion == null
     ) {
@@ -281,6 +250,15 @@ export default class Calculator extends LightningElement {
       this.dispatchEvent(event);
       return;
     }
+    if (
+      (this.tiposDeCalefaccion == "sinCalefaccion")
+    ) {
+      this.metrosParaCalefaccion = 0
+    }
+    if (this.tipoIluminacion == "sinIluminacion") {
+      this.numBombillas = 0
+    }
+
 
     localStorage.setItem("consumoElectrico", this.consumoElectrico);
     localStorage.setItem("monitores", this.monitores);
@@ -295,71 +273,8 @@ export default class Calculator extends LightningElement {
     localStorage.setItem("metrosParaCalefacción", this.metrosParaCalefaccion);
 
     window.open("/s/footprintcalculatorpart2", "_self");
-    // var list = [this.consumoElectrico, this.dias, this.metodoElegido, this.valorMotor, this.consumo, this.integrantesCoche, this.monitores, this.tipoCalefaccion, this.calefaccion, this.distancia]
-    // var guardado = 0
-    // await guardarDatos({parametros: list}).then((atribute => {guardado = atribute}))
-    // if (guardado == 1) {
-    //     const event = new ShowToastEvent({
-    //         title: 'Alerta',
-    //         message: 'Sus datos se han guardado correctamente',
-    //         variant: 'success',
-    //     });
-    //     this.dispatchEvent(event);
-    // } else {
-    //     const event = new ShowToastEvent({
-    //         title: 'Alerta',
-    //         message: 'Ha habido un problema guardando sus datos por favor reviselos y vuelva a enviarlos',
-    //         variant: 'error',
-    //     });
-    //     this.dispatchEvent(event);
-    // }
+
   }
 
-  // email = ''
-  // selectedCarOption = ''
-  // carOptions = [
-  //     { label: 'Gasolina', value: 'typeCarPetrol' },
-  //     { label: 'Gasóleo', value: 'typeCarFuel'    },
-  //     { label: 'LPG', value: 'typeCarLPG'}
-  // ]
 
-  // handleCarOptionChange(event) {
-  //     this.selectedCarOption = event.target.value
-  //     console.log(this.selectedCarOption)
-  // }
-
-  // handleEmailChange(event) {
-  //     this.email = event.target.value
-  //     console.log(this.email)
-  // }
-
-  // calcFootprint() {
-  //     console.log('Antes de obtener los datos')
-
-  //     // console.log(distance)
-  //     // console.log(consumption)
-  //     // console.log(numberPassengers)
-  //     //console.log(yearOfCar)
-  //     //console.log(email)
-
-  //     //calculateFootprint();
-  // }
-
-  // configureSettingsForCar() {
-
-  //     if (optionSelected == 'typeCarPetrol') {
-  //         //6 litros de consumo cada 100
-  //         //Co2 2.881kg/ud
-  //         //cooger el valor de abajo por el consumo medio del coche y multiplicarlo por el numero de kilometros
-  //     } else if (optionSelected == 'typeCarFuel') {
-
-  //     } else if (optionSelected == 'typeCarLPG') {
-  //         //realizar calculos oportunos
-  //     }
-
-  // }
-
-  // configureSettingsForVan() {
-
-  // }
 }
