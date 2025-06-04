@@ -68,12 +68,10 @@ export default class Calculator extends LightningElement {
         botonSiguiente.disabled = true;
         botonSiguiente.style.opacity = 0.5;
       }
-      console.log("Antes de la llamada");
       this.listaValoresAnteriores = await obtenerDatosUltimoMes();
       if (this.listaValoresAnteriores != null) {
         this.listaValoresAnteriores = this.listaValoresAnteriores[0];
       }
-      console.log("Lista valores anteriores", this.listaValoresAnteriores);
     }
   }
 
@@ -189,29 +187,30 @@ export default class Calculator extends LightningElement {
 
   consElectrico(event) {
     //Tenemos que obtener el valor del ultimo mes que estaria almacenado en
-    var valorUltimoMes = this.listaValoresAnteriores.ConsumoElectrico__c;
-    var input = this.template.querySelector(
-      '[data-id="actualizacionConsumoElectrico"]'
-    );
+    if (this.listaValoresAnteriores != undefined) {
+      var valorUltimoMes = this.listaValoresAnteriores.ConsumoElectrico__c;
+      var input = this.template.querySelector(
+        '[data-id="actualizacionConsumoElectrico"]'
+      );
+      this.consumoElectrico = event.detail.value;
 
-    console.log(valorUltimoMes);
-    console.log(valorUltimoMes - this.consumoElectrico);
-    this.consumoElectrico = event.detail.value;
-
-    if (this.consumoElectrico < valorUltimoMes) {
-      input.innerHTML =
-        "Enhorabuena has reducido tu consumo electrico en " +
-        (valorUltimoMes - this.consumoElectrico) +
-        "Wh";
-      input.style.display = "block";
-    } else if (this.consumoElectrico === valorUltimoMes) {
-      input.style.display = "none";
+      if (this.consumoElectrico < valorUltimoMes) {
+        input.innerHTML =
+          "Enhorabuena has reducido tu consumo electrico en " +
+          (valorUltimoMes - this.consumoElectrico) +
+          "Wh";
+        input.style.display = "block";
+      } else if (this.consumoElectrico === valorUltimoMes) {
+        input.style.display = "none";
+      } else {
+        input.innerHTML =
+          "Vaya parece que el tu consumo ha aumentado en " +
+          (this.consumoElectrico - valorUltimoMes) +
+          "Wh";
+        input.style.display = "block";
+      }
     } else {
-      input.innerHTML =
-        "Vaya parece que el tu consumo ha aumentado en " +
-        (this.consumoElectrico - valorUltimoMes) +
-        "Wh";
-      input.style.display = "block";
+        this.consumoElectrico = event.detail.value;
     }
   }
 
@@ -232,6 +231,14 @@ export default class Calculator extends LightningElement {
   }
 
   async registrateData() {
+    if 
+      (this.tipoCalefaccion == "sinCalefaccion")
+   {
+      this.metrosParaCalefaccion = 0
+    }
+    if (this.tipoIluminacion == "sinIluminacion") {
+      this.numBombillas = 0
+    }
 
         if (
       this.consumoElectrico == null ||
@@ -250,24 +257,23 @@ export default class Calculator extends LightningElement {
       this.dispatchEvent(event);
       return;
     }
-    if (
-      (this.tiposDeCalefaccion == "sinCalefaccion")
-    ) {
-      this.metrosParaCalefaccion = 0
-    }
-    if (this.tipoIluminacion == "sinIluminacion") {
-      this.numBombillas = 0
-    }
 
 
     localStorage.setItem("consumoElectrico", this.consumoElectrico);
     localStorage.setItem("monitores", this.monitores);
     localStorage.setItem("tipoCalefaccion", this.tipoCalefaccion);
     localStorage.setItem("calefaccion", this.calefaccion);
-    localStorage.setItem(
-      "consumoMotor",
-      this.listaValoresAnteriores.ConsumoMotor__c
-    );
+    if (this.listaValoresAnteriores != undefined) {
+      localStorage.setItem(
+        "consumoMotor",
+        this.listaValoresAnteriores.ConsumoMotor__c
+      );
+    } else {
+      localStorage.setItem(
+        "consumoMotor",
+        -1
+      );
+    }
     localStorage.setItem("numeroBombillas", this.numBombillas);
     localStorage.setItem("tipoIluminacion", this.tipoIluminacion);
     localStorage.setItem("metrosParaCalefacción", this.metrosParaCalefaccion);

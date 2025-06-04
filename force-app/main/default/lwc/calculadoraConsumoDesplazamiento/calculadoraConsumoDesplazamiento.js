@@ -119,24 +119,26 @@ export default class calculadoraConsumoDesplazamiento extends LightningElement {
       '[data-id="actualizacionConsumoCoche"]'
     );
 
-    console.log(valorUltimoMes);
-    console.log(valorUltimoMes - this.comsumoElectrico);
-    this.consumo = parseFloat(event.detail.value);
+    if (this.consumoMotorAnterior != -1) {
+      this.consumo = parseFloat(event.detail.value);
 
-    if (this.consumo < valorUltimoMes) {
-      input.innerHTML =
-        "Enhorabuena has reducido el consumo de tu coche en " +
-        (valorUltimoMes - this.consumo) +
-        " litros cada 100Km";
-      input.style.display = "block";
-    } else if (this.consumo == valorUltimoMes || this.consumo == NaN) {
-      input.style.display = "none";
+      if (this.consumo < valorUltimoMes) {
+        input.innerHTML =
+          "Enhorabuena has reducido el consumo de tu coche en " +
+          (valorUltimoMes - this.consumo) +
+          " litros cada 100Km";
+        input.style.display = "block";
+      } else if (this.consumo == valorUltimoMes || this.consumo == NaN) {
+        input.style.display = "none";
+      } else {
+        input.innerHTML =
+          "Debes controlar el acelerador tu consumo del coche ha aumentado en " +
+          (this.consumo - valorUltimoMes) +
+          " litros cada 100Km";
+        input.style.display = "block";
+      }
     } else {
-      input.innerHTML =
-        "Debes controlar el acelerador tu consumo del coche ha aumentado en " +
-        (this.consumo - valorUltimoMes) +
-        " litros cada 100Km";
-      input.style.display = "block";
+      this.consumo = parseFloat(event.detail.value);
     }
   }
 
