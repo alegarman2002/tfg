@@ -58,7 +58,7 @@ export default class Calculator extends LightningElement {
         const event = new ShowToastEvent({
           title: "Aviso",
           message:
-            "Tenga en cuenta que actualmente no puede actualizar sus datos pues este mes ya los ha actualizado",
+            "Tenga en cuenta que actualmente no puede actualizar sus datos pues ya los ha actualizado",
           variant: "error"
         });
         this.dispatchEvent(event);
@@ -271,7 +271,7 @@ export default class Calculator extends LightningElement {
     } else {
       localStorage.setItem(
         "consumoMotor",
-        -1
+        0
       );
     }
     localStorage.setItem("numeroBombillas", this.numBombillas);

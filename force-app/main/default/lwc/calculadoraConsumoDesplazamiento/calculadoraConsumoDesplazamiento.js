@@ -186,9 +186,10 @@ export default class calculadoraConsumoDesplazamiento extends LightningElement {
       this.dispatchEvent(event);
       return;
     }
-    this.consumo = 0
+    
     if (this.valorMotor == null) {
       this.valorMotor = ""
+      this.consumo = 0
     }
     if (this.metrosParaCalefaccion == "null") {
       this.metrosParaCalefaccion = 0

@@ -8,7 +8,7 @@ public with sharing class CarbonFootprint {
         for(integer i = 0; i < diasCreados.size(); i++) {
             sObject event = diasCreados[i];
             Date mesSiguiente = (Date) event.get('DiaCreacion__c');
-            mesSiguiente = mesSiguiente.addMonths(1);
+            mesSiguiente = mesSiguiente.addMonths(2);
             if (diaActual <= mesSiguiente) {
                 return 0;
             }
@@ -21,6 +21,12 @@ public with sharing class CarbonFootprint {
     public static integer guardarDatos(List<string> parametros) {
         System.debug('Hola');
         Date diaActual = Date.today();
+        Date diaGuardar = null;
+        if (diaActual.month() == 1) {
+            diaGuardar = Date.newInstance(diaActual.year()-1, 12, 1);
+        } else {
+            diaGuardar = Date.newInstance(diaActual.year(), diaActual.month()-1, 1);
+        }
         Id userId = UserInfo.getUserId();
         string fullName = UserInfo.getFirstName() + ' ' + UserInfo.getLastName();
         System.debug(parametros);
@@ -58,7 +64,7 @@ public with sharing class CarbonFootprint {
             ConsumoElectrico__c=consumoElectrico,
             NombreCompleto__c=fullName,
             ConsumoMotor__c=consumo,
-            DiaCreacion__c=diaActual,
+            DiaCreacion__c=diaGuardar,
             DiasOficina__c=dias,
             IntegrantesCoche__c=integrantesCoche,
             MetodoTransporte__c=metodoElegido,
@@ -83,7 +89,7 @@ public with sharing class CarbonFootprint {
     public static List<List<double>> calcularHuellaUsuario() {
         Date diaActual = Date.today();
         Id userID = UserInfo.getUserId();
-        System.debug(userId);
+        Integer control = 0;
         List<List<double>> listaADevolver = new List<List<double>>();
         List<double> listaValoresTotales = new List<double>();
         List<double> listaValoresDesplazamientoAlMes = new List<double>();
@@ -101,69 +107,82 @@ public with sharing class CarbonFootprint {
         double gastoMonitoresTotal = 0;
 
         List<CarboonFootprint__c> diasCreados = [SELECT DiaCreacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
-        System.debug(diasCreados);
         //Hay que modificar la consulta para añadir
         //ConsumoCalefaccion__c	
         List<CarboonFootprint__c> resultados = [SELECT DiaCreacion__c, ConsumoElectrico__c, ConsumoMotor__c, DiasOficina__c, IntegrantesCoche__c, MetodoTransporte__c, Monitores__c, TipoCalefaccion__c, TipoMotor__c, UsoCalefaccion__c, Distancia__c, Metros__c, NumeroBombillas__c, TipoIluminacion__c FROM CarboonFootprint__c WHERE UserId__c = :userId ORDER BY DiaCreacion__c];
-        System.debug(resultados);
-        
         //259 gCO2eq
         // double gastoElectrico = 0;
-        
-        
+
+        integer contadorMeses = 0;
+        integer controlRepeticion = 0;
         if (!diasCreados.isEmpty()) {
-            for(integer i = 0; i < diasCreados.size()-1; i++) {
+            System.debug('DIAS ' + diasCreados.size());
+            for(integer i = diasCreados.size()-1; i > 0 || (diasCreados.size() == 1 && i==0); i--) {
                 double gastoTransporte = 0;
                 double gastoOrdenador = 0;
                 double gastoCalefaccion = 0;
                 double gastoIluminacion = 0;
                 double gastoMonitores = 0;
-
-                sObject dia = diasCreados[i];
-                sObject dia2 = null;
-                if (i != diasCreados.size()-1) {
-                    dia2 = diasCreados[i+1];
-                } 
-
-                sObject objetoMes = resultados[i];
-                //habria que tener en cuenta la ultima fecha para que la coja cuando hace la diferencia con la actual
-                sObject objetoMes2 = null;
-                if (i != diasCreados.size()-1) {
-                    objetoMes2 = resultados[i+1];
-                } else {
-                    objetoMes2 = resultados[i];
-                }
-
-                Date diaConvertido = (Date) dia.get('DiaCreacion__c');
+                sObject objetoMes = null;
                 Date diaConvertido2 = null;
-                if (i != diasCreados.size()-1) {
-                    diaConvertido2 = (Date) dia2.get('DiaCreacion__c');
-                } else {
-                    diaConvertido2 = diaActual;
+                Date diaConvertido = null;
+                sObject dia2 = null;
+                sObject dia = null;
+                if (contadorMeses >= 12) {
+                    contadorMeses = 12;
+                    break;
                 }
+                if (diasCreados.size() != 1) {
+                    if (controlRepeticion == 1) {
+                        controlRepeticion = 2;
+                    }
 
+                    dia2 = diasCreados[i];
+                    dia = diasCreados[i-1];
+                
+                    
+
+                    objetoMes = resultados[i-1];
+                    //habria que tener en cuenta la ultima fecha para que la coja cuando hace la diferencia con la actual
+                    
+
+                    diaConvertido2 = (Date) dia2.get('DiaCreacion__c');
+                    
+                    diaConvertido = (Date) dia.get('DiaCreacion__c');
+                // if (i != diasCreados.size()-1) {
+                //     diaConvertido2 = (Date) dia2.get('DiaCreacion__c');
+                // } else {
+                //     diaConvertido2 = diaActual;
+                // }
+                }
+                if (i == diasCreados.size()-1 && controlRepeticion == 0) {
+                    dia2 = diasCreados[i];
+                    diaConvertido =  (Date) dia2.get('DiaCreacion__c');
+                    
+                    diaConvertido2 = diaActual;
+                    controlRepeticion = 1;
+                    objetoMes = resultados[i];
+                    i = diasCreados.size();
+                }
                 Integer mesesEntre = diaConvertido.monthsBetween(diaConvertido2);
-                System.debug(diaConvertido);
-                System.debug(mesesEntre);
-
+                contadorMeses = contadorMeses + mesesEntre;
                 integer diasHabiles = contarDiasHabiles(diaConvertido, diaConvertido2);
-
-                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 30 * (diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                gastoOrdenador = gastoOrdenador + diasHabiles  * 0.14 + (double) objetoMes.get('Monitores__c') * 30 * Math.abs(diasHabiles- ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                 gastoMonitores = gastoOrdenador;
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoElectrica') {
-                    gastoOrdenador = gastoOrdenador + ( (double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ( (double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * Math.abs(diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                     gastoCalefaccion = gastoOrdenador - gastoMonitores;
                 } 
                 if (objetoMes.get('TipoCalefaccion__c') == 'tipoGas') {
-                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('Metros__c') * (double) objetoMes.get('UsoCalefaccion__c') * 200) * Math.abs(diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                     gastoCalefaccion = gastoOrdenador - gastoMonitores;
                 }
                 if (objetoMes.get('TipoIluminacion__c') == 'tipoLED')  {
-                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 15 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 15 * 200) * Math.abs(diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                     gastoIluminacion = gastoOrdenador - gastoCalefaccion - gastoMonitores;
                 } 
                 if (objetoMes.get('TipoIluminacion__c') == 'tipoIncandescente')  {
-                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 6 * 200) * (diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
+                    gastoOrdenador = gastoOrdenador + ((double) objetoMes.get('NumeroBombillas__c') * 6 * 200) * Math.abs(diasHabiles - ((double) objetoMes.get('DiasOficina__c'))) / mesesEntre;
                     gastoIluminacion = gastoOrdenador - gastoCalefaccion - gastoMonitores;
                 } 
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoCoche') {
@@ -179,18 +198,16 @@ public with sharing class CarbonFootprint {
                     }
                 }
 
+                
+
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoTren') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23)  / mesesEntre;
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 23);
                 }
                 if (objetoMes.get('MetodoTransporte__c') == 'metodoAutobus') {
-                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6) / mesesEntre;
+                    gastoTransporte = gastoTransporte + ((double) objetoMes.get('DiasOficina__c') * (double) objetoMes.get('Distancia__c') * 96.6);
                 } 
-                System.debug('Gasto calefaccion ');
-                System.debug(gastoCalefaccion);
-                System.debug('Gasto iluminacion ');
-                System.debug(gastoIluminacion);
-                System.debug('Gasto monitor ');
-                System.debug(gastoMonitores);
+
+                System.debug('Gasto ordenador: ' + gastoOrdenador);
                 gastoOrdenadorTotal = gastoOrdenadorTotal + gastoOrdenador;
                 gastoTransporteTotal = gastoTransporteTotal + gastoTransporte;
                 // gastoCalefaccionTotal = gastoCalefaccionTotal + gastoCalefaccion;
@@ -202,15 +219,21 @@ public with sharing class CarbonFootprint {
                 agregarElementosLista(listaValoresCalefaccionAlMes, gastoCalefaccion, mesesEntre);
                 agregarElementosLista(listaValoresIluminacionAlMes, gastoIluminacion, mesesEntre);
                 agregarElementosLista(listaValoresMonitoresAlMes, gastoMonitores, mesesEntre);
-            }     
-            System.debug(listaValoresCalefaccionAlMes);      
+            }        
+        }
+        if (contadorMeses > 12) {
+            contadorMeses = 12;
         }
 
-
         
-
-        for (Integer i = 0; i < 12; i++) {
-            ultimos12Meses.add(Math.mod((diaActual.month() + i), 12) + 1);
+        System.debug(contadorMeses);
+        Integer mesActual = diaActual.month();
+        for (Integer i = contadorMeses; i > 0; i--) {
+            Integer mes = mesActual - i;
+            if (mes <= 0) {
+                mes += 12;
+            }
+            ultimos12Meses.add(mes);
         }
         // for(integer i = 0; i < diasCreadosDate.size()-1; i++) {
         //     Date dia1 = diasCreados[i];
@@ -234,15 +257,24 @@ public with sharing class CarbonFootprint {
         listaValoresTotales.add(divDec);
 
         listaADevolver.add(listaValoresTotales);
-        listaADevolver.add(listaValoresDesplazamientoAlMes);
-        listaADevolver.add(listaValoresOrdenadorAlMes);
+        listaADevolver.add(recortarEInvertir(listaValoresDesplazamientoAlMes, contadorMeses));
+        listaADevolver.add(recortarEInvertir(listaValoresOrdenadorAlMes, contadorMeses));
         listaADevolver.add(ultimos12Meses);
-        listaADevolver.add(listaValoresIluminacionAlMes);
-        listaADevolver.add(listaValoresMonitoresAlMes);
-        listaADevolver.add(listaValoresCalefaccionAlMes);
-
+        listaADevolver.add(recortarEInvertir(listaValoresIluminacionAlMes, contadorMeses));
+        listaADevolver.add(recortarEInvertir(listaValoresMonitoresAlMes, contadorMeses));
+        listaADevolver.add(recortarEInvertir(listaValoresCalefaccionAlMes, contadorMeses));
 
         return listaADevolver;
+    }
+
+
+    public static List<Double> recortarEInvertir(List<Double> lista, Integer maxElements) {
+        Integer count = Math.min(maxElements, lista.size());
+        List<Double> resultado = new List<Double>();
+        for (Integer i = count - 1; i >= 0; i--) {
+            resultado.add(lista[i]);
+        }
+        return resultado;
     }
 
     public static Integer contarDiasHabiles(Date startDate, Date endDate) {
@@ -263,6 +295,7 @@ public with sharing class CarbonFootprint {
 
         return diasHabiles;
     }
+
 
     @AuraEnabled
     public static List<integer> obtainLastDayDataIsRecorded(){
